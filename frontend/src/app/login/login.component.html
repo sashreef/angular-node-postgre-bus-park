@@ -1,0 +1,35 @@
+<div class="app">
+    <section class="sectionReg">
+      <div class="regWrapper">
+        <p [ngClass]="errorMessage ? 'errmsg' : 'offscreen'" aria-live="assertive">
+          {{errorMessage}}
+        </p>
+        <h1 class="formName">sign in</h1>
+        <form class="formReg">
+          <div class="inputContainer">
+            <input type="text" id="username" autoComplete="off"/>
+            <app-text-box ngDefaultControl [formControl]="loginForm.controls['username']" ></app-text-box>
+            <label htmlFor="username" [class.labelHasContent]="loginForm.get('username')?.value" required>
+              username:
+            </label>
+          </div>
+          <div class="inputContainer">
+            <app-text-box [isPassword]="true" ngDefaultControl [formControl]="loginForm.controls['password']" ></app-text-box>
+            <label htmlFor="password" [class.labelHasContent]="loginForm.get('password')?.value">
+              password:
+            </label>
+          </div>
+          <button (click)="login(loginForm.value)" class="submitBtn">sign in</button>
+        </form>
+      </div>
+      <p class="alreadyText">
+        need an account?
+        <br />
+        <span class="line">
+          <a class="logInLink" href="/sign_up">
+            sign up
+          </a>
+        </span>
+      </p>
+    </section>
+  </div>

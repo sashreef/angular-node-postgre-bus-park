@@ -1,0 +1,4 @@
+<div>
+	<input #input [type]="isPassword ? 'password' : 'text'"  [value]="value || ''" [attr.maxlength]="maxLength"
+     [attr.tabindex]="isDisabled ? -1 : undefined" (input)="onInput($event);" placeholder="{{placeholder}}">
+</div>
