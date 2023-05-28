@@ -33,13 +33,13 @@ export class LoginComponent {
 
     public ngOnInit(): void {
         this.pending = true;
-        const token = this.cookieService.get("jwt")
-        if(!!token) {
+        const token = this.cookieService.get("accesstoken");
+         if(!!token) {   
             this.manageService.refresh(token).pipe(take(1)).subscribe(() => {
 
                 this.pending = false;
             });
-        }
+         }
         console.log(this.loginForm);
 
         
