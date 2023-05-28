@@ -13,7 +13,7 @@ export class ConfigurationService {
 
     public get api() {
         return {
-            root:`${this._baseHref}api`
+            root:`http://localhost:3001`
         }
     }
 

@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ConfigurationService } from "./configuration.service";
 import { Login } from "../interfaces/core.interfaces";
-import axios from "axios";
 import { Observable, of } from "rxjs";
+import { CookieService } from "ngx-cookie-service";
 
 @Injectable()
 export class BackendService {
@@ -16,43 +16,20 @@ export class BackendService {
     constructor(
         private readonly http: HttpClient,
         private readonly config: ConfigurationService,
+        private coockieService: CookieService
     ) { } 
 
     public readonly auth = {
         login$: (userData: Login): Observable<any> => {
-            return of(axios.post(
-                "/user/sign_in",
-                { login: userData.username, password: userData.password },
-                { withCredentials: true }
-            ))
+            const url = `${this.config.api.root}/user/sign_in`;
+            return this.http.post(url, userData, {withCredentials: true});
         },
 
-        getReq$: ():Observable<any> => {
-            const url = `${this.config.api}/get/list`;
-            return of(axios.get(url, {withCredentials: true}));
+        refresh$: (token: string): Observable<any> => {
+            const headers = new HttpHeaders();
+            headers.set("Cookie", token);
+            const url = `${this.config.api.root}/refresh`;
+            return this.http.get(url, {headers, withCredentials: true});
         }
-        
-    // "auth/login",
-    // async (
-    //   userData: { login: string; password: string },
-    //   { rejectWithValue }
-    // ) => {
-    //   try {
-    //     const response = await axios.post(
-    //       "/user/sign_in",
-    //       { login: userData.login, password: userData.password },
-    //       { withCredentials: true }
-    //     );
-    //     response.data.login = userData.login;
-    //     return response.data;
-    //   } catch (err) {
-    //     const error = err as AxiosError;
-    //     return rejectWithValue(error.response?.status);
-    //   }
-    // }
     }
-
-
-
-
 }

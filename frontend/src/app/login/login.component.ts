@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
 import { Login } from "../interfaces/core.interfaces";
-import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Subject, take, takeUntil } from "rxjs";
 import { ManageService } from "../services/manage.service";
+import { CookieService } from "ngx-cookie-service";
 
 @Component({
     selector: "app-login",
@@ -13,26 +14,41 @@ import { ManageService } from "../services/manage.service";
 export class LoginComponent {
     public errorMessage?: string;
     public loginForm: UntypedFormGroup;
+    public pending = false;
     
     private unsubscribe$: Subject<void> = new Subject();
 
     constructor (
         private manageService: ManageService,
-        private formBuilder: UntypedFormBuilder
+        private formBuilder: UntypedFormBuilder,
+        private cookieService: CookieService
     ) {
         this.loginForm = this.formBuilder.group({
-            username: null,
-            password: null
+            username: new FormControl(null, Validators.required),
+            password: new FormControl(null, Validators.required)
         });
+
+        
     }
 
     public ngOnInit(): void {
+        this.pending = true;
+        const token = this.cookieService.get("jwt")
+        if(!!token) {
+            this.manageService.refresh(token).pipe(take(1)).subscribe(() => {
+
+                this.pending = false;
+            });
+        }
         console.log(this.loginForm);
 
         
     }
 
     public login(data: Login): void {
+        if(this.loginForm.invalid) {
+            throw "Не заполнены обязательные поля"
+        }
         this.manageService.login(data).pipe(take(1)).subscribe((data) => {
             console.log(data);
         },
