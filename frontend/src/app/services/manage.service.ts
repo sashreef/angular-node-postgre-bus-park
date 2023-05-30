@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BackendService } from "./backend.service";
 import { BehaviorSubject, Observable, tap } from "rxjs";
-import { Login } from "../interfaces/core.interfaces";
+import { Login, Register } from "../interfaces/core.interfaces";
 import { CookieService } from "ngx-cookie-service";
 import { HttpHeaders } from "@angular/common/http";
 
@@ -32,6 +32,10 @@ export class ManageService {
         );
     }
 
+    public register(userData: Register): Observable<any> {
+        const data = {login:userData.username,password:userData.password,full_name:userData.fullName,phone_number:userData.phone};
+        return this.backendService.auth.register$(data);
+    }
     public refresh(token: string): Observable<any> {
         const role = this.cookieService.get("role");
         const accesstoken = this.cookieService.get("accesstoken");

@@ -20,15 +20,20 @@ export class BackendService {
     ) { } 
 
     public readonly auth = {
-        login$: (userData:{login: string, password: string}): Observable<any> => {
+        login$: (userData: {login: string, password: string}): Observable<any> => {
             const url = `${this.config.api.root}/user/sign_in`;
             return this.http.post(url, userData, {withCredentials: true});
         },
+        register$: (userData: {login: string, password: string, full_name: string, phone_number: string}): Observable<any> => {
+            const url = `${this.config.api.root}/user/sign_up`;
+            return this.http.post(url, userData);
+        },
 
-        refresh$: (token: string,role:string): Observable<any> => {
+        refresh$: (token: string, role:string): Observable<any> => {
             const headers = new HttpHeaders({ Authorization: `Bearer ${token}`,"Role": role });
             const url = `${this.config.api.root}/user/refresh`;
             return this.http.get<any>(url, { withCredentials: true, headers});
         }
+
     }
 }

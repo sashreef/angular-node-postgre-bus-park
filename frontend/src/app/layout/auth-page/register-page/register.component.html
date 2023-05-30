@@ -1,0 +1,69 @@
+<div class="app">
+    <section class="sectionReg">
+      <div class="regWrapper">
+        <p [ngClass]="errorMessage ? 'errmsg' : 'offscreen'" aria-live="assertive">
+          {{ errorMessage }}
+        </p>
+        <h1 class="formName">create a bus park account</h1>
+        <form class="formReg">
+          <div class="inputContainer">
+            <app-text-box  ngDefaultControl [formControl]="registerForm.controls['username']"></app-text-box>
+            <label htmlFor="username" [class.labelHasContent]="registerForm.get('username')?.value" required>
+              username:
+            </label>
+            <p id="uidnote" *ngIf="registerForm.controls['username'].value?.length>0 && registerForm.controls['username'].value?.length < 4 && !registerForm.controls['phone'].value?.match(USER_REGEX)">
+              must be at least 4 characters long, may include _
+            </p>
+          </div>
+          <div class="inputContainer">
+            <app-text-box  ngDefaultControl [formControl]="registerForm.controls['fullName']"></app-text-box>
+            <label htmlFor="full_name" [class.labelHasContent]="registerForm.get('fullName')?.value">
+              full name:
+            </label>
+            <p id="confirmnote" *ngIf="registerForm.controls['fullName'].value?.length>0 && registerForm.controls['fullName'].value?.length < 10 && !registerForm.controls['phone'].value?.match(FULLNAME_REGEX)">
+              must be at least 10 characters long
+            </p>
+          </div>
+          <div class="inputContainer">
+            <app-text-box ngDefaultControl [formControl]="registerForm.controls['phone']"></app-text-box>
+            <label htmlFor="phone" [class.labelHasContent]="registerForm.get('phone')?.value" required>
+              phone number:
+            </label>
+            <p id="confirmnote" *ngIf="registerForm.controls['phone'].value?.length>0 && !registerForm.controls['phone'].value?.match(PHONE_REGEX)">
+              contact phone matching +xxxxxxxxxxxx
+            </p>
+          </div>
+          <div class="inputContainer">
+            <app-text-box [isPassword]="true" ngDefaultControl [formControl]="registerForm.controls['password']"></app-text-box>
+            <label htmlFor="password" [class.labelHasContent]="registerForm.get('password')?.value">
+              password:
+            </label>
+            <p id="pwdnote" *ngIf="registerForm.controls['password'].value?.length>0 && !registerForm.controls['password'].value?.match(PWD_REGEX)">>
+              must be at least 8 characters long, must include uppercase letter, number, and a special character (!@#$%^&*)
+            </p>
+          </div>
+          <div class="inputContainer">
+            <app-text-box [isPassword]="true" ngDefaultControl [formControl]="registerForm.controls['confirm_password']"></app-text-box>
+            <label htmlFor="confirm_pwd" [class.labelHasContent]="registerForm.get('confirm_password')?.value" required>
+              confirm password:
+            </label>
+            <p id="confirmnote" *ngIf="registerForm.controls['confirm_password'].value?.length > 0 && registerForm.controls['confirm_password'].value !== registerForm.controls['password'].value">
+              must match the first password input field
+            </p>
+          </div>
+          <button (click)="register(registerForm.value)" class="submitBtn" [disabled]="!isValidForm()">
+            sign up
+          </button>
+        </form>
+      </div>
+      <p class="alreadyText">
+        already have one?
+        <br />
+        <span>
+          <a class="logInLink" href="sign_in">
+            sign in
+          </a>
+        </span>
+      </p>
+    </section>
+  </div>
