@@ -57,11 +57,12 @@
         </form>
       </div>
       <p class="alreadyText">
-
-        already have one?
+        <span  [routerLink]="['/login']">
+          already have one?
+        </span>
         <br />
         <span>
-          <a class="logInLink" [routerLink]="['/login']" routerLinkActive="active" title="Sign In">
+          <a class="logInLink" title="Sign In">
             sign in
           </a>
         </span>

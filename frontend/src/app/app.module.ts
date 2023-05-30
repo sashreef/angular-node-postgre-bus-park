@@ -11,6 +11,7 @@ import { LayoutModule } from './layout/layout.module';
 import { RegisterModule } from './register-page/register.module';
 import { LoginModule } from './login-page/login.module';
 import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing/app-routing';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { RouterModule } from '@angular/router';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    AppRoutingModule
   ],
   providers: [
     CookieService,

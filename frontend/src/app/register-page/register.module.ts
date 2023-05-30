@@ -2,10 +2,10 @@ import { NgModule } from "@angular/core";
 import { SharedModule } from "../shared/shared.module";
 import { ServicesModule } from "../services/services.module";
 import { RegisterComponent } from "./register.component";
-import { AppModule } from "../app.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { AppRoutingModule } from "../app-routing/app-routing";
 
 
 
@@ -22,6 +22,7 @@ import { RouterModule } from "@angular/router";
         ReactiveFormsModule,
         CommonModule,
         RouterModule,
+        AppRoutingModule
     ],
 })
 

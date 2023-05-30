@@ -5,6 +5,7 @@ import { ServicesModule } from "../services/services.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { AppRoutingModule } from "../app-routing/app-routing";
 
 
 
@@ -20,7 +21,8 @@ import { RouterModule } from "@angular/router";
         ServicesModule,
         ReactiveFormsModule,
         CommonModule,
-        RouterModule
+        RouterModule,
+        AppRoutingModule
     ],
 })
 

@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Login } from "../interfaces/core.interfaces";
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
-import { Subject, take, takeUntil } from "rxjs";
+import { take } from "rxjs";
 import { ManageService } from "../services/manage.service";
 import { CookieService } from "ngx-cookie-service";
 
@@ -16,12 +16,10 @@ export class LoginComponent {
     public loginForm: UntypedFormGroup;
     public pending = false;
     
-    private unsubscribe$: Subject<void> = new Subject();
-
     constructor (
         private manageService: ManageService,
         private formBuilder: UntypedFormBuilder,
-        private cookieService: CookieService
+        private cookieService: CookieService,
     ) {
         this.loginForm = this.formBuilder.group({
             username: new FormControl(null, Validators.required),
@@ -40,9 +38,6 @@ export class LoginComponent {
                 this.pending = false;
             });
          }
-        console.log(this.loginForm);
-
-        
     }
 
     public login(data: Login): void {
@@ -68,8 +63,6 @@ export class LoginComponent {
     //       else setErrMsg("login failed");
     //     });
     }
-
-
     // const Login = () => {
     // const dispatch = useAppDispatch();
     // const userRef = useRef();
