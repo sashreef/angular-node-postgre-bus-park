@@ -1,8 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ConfigurationService } from "./configuration.service";
-import { Login } from "../interfaces/core.interfaces";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 import { CookieService } from "ngx-cookie-service";
 
 @Injectable()
@@ -24,6 +23,7 @@ export class BackendService {
             const url = `${this.config.api.root}/user/sign_in`;
             return this.http.post(url, userData, {withCredentials: true});
         },
+
         register$: (userData: {login: string, password: string, full_name: string, phone_number: string}): Observable<any> => {
             const url = `${this.config.api.root}/user/sign_up`;
             return this.http.post(url, userData);

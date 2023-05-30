@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
-import { Subject, take } from "rxjs";
+import { Router, RouterModule } from "@angular/router";
+import { take } from "rxjs";
 import { Register } from "src/app/interfaces/core.interfaces";
 import { ManageService } from "src/app/services/manage.service";
 
@@ -12,6 +13,7 @@ import { ManageService } from "src/app/services/manage.service";
 })
  
 export class RegisterComponent { 
+
     public errorMessage?: string;
     public registerForm: UntypedFormGroup;
     public pending = false;
@@ -20,10 +22,11 @@ export class RegisterComponent {
     public PWD_REGEX = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
     public PHONE_REGEX = /^(\+\d{2})\(?(\d{3})\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
     public FULLNAME_REGEX = /^[A-Za-z-\s]{10,50}$/;
-    private unsubscribe$: Subject<void> = new Subject();
+
     constructor (
         private manageService: ManageService,
-        private formBuilder: UntypedFormBuilder
+        private formBuilder: UntypedFormBuilder,
+        private router: Router
     ) {
         this.registerForm = this.formBuilder.group({
             username: new FormControl(null, Validators.required),
@@ -34,19 +37,23 @@ export class RegisterComponent {
 
         });
     }
+
     public register(data: Register): void {
         if(this.registerForm.invalid) {
-            throw "Не заполнены обязательные поля"
+            throw "Not all fields are full";
         }
         this.manageService.register(data).pipe(take(1)).subscribe((data) => {
             console.log(data);
         },
         (err) => {
-            console.log(err)
+            console.log(err);
         });
-        console.log(data);
-        
     }
+
+    public signIn(): void {
+        // this.router.navigate()
+    }
+
     public isValidForm(): boolean {
         const username = this.registerForm.controls['username'].value;
         const fullName = this.registerForm.controls['fullName'].value;

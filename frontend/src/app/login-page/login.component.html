@@ -7,7 +7,6 @@
         <h1 class="formName">sign in</h1>
         <form class="formReg">
           <div class="inputContainer">
-            <input type="text" id="username" autoComplete="off"/>
             <app-text-box ngDefaultControl [formControl]="loginForm.controls['username']" ></app-text-box>
             <label htmlFor="username" [class.labelHasContent]="loginForm.get('username')?.value" required>
               username:
@@ -20,13 +19,13 @@
             </label>
           </div>
           <button (click)="login(loginForm.value)" class="submitBtn">sign in</button>
-        </form>
+        </form>r
       </div>
       <p class="alreadyText">
-        need an account?
+        <span  [routerLink]="['/registration']" routerLinkActive="active">need an account?</span>
         <br />
         <span class="line">
-          <a class="logInLink" href="/sign_up">
+          <a class="logInLink">
             sign up
           </a>
         </span>
