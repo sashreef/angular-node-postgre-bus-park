@@ -1,0 +1,103 @@
+<section class="skrollable u-clearfix u-image u-parallax u-shading u-section-2 skrollable-between" id="sec-1f14"
+  data-image-width="1920" data-image-height="1080" data-bottom-top="background-position: 50% 0, 50% 10vh;"
+  data-top-bottom="background-position: 50% 0, 50% -10vh;"
+  style="background-attachment: fixed; background-position: 50% 0px, 50% -1.86031vh;">
+  <div class="u-clearfix u-sheet u-valign-middle-xl u-sheet-1">
+    <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+      <div class="u-layout">
+        <div class="u-layout-row">
+          <div
+            class="u-align-center-sm u-align-center-xs u-container-style u-layout-cell u-left-cell u-size-24-lg u-size-27-xl u-size-30-md u-size-30-sm u-size-30-xs u-layout-cell-1">
+            <div class="u-container-layout u-container-layout-1">
+              <p class="u-custom-font u-heading-font u-text u-text-1">UKRBUSTOUR</p>
+              <h1 class="u-text u-text-2">Пассажирские перевозки по Одессе, Украине и Европе</h1>
+            </div>
+          </div>
+          <div
+            class="u-align-center-xl u-container-style u-layout-cell u-right-cell u-size-30-md u-size-30-sm u-size-30-xs u-size-33-xl u-size-36-lg u-layout-cell-2">
+            <div
+              class="u-container-layout u-valign-middle-lg u-valign-middle-md u-valign-middle-xl u-container-layout-2">
+              <div data-position="request"
+                class="req u-border-1 u-border-grey-dark-1 u-expanded-width-md u-expanded-width-xl u-expanded-width-xs u-position u-white u-position-1">
+                <div class="u-block">
+                  <div class="u-block-container u-clearfix">
+                    <h5
+                      class="u-align-center u-block-header u-h-spacing-20 u-text u-text-palette-1-base u-v-spacing-0 u-text-3">
+                      Запрос стоимости аренды</h5>
+                    <div
+                      class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xs u-block-content u-spacing-20 u-text u-text-4">
+                      <form enctype="multipart/form-data" id="simplecallback-98"
+                        action="/index.php?option=com_ajax&amp;module=simplecallback&amp;format=json"
+                        class="u-form form-inline simplecallback " method="post"
+                        data-simplecallback-phone-mask="+38 (999) 999-99-99" data-simplecallback-form="">
+
+                        <div class="control-group city">
+
+                          <div class="clearfix"></div>
+                          <select formControlName="arrival_point">
+                            <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+                          </select>
+                          <div class="ldivob pos0">
+                          </div>
+                          <div class="ldivob pos1">
+                            <div class="pai"><i class="myb"></i></div>
+                            <div class="textlabel pai"> </div> <label> <span class="needreq">*</span> <input required=""
+                                placeholder="Куда" type="text" name="destination"> </label>
+                          </div>
+                          <div class="ldivob pos2">
+                            <div class="pai"><i class="mypass"></i></div>
+                            <div class="textlabel pai"> </div> <span class="needreq">*</span>
+                            <select required="" name="passangers" style="color: #999"
+                              onchange="this.style.color='black'">
+                              <option value="" style="display:none">Количество пассажиров</option>
+                              <option value="4-7">4-7</option>
+                              <option value="8-21">8-21</option>
+                              <option value="22-33">22-33</option>
+                              <option value="34-55">34-55</option>
+                              <option value="56-84">56-84</option>
+                              <option value="более 84">более 84</option>
+                            </select>
+                          </div>
+                          <div class="ldivob pos3">
+                            <div class="pai"><i class="mydate"></i></div>
+                            <div class="textlabel pai"> </div> <label> <span class="needreq">*</span> <input
+                                placeholder="На когда" class="mask-date-calendarstart" required="" type="text"
+                                name="date"> </label>
+                          </div>
+                          <div class="ldivob pos4">
+                            <div class="pai"><i class="myphone"></i></div>
+                            <div class="textlabel pai"> </div> <label> <span class="needreq">*</span> <input required=""
+                                placeholder="Ваш телефон" validate="tel" pattern="/(+|7|8|9)\d{9}/ " type="tel"
+                                name="simplecallback_phone"> </label>
+                          </div>
+                          <div class="ldivob pos5">
+                            <div class="pai"><i class="mywish"></i></div>
+                            <div class="textlabel pai"> </div> <textarea rows="4" cols="45" placeholder="Пожелания"
+                              name="what"></textarea>
+                          </div>
+                        </div>
+                        <div style="display:none" id="redirectsuccesssimplecallback">noturl</div>
+                        <div class="control-group">
+                          <input type="text" name="simplecallback_username" class="simplecallback-username"
+                            maxlength="10">
+                          <input type="hidden" name="7ee34c4e0f860b62393f6bc11fdda6aa" value="1"> <input type="hidden"
+                            name="module_id" value="98">
+                          <input type="hidden" name="Itemid" value="107">
+
+                          <input type="hidden" name="simplecallback_custom_data" value="">
+
+                          <button type="submit" class="know-btn shtorka-blue">
+                            Отправить </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

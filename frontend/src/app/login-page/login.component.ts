@@ -52,44 +52,5 @@ export class LoginComponent {
         });
         console.log(data);
         
-
-    //   e.preventDefault();
-    //   dispatch(login({ login: user, password: pwd }))
-    //     .unwrap()
-    //     .then(() => navigate("/"))
-    //     .catch((err) => {
-    //       if (!err) setErrMsg("no server response");
-    //       else if (err === 401) setErrMsg("such user does not exist");
-    //       else setErrMsg("login failed");
-    //     });
     }
-    // const Login = () => {
-    // const dispatch = useAppDispatch();
-    // const userRef = useRef();
-    // const navigate = useNavigate();
-  
-    // const [user, setUser] = useState("");
-    // const [pwd, setPwd] = useState("");
-    // const [errMsg, setErrMsg] = useState("");
-  
-    // useEffect(() => {
-    //   userRef.current.focus();
-    // }, []);
-  
-    // useEffect(() => {
-    //   setErrMsg("");
-    // }, [user, pwd]);
-  
-    // const handleSubmit = async (e) => {
-    //   e.preventDefault();
-    //   dispatch(login({ login: user, password: pwd }))
-    //     .unwrap()
-    //     .then(() => navigate("/"))
-    //     .catch((err) => {
-    //       if (!err) setErrMsg("no server response");
-    //       else if (err === 401) setErrMsg("such user does not exist");
-    //       else setErrMsg("login failed");
-    //     });
-    // };
-
-}
+    }

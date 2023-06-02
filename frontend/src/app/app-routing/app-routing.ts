@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from "../login-page/login.component";
 import { RegisterComponent } from "../register-page/register.component";
+import { MainComponent } from "../layout/main-page/main.component";
 
 const appRoutes: Routes = [
 	{
@@ -16,6 +17,10 @@ const appRoutes: Routes = [
     {
         path: "registration",
         component: RegisterComponent
+    },
+	{
+        path: "mainpage",
+        component: MainComponent
     },
 	{
         pathMatch: "full",

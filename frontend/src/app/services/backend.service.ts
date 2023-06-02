@@ -36,4 +36,18 @@ export class BackendService {
         }
 
     }
+    public readonly bookings = {
+
+        bookingTickets$: (userData: {login: string, arrival_point: string, quantity_of_seats: number, booking_date: string, journey_date:string}): Observable<any> => {
+            const url = `${this.config.api.root}/booking/book_tickets`;
+            return this.http.post(url, userData);
+        }
+    }
+    public readonly getInfo = {
+        getArrivalPoints$:(): Observable<any> => {
+        const url = `${this.config.api.root}/trip/arrival_points`;
+        return this.http.get(url);
+
+    }
+    }   
 }
