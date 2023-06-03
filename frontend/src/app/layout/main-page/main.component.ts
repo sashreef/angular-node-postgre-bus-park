@@ -34,8 +34,8 @@ export class MainComponent {
     public ngOnInit(): void {
         this.pending = true;
         this.manageService.getArrivalPoints().pipe(take(1)).subscribe((options: string[]) => {
-            this.options = options.map((option) => {
-                return [option, option];
+            this.options = options.map((option:any) => {
+                return [option.arrival_point, option.arrival_point];
             });
         });
     }

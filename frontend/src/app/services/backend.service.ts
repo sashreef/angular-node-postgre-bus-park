@@ -45,7 +45,7 @@ export class BackendService {
 
     public readonly getInfo = {
         getArrivalPoints$:(): Observable<any> => {
-            const url = `${this.config.api.root}/trip/arrival_points`;
+            const url = `${this.config.api.root}/public/arrival_points`;
             return this.http.get(url);
         }
     }   
