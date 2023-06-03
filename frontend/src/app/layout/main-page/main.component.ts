@@ -41,7 +41,7 @@ export class MainComponent {
         const token = this.cookieService.get("accesstoken");
          if(!!token) {   
             this.manageService.refresh(token).pipe(take(1)).subscribe(() => {
-                
+
                 this.pending = false;
             });
          }
@@ -90,22 +90,50 @@ export class MainComponent {
         });
     }
 
-    private getTicketInfo(formValue: any): void {
-        const reqArray = [
-            this.manageService.getTicketPrice(formValue.arrival_point, formValue.journey_date),
-            this.manageService.getQuantityOfFreeSeats(formValue.arrival_point, formValue.journey_date)
-        ];
-        combineLatest(reqArray).pipe(take(1)).subscribe((data) => {
-            this.oneTicketCost = data[0].ticket_price;
-            this.mainForm.patchValue({journey_id: data[1].journey_id}, {emitEvent:false})
-            this.numberOfSeats = data[1].remaining_seats;
+    private getTicketInfoPrice(formValue: any): void {
+        this.manageService.getTicketPrice(formValue.arrival_point, formValue.journey_date).pipe(take(1)).subscribe((data) => {
+            this.oneTicketCost = data.ticket_price;
         },
-            (error) => {
-                this.numberOfSeats = "There is no trip on this date";
-                this.oneTicketCost = "";
-                throw error;
-            }
-        )
+        (err) => {
+            this.numberOfSeats = "There is no trip on this date";
+            this.oneTicketCost = "";
+        });
+    }
+
+    private getQuantityOfFreeSeats(formValue: any) {
+        this.manageService.getQuantityOfFreeSeats(formValue.arrival_point, formValue.journey_date).pipe(take(1)).subscribe((data) => {
+            this.mainForm.patchValue({journey_id: data.journey_id}, {emitEvent:false});
+            this.numberOfSeats = data.remaining_seats;
+        },        
+        (err) => {
+            this.numberOfSeats = "There is no trip on this date";
+            this.oneTicketCost = "";
+        });
+    }
+
+
+    private getTicketInfo(formValue: any): void {
+
+        this.getTicketInfoPrice(formValue);
+        this.getQuantityOfFreeSeats(formValue);
+
+
+
+        // const reqArray = [
+        //     this.manageService.getTicketPrice(formValue.arrival_point, formValue.journey_date),
+        //     this.manageService.getQuantityOfFreeSeats(formValue.arrival_point, formValue.journey_date)
+        // ];
+        // combineLatest(reqArray).pipe(take(1)).subscribe((data) => {
+        //     this.oneTicketCost = data[0].ticket_price;
+        //     this.mainForm.patchValue({journey_id: data[1].journey_id}, {emitEvent:false})
+        //     this.numberOfSeats = data[1].remaining_seats;
+        // },
+        //     (error) => {
+        //         this.numberOfSeats = "There is no trip on this date";
+        //         this.oneTicketCost = "";
+        //         throw error;
+        //     }
+        // )
     }
 
     // public getTripInfo(data: Trip): void {
