@@ -13,7 +13,7 @@ export class AuthInterceptor implements HttpInterceptor {
     ) { }
     
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.cookieService.get("jwt");
+    const token = this.cookieService.get("accesstoken");
     const role = this.cookieService.get("role");
     const headers = req.headers
     headers.set("Authorization",`Bearer ${token}`);
