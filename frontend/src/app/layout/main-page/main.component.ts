@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { CookieService } from "ngx-cookie-service";
 import { Subject, delay, take, takeUntil } from "rxjs";
 import { ListItem } from "src/app/core.module/utils/template";
 import { BookTicket } from "src/app/interfaces/core.interfaces";
@@ -24,6 +25,7 @@ export class MainComponent {
     constructor (
         private manageService: ManageService,   
         private formBuilder: UntypedFormBuilder,
+        private cookieService: CookieService
     ) {
         this.mainForm = this.formBuilder.group({
             arrival_point: new FormControl(null, Validators.required),
@@ -36,6 +38,13 @@ export class MainComponent {
 
     public ngOnInit(): void {
         this.pending = true;
+        const token = this.cookieService.get("accesstoken");
+         if(!!token) {   
+            this.manageService.refresh(token).pipe(take(1)).subscribe(() => {
+
+                this.pending = false;
+            });
+         }
         this.manageService.getArrivalPoints().pipe(take(1)).subscribe((options: string[]) => {
             this.options = options.map((option:any) => {
                 this.pending = false;
