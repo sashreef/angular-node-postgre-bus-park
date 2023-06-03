@@ -34,27 +34,30 @@
             <div class="row">
               <div class="input-text">
                   <span>
-                      Number of free seats: 5
+                      Number of free seats: 
+                  <span>{{numberOfSeats}}</span>
                   </span>
               </div>
     
               <div class="input-text">
                 <span>
-                   Cost of one: 10$
+                   Cost of one: 
+                  <span>{{oneTicketCost}}</span>
                 </span>
               </div>
             </div>
 
             <div class="row">
               <div class="input-text">
-                  <app-text-box [placeholder]="'Number of tickets'" [appInputType]="'int'" ></app-text-box>
+                  <app-text-box [placeholder]="'Number of tickets'" [appInputType]="'int'" ngDefaultControl [formControl]="mainForm.controls['quantity_of_seats']"></app-text-box>
                   <span class="required">*</span>
               </div>
     
               <div class="input-text">
                 <span>
-                  Cost: 20$
+                  Cost: 
                 </span>
+                <span>{{oneTicketCost ? oneTicketCost * mainForm.controls['quantity_of_seats'].value : ""}}</span>
               </div>
             </div>
 

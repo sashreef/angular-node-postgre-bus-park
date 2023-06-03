@@ -15,7 +15,9 @@ export class MainComponent {
     public mainForm: UntypedFormGroup;
     public pending = false;
     public options: ListItem[] = [];
-    public array: ListItem[] = [["label1", "valu1e"], ["label2", "value2"]]; 
+    public array: ListItem[] = [["label1", "valu1e"], ["label2", "value2"]];
+    public oneTicketCost?: number; 
+    public numberOfSeats?: string; 
 
     private unsubscribe$$: Subject<void> = new Subject();
     
@@ -69,12 +71,25 @@ export class MainComponent {
         ).subscribe((formValue) => {
             if(formValue.arrival_point && formValue.journey_date) {
                 console.log(formValue);
-                //get
+                this.numberOfSeats = "There is no trip on this date";
+                this.getTicketInfo(formValue);
+                this.getQuantityOfFreeSeats(formValue);
             }
         })
     }
+    private getTicketInfo(formValue: any): void {
+        this.manageService.getTicketPrice(formValue.arrival_point, formValue.journey_date).pipe(take(1)).subscribe((cost) => {
+            this.oneTicketCost = cost.ticket_price;
+        });
+    }
+    private getQuantityOfFreeSeats(formValue: any): void {
+        this.manageService.getQuantityOfFreeSeats(formValue.arrival_point, formValue.journey_date).pipe(take(1)).subscribe((numberOfSeats) => {
+            console.log(numberOfSeats.status);
+            this.numberOfSeats = numberOfSeats.remaining_seats;
+            
 
-
+        });
+    }      
 
     // public getTripInfo(data: Trip): void {
     //     if(this.mainForm.invalid) {

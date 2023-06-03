@@ -63,8 +63,14 @@ export class ManageService {
     }
 
     public getArrivalPoints(): Observable<any> {
-        return this.backendService.getInfo.getArrivalPoints$().pipe(
-        );
+        return this.backendService.getInfo.getArrivalPoints$();
     }
-    
+    public getTicketPrice(arrival_point:string,journey_date:string): Observable<any> {
+        console.log("111111");
+        return this.backendService.getInfo.getTicketPrice$(arrival_point,journey_date);
+    }
+    public getQuantityOfFreeSeats(arrival_point:string,journey_date:string): Observable<any> {
+        return this.backendService.getInfo.getQuantityOfFreeSeats$(arrival_point,journey_date);
+    }
 }
+

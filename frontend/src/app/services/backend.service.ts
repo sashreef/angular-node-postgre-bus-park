@@ -47,6 +47,20 @@ export class BackendService {
         getArrivalPoints$:(): Observable<any> => {
             const url = `${this.config.api.root}/public/arrival_points`;
             return this.http.get(url);
+        },
+        
+        getTicketPrice$:(arrival_point:string, date:string): Observable<any> => {
+            const url = `${this.config.api.root}/public/ticket_price`;
+            const data = {arrival_point,date};
+            
+            console.log(data);
+            return this.http.post(url, data);
+        },
+
+        getQuantityOfFreeSeats$:(arrival_point:string, journey_date:string): Observable<any> => {
+            const url = `${this.config.api.root}/public/free_seats`;
+            const data = {arrival_point, journey_date}
+            return this.http.post(url, data);
         }
     }   
 }
