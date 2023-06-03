@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
-import { take } from "rxjs";
+import { Subject, delay, take, takeUntil } from "rxjs";
 import { ListItem } from "src/app/core.module/utils/template";
 import { BookTicket } from "src/app/interfaces/core.interfaces";
 import { ManageService } from "src/app/services/manage.service";
@@ -16,6 +16,8 @@ export class MainComponent {
     public pending = false;
     public options: ListItem[] = [];
     public array: ListItem[] = [["label1", "valu1e"], ["label2", "value2"]]; 
+
+    private unsubscribe$$: Subject<void> = new Subject();
     
     constructor (
         private manageService: ManageService,   
@@ -35,9 +37,12 @@ export class MainComponent {
         this.pending = true;
         this.manageService.getArrivalPoints().pipe(take(1)).subscribe((options: string[]) => {
             this.options = options.map((option:any) => {
+                this.pending = false;
                 return [option.arrival_point, option.arrival_point];
             });
         });
+
+        this.setFormSub()
     }
 
     public bookTicket(data: BookTicket): void {
@@ -52,6 +57,25 @@ export class MainComponent {
         });
         console.log(data);
     }
+
+    public ngOnDestroy() {
+        this.unsubscribe$$.next();
+        this.unsubscribe$$.complete();
+    }
+
+    private setFormSub(): void {
+        this.mainForm.valueChanges.pipe(
+            delay(300),takeUntil(this.unsubscribe$$)
+        ).subscribe((formValue) => {
+            if(formValue.arrival_point && formValue.journey_date) {
+                console.log(formValue);
+                //get
+            }
+        })
+    }
+
+
+
     // public getTripInfo(data: Trip): void {
     //     if(this.mainForm.invalid) {
     //         throw "Не заполнены обязательные поля"

@@ -4,6 +4,7 @@ import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component
 import { InputComponent } from "../input/input.component";
 import { normalFixedPosition, POSITION_FUNCTION } from "../position"
 import { ListItem, TemplateUtil } from "../../core.module/utils/template"
+import { FormControl } from "@angular/forms";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,6 +17,7 @@ import { ListItem, TemplateUtil } from "../../core.module/utils/template"
 	templateUrl: "./select-box.component.html"
 })
 export class SelectBoxComponent extends InputComponent<any> implements OnChanges, AfterContentInit {
+    @Input() public form?: FormControl;
 	@Input() public active = true;
 	@Input("appDataSource") public dataSource?: IterableIterator<ListItem> | HTMLElement;
 	@Input("appDataSourceOptions") public dataSourceOptions: any;
@@ -67,8 +69,9 @@ export class SelectBoxComponent extends InputComponent<any> implements OnChanges
 		if (changes["dataSource"]) {
 			this.items$$.next(this.getItemList());
 		}
-		if (changes["value"])
-			this.value$$.next(changes["value"].currentValue);
+		if (changes["value"]) {
+            this.value$$.next(changes["value"].currentValue);
+        }
 	}
 
 	public ngAfterContentInit() {
@@ -95,6 +98,7 @@ export class SelectBoxComponent extends InputComponent<any> implements OnChanges
 	}
 
 	public override setInteractiveValue(value: SelectBoxComponent["value"]) {
+        this.setControlValue(value);
 		super.setInteractiveValue(value);
 		this.cdr.detectChanges();
 		this.value$$.next(value);
@@ -105,6 +109,12 @@ export class SelectBoxComponent extends InputComponent<any> implements OnChanges
 		this.cdr.detectChanges();
 		this.value$$.next(value);
 	}
+
+    public setControlValue(value: SelectBoxComponent["value"]) {
+        if(this.form) {
+            this.form.setValue(value)
+        }
+    }
 
 	public getIdentity(_: never, item: any) {
 		return item[0];
