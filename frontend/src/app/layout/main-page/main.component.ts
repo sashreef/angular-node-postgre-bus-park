@@ -76,7 +76,7 @@ export class MainComponent {
         this.mainForm.get("arrival_point")?.valueChanges.pipe(
             delay(300), takeUntil(this.unsubscribe$$)
         ).subscribe((formValue) => {
-            if(formValue.arrival_point && formValue.journey_date) {
+            if(formValue && this.mainForm.get("journey_date")) {
                 this.getTicketInfo(formValue);
             }
         });
@@ -84,7 +84,7 @@ export class MainComponent {
         this.mainForm.get("journey_date")?.valueChanges.pipe(
             delay(300), takeUntil(this.unsubscribe$$)
         ).subscribe((formValue) => {
-            if(formValue.arrival_point && formValue.journey_date) {
+            if(formValue.get("arrival_point") && formValue) {
                 this.getTicketInfo(formValue);
             }
         });
