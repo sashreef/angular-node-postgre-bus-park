@@ -12,7 +12,7 @@ import { CookieService } from "ngx-cookie-service";
 })
 
 export class LoginComponent {
-    public errorMessage?: string;
+    // public errorMessage?: string;
     public loginForm: UntypedFormGroup;
     public pending = false;
     
@@ -32,9 +32,8 @@ export class LoginComponent {
     public ngOnInit(): void {
         this.pending = true;
         const token = this.cookieService.get("accesstoken");
-         if(!!token) {   
+         if(!!token) {
             this.manageService.refresh(token).pipe(take(1)).subscribe(() => {
-
                 this.pending = false;
             });
          }

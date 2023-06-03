@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BackendService } from "./backend.service";
-import { BehaviorSubject, Observable, tap } from "rxjs";
+import { BehaviorSubject, Observable, take, tap } from "rxjs";
 import { BookTicket, Login, Register } from "../interfaces/core.interfaces";
 import { CookieService } from "ngx-cookie-service";
 import { HttpHeaders } from "@angular/common/http";
@@ -39,19 +39,23 @@ export class ManageService {
 
     public refresh(token: string): Observable<any> {
         const role = this.cookieService.get("role");
-        const accesstoken = this.cookieService.get("accesstoken");
-        const headers = new HttpHeaders();
-        headers.set("Authorization", `Bearer ${accesstoken}`);
-        headers.set("Role", role);
-        return this.backendService.auth.refresh$(accesstoken,role).pipe(
+        return this.backendService.auth.refresh$(token, role).pipe(
             tap((response) => {
                 this.userInfo$.next({role: response.role, login: response.login});
-                this.token$.next(response.accessToken);
+                this.token$.next({token: response.accessToken, isAlive: true});
+                this.setTokenLifeTimer();
                 console.log("refresh success");
             }, (err) => {
                 throw err;
             })
         )
+    }
+
+    public setTokenLifeTimer() {
+        setTimeout(async () => {
+            const token = await this.token$.pipe(take(1)).toPromise();
+            this.token$.next({token: token, isAlive: false});
+        }, 30000)
     }
 
     public bookTickets(bookTicket: BookTicket): Observable<any> {

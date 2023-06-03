@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { CookieService } from "ngx-cookie-service";
-import { Subject, delay, take, takeUntil } from "rxjs";
+import { Subject, combineLatest, delay, take, takeUntil } from "rxjs";
 import { ListItem } from "src/app/core.module/utils/template";
 import { BookTicket } from "src/app/interfaces/core.interfaces";
 import { ManageService } from "src/app/services/manage.service";
@@ -41,7 +41,7 @@ export class MainComponent {
         const token = this.cookieService.get("accesstoken");
          if(!!token) {   
             this.manageService.refresh(token).pipe(take(1)).subscribe(() => {
-
+                
                 this.pending = false;
             });
          }
@@ -65,7 +65,6 @@ export class MainComponent {
         (err) => {
             console.log(err)
         });
-        console.log(data);
     }
 
     public ngOnDestroy() {
@@ -74,32 +73,40 @@ export class MainComponent {
     }
 
     private setFormSub(): void {
-        this.mainForm.valueChanges.pipe(
-            delay(300),takeUntil(this.unsubscribe$$)
+        this.mainForm.get("arrival_point")?.valueChanges.pipe(
+            delay(300), takeUntil(this.unsubscribe$$)
         ).subscribe((formValue) => {
             if(formValue.arrival_point && formValue.journey_date) {
-                console.log(formValue);
                 this.getTicketInfo(formValue);
-                this.getQuantityOfFreeSeats(formValue);
             }
-        })
+        });
+
+        this.mainForm.get("journey_date")?.valueChanges.pipe(
+            delay(300), takeUntil(this.unsubscribe$$)
+        ).subscribe((formValue) => {
+            if(formValue.arrival_point && formValue.journey_date) {
+                this.getTicketInfo(formValue);
+            }
+        });
     }
 
     private getTicketInfo(formValue: any): void {
-        this.manageService.getTicketPrice(formValue.arrival_point, formValue.journey_date).pipe(take(1)).subscribe((cost) => {
-            this.oneTicketCost = cost.ticket_price;
-        });
+        const reqArray = [
+            this.manageService.getTicketPrice(formValue.arrival_point, formValue.journey_date),
+            this.manageService.getQuantityOfFreeSeats(formValue.arrival_point, formValue.journey_date)
+        ];
+        combineLatest(reqArray).pipe(take(1)).subscribe((data) => {
+            this.oneTicketCost = data[0].ticket_price;
+            this.mainForm.patchValue({journey_id: data[1].journey_id}, {emitEvent:false})
+            this.numberOfSeats = data[1].remaining_seats;
+        },
+            (error) => {
+                this.numberOfSeats = "There is no trip on this date";
+                this.oneTicketCost = "";
+                throw error;
+            }
+        )
     }
-
-    private getQuantityOfFreeSeats(formValue: any): void {
-        this.manageService.getQuantityOfFreeSeats(formValue.arrival_point, formValue.journey_date).pipe(take(1)).subscribe((numberOfSeats) => {
-            this.mainForm.patchValue({journey_id: numberOfSeats.journey_id},{emitEvent:false})
-            this.numberOfSeats = numberOfSeats.remaining_seats;
-        },(error)=>{
-            this.numberOfSeats = "There is no trip on this date";
-            this.oneTicketCost = "";
-        });
-    }      
 
     // public getTripInfo(data: Trip): void {
     //     if(this.mainForm.invalid) {
