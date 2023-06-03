@@ -77,7 +77,7 @@ export class MainComponent {
             delay(300), takeUntil(this.unsubscribe$$)
         ).subscribe((formValue) => {
             if(formValue && this.mainForm.get("journey_date")) {
-                this.getTicketInfo(formValue);
+                this.getTicketInfo(this.mainForm.value);
             }
         });
 
@@ -85,7 +85,7 @@ export class MainComponent {
             delay(300), takeUntil(this.unsubscribe$$)
         ).subscribe((formValue) => {
             if(formValue.get("arrival_point") && formValue) {
-                this.getTicketInfo(formValue);
+                this.getTicketInfo(this.mainForm.value);
             }
         });
     }
