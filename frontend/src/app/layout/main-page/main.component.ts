@@ -84,8 +84,6 @@ export class MainComponent {
 
     private getQuantityOfFreeSeats(formValue: any): void {
         this.manageService.getQuantityOfFreeSeats(formValue.arrival_point, formValue.journey_date).pipe(take(1)).subscribe((numberOfSeats) => {
-            console.log(numberOfSeats);
-            // this.journey_id = .journey_id;
             this.mainForm.patchValue({journey_id: numberOfSeats.journey_id},{emitEvent:false})
             this.numberOfSeats = numberOfSeats.remaining_seats;
         },(error)=>{
