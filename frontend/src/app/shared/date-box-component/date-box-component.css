@@ -25,7 +25,7 @@
 		}
 
 		>input {
-			padding: 5px 5px 6px 40px !important;
+            padding: 4px 5px 5px 40px !important;
 			margin-bottom: 7px;
 			background-color: var(--contol-background-color);
 			border: 2px solid #999;
@@ -39,7 +39,6 @@
 			margin: 0;
 			stroke: none;
 			pointer-events: initial;
-
 
 			&::-webkit-input-placeholder {
 				color: var(--control-placeholder-color);
@@ -57,8 +56,4 @@
 	>div>input {
 		background-color: #f3f3f3;
 	}
-}
-
-:host-context(.auth-input) {
-	/* здесь попытаться стили для инпута входа сделать(лейбл передаем внутрь) */
 }

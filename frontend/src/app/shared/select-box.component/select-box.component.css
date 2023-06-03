@@ -1,0 +1,166 @@
+.select-input {
+    padding: 5px 5px 6px 40px !important;
+    margin-bottom: 7px;
+    background-color: var(--contol-background-color);
+    border: 2px solid #999;
+    font-size: 16px;
+    color: var(--control-text-color);
+    border-radius: 7px;
+    line-height: 1.2;
+    width: 262px;
+    text-indent: 10px;
+    font: inherit;
+    margin: 0;
+    stroke: none;
+    pointer-events: initial;
+}
+
+:host {
+	display: inline-block;
+	height: 100%;
+
+	>label {
+		height: auto;
+		margin-bottom: 2px;
+		font-size: 12px;
+		font-weight: bold;
+		line-height: 20px;
+		color: rgba(18, 42, 53, 0.9);
+	}
+}
+
+div:nth-of-type(1) {
+	position: relative;
+}
+
+div[role="button"] {
+	height: 24px;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 25px;
+	font-family: var(--app-font-family-motserrat);
+	padding: 1px 4px;
+	padding-right: 2em;
+	position: relative;
+	outline: none;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	cursor: pointer;
+
+	>span.placeholder {
+		color: var(--control-placeholder-color);
+		user-select: none;
+	}
+
+	>div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		outline: none;
+		color: var(--control-icon-color);
+		position: absolute;
+		bottom: 0px;
+		right: 0px;
+		top: 0px;
+		flex-direction: column;
+
+		>app-icon {
+			display: flex;
+			align-items: center;
+			margin-right: 14px;
+			width: 0.75rem;
+			height: 0.75rem;
+			padding: 0;
+			font-size: 18px;
+            font-weight: 700;
+            color: var(--control-text-color);
+		}
+	}
+}
+
+div[role="search"] {
+	position: relative;
+
+	>input {
+		display: block;
+		width: 100%;
+		padding: 5px;
+		font-size: 0.75em;
+		height: 28px;
+
+		&:focus-visible {
+			outline: none;
+			border: 1px solid #9aaebf;
+		}
+	}
+
+	>app-icon-button {
+		outline: none;
+		color: var(--control-icon-color);
+		background-color: var(--app-background-color);
+		font-size: 1.5em;
+		position: absolute;
+		bottom: 1px;
+		right: 2px;
+		top: 1px;
+
+		&::ng-deep>app-icon {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			font-size: 18px;
+			width: 0.75rem;
+			height: 0.75rem;
+			color: #2e3142;
+		}
+	}
+}
+
+app-drop {
+	background-color: var(--app-background-color);
+	border: 1px solid var(--control-border-color);
+	border-radius: var(--control-border-radius);
+	overflow-y: auto;
+	overflow-x: hidden;
+	box-sizing: border-box;
+	box-shadow: var(--control-drop-shadow);
+	font-size: 12px;
+	font-weight: 500;
+    right: -2px;
+    top: 38px;
+	color: var(--app-label-color);
+    border: 2px solid #999;
+    border-radius: 7px;
+}
+
+app-chip-list {
+	margin-top: 0.5em;
+}
+
+.readonly {
+	cursor: default;
+	opacity: 0.64;
+	background-color: #f2f2f2;
+	border-color: #ccc;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: var(--contol-background-color);
+}
+
+ul li {
+    cursor: pointer;
+    line-height: 1.2;
+    font-size: 16px;
+    color: var(--control-text-color);
+    padding: 3px;
+}
+
+ul li:hover {
+    background-color: var(--control-hover-color);
+    color: var(--app-white-color);
+}

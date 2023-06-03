@@ -36,6 +36,7 @@ export class ManageService {
         const data = {login:userData.username,password:userData.password,full_name:userData.fullName,phone_number:userData.phone};
         return this.backendService.auth.register$(data);
     }
+
     public refresh(token: string): Observable<any> {
         const role = this.cookieService.get("role");
         const accesstoken = this.cookieService.get("accesstoken");
@@ -47,16 +48,20 @@ export class ManageService {
                 this.userInfo$.next({role: response.role, login: response.login});
                 this.token$.next(response.accessToken);
                 console.log("refresh success");
-                
             }, (err) => {
                 throw err;
             })
         )
     }
-    public bookTickets(userData: BookTicket): Observable<any> {
-        const data = {login:userData.username,arrival_point:userData.arrival_point,quantity_of_seats:userData.quantity_of_seats,booking_date:userData.booking_date, journey_date:userData.booking_date};
+
+    public bookTickets(bookTicket: BookTicket): Observable<any> {
+        const data = {
+            ...bookTicket,
+            login: bookTicket.username
+        };
         return this.backendService.bookings.bookingTickets$(data);
     }
+
     public getArrivalPoints(): Observable<any> {
         return this.backendService.getInfo.getArrivalPoints$().pipe(
         );

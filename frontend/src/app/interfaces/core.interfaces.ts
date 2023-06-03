@@ -10,12 +10,16 @@ export interface Register {
     fullName: string;
     phone: string;
 }
-export interface BookTicket {
+export interface BookTicket extends BookTicketDTO{
     username: string;
+}
+
+export interface BookTicketDTO {
+    login: string;
     arrival_point: string;
     quantity_of_seats: number;
     booking_date: string;
-    journey_date: string;
+    journey_date:string;
 }
 
 export interface Trip {

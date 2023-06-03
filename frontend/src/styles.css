@@ -1,1 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --app-font-family-motserrat: Montserrat,sans-serif !important;
+    --app-font-family-opensans: 'Open Sans',sans-serif;
+
+    --app-white-color: #ffffff;
+
+    --button-orange-color: #ffa300;
+
+    --control-focus-color: #44494c;
+    --control-text-color: #555;
+    --control-hover-color: #0a7eed;
+    --contol-background-color: #edeef1;
+} 
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.button {
+    background-color: var(--button-orange-color);
+    color: var(--app-white-color);
+    font-family: var(--app-font-family-motserrat);
+    font-size: 16px;
+    font-weight: 400;
+    width: 100%;
+    border-radius: 20px;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.button:hover {
+    opacity: 0.8;
+}
+
+.button-big {
+    height: 40px;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

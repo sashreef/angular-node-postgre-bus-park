@@ -1,0 +1,5 @@
+<div>
+    <label *ngIf="label"> {{label}}</label>
+   <input #input type="date"  [value]="value || ''"
+    [attr.tabindex]="isDisabled ? -1 : undefined" (input)="onInput($event);" placeholder="{{placeholder}}">
+</div>

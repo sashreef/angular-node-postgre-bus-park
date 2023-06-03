@@ -1,0 +1,6 @@
+:host {
+	display: block;
+	position: absolute;
+	z-index: 1;
+	max-height: 400px;
+}

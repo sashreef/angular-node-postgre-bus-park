@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { take } from "rxjs";
+import { ListItem } from "src/app/core.module/utils/template";
 import { BookTicket } from "src/app/interfaces/core.interfaces";
 import { ManageService } from "src/app/services/manage.service";
 
@@ -13,7 +14,8 @@ import { ManageService } from "src/app/services/manage.service";
 export class MainComponent {
     public mainForm: UntypedFormGroup;
     public pending = false;
-    public options: string[]=[];
+    public options: ListItem[] = [];
+    public array: ListItem[] = [["label1", "valu1e"], ["label2", "value2"]]; 
     
     constructor (
         private manageService: ManageService,   
@@ -32,7 +34,9 @@ export class MainComponent {
     public ngOnInit(): void {
         this.pending = true;
         this.manageService.getArrivalPoints().pipe(take(1)).subscribe((options: string[]) => {
-            this.options = options; // Сохраняем полученные опции в массиве
+            this.options = options.map((option) => {
+                return [option, option];
+            });
         });
     }
 

@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { ConfigurationService } from "./configuration.service";
 import { Observable } from "rxjs";
 import { CookieService } from "ngx-cookie-service";
+import { BookTicketDTO } from "../interfaces/core.interfaces";
 
 @Injectable()
 export class BackendService {
@@ -15,7 +16,6 @@ export class BackendService {
     constructor(
         private readonly http: HttpClient,
         private readonly config: ConfigurationService,
-        private coockieService: CookieService
     ) { } 
 
     public readonly auth = {
@@ -37,17 +37,16 @@ export class BackendService {
 
     }
     public readonly bookings = {
-
-        bookingTickets$: (userData: {login: string, arrival_point: string, quantity_of_seats: number, booking_date: string, journey_date:string}): Observable<any> => {
+        bookingTickets$: (userData: BookTicketDTO): Observable<any> => {
             const url = `${this.config.api.root}/booking/book_tickets`;
             return this.http.post(url, userData);
         }
     }
+
     public readonly getInfo = {
         getArrivalPoints$:(): Observable<any> => {
-        const url = `${this.config.api.root}/trip/arrival_points`;
-        return this.http.get(url);
-
-    }
+            const url = `${this.config.api.root}/trip/arrival_points`;
+            return this.http.get(url);
+        }
     }   
 }

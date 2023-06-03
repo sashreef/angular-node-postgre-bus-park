@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
-import { Router, RouterModule } from "@angular/router";
+import { Router } from "@angular/router";
 import { take } from "rxjs";
 import { Register } from "src/app/interfaces/core.interfaces";
 import { ManageService } from "src/app/services/manage.service";
@@ -50,9 +50,6 @@ export class RegisterComponent {
         });
     }
 
-    public signIn(): void {
-        // this.router.navigate()
-    }
 
     public isValidForm(): boolean {
         const username = this.registerForm.controls['username'].value;

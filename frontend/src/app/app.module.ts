@@ -12,6 +12,7 @@ import { RegisterModule } from './register-page/register.module';
 import { LoginModule } from './login-page/login.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing/app-routing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AppRoutingModule } from './app-routing/app-routing';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [
     CookieService,

@@ -1,0 +1,32 @@
+<label *ngIf="label">{{label}}</label>
+<div class="select-input" (appClickOutside)="expand(false);" [class.readonly]="!active">
+	<ng-container [ngSwitch]="model.isExpanded && (this.model.items$ | async)?.size > 10">
+		<div role="search" *ngSwitchCase="true">
+			<input #input type="text" placeholder="Фильтр"
+				(input)="filter$$.next($event.target.value);">
+			<app-icon-button *ngIf="model.isExpanded" (click)="expand(false);">keyboard_arrow_up</app-icon-button>
+			<app-icon-button *ngIf="!model.isExpanded" (click)="expand(false);">keyboard_arrow_up</app-icon-button>
+		</div>
+		<div role="button" *ngSwitchDefault (click)="expand(!model.isExpanded);">
+			<ng-container *ngTemplateOutlet="valueTemplate"></ng-container>
+			<div>
+				<app-icon *ngIf="model.isExpanded">keyboard_arrow_up</app-icon>
+				<app-icon *ngIf="!model.isExpanded">keyboard_arrow_down</app-icon>
+			</div>
+		</div>
+	</ng-container>
+	<app-drop *ngIf="model.isExpanded">
+		<ng-container *ngTemplateOutlet="itemsTemplate"></ng-container>
+	</app-drop>
+</div>
+
+<ng-template #selectValueTemplate>
+	{{this.model.textValue$ | async}}
+</ng-template>
+
+<ng-template #selectItemsTemplate>
+	<ul appListBoxMoniker *ngIf="this.model.filteredItems$ | async as items">
+		<li appListItemMoniker *ngFor="let item of items; trackBy: getIdentity"
+			(click)="setInteractiveValue(item[0]); expand(false);">{{item[1]}}</li>
+	</ul>
+</ng-template>

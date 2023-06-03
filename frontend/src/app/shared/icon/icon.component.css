@@ -1,0 +1,19 @@
+:host {
+	-webkit-font-smoothing: antialiased;
+	direction: ltr;
+	display: inline-flex;
+	font-family: "Material Icons";
+	font-feature-settings: "liga";
+	font-style: normal;
+	font-weight: normal;
+	font-size: 24px;
+	letter-spacing: normal;
+	line-height: 1;
+	text-transform: none;
+	white-space: nowrap;
+	word-wrap: normal;
+	height: 24px;
+	width: 24px;
+	text-decoration: none;
+    cursor: pointer;
+}
