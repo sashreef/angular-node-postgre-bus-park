@@ -27,6 +27,7 @@ export class ManageService {
             tap((data: any) => {
                 this.cookieService.set("accesstoken",`${data.accessToken}`);
                 this.cookieService.set("role",`${data.role}`);
+                this.setTokenLifeTimer();
                 this._isLoggedIn$.next(true);
             })
         );
@@ -55,8 +56,10 @@ export class ManageService {
         setTimeout(async () => {
             if(this.token?.token) {
                 this.token = {token: this.token?.token, isAlive: false};
+                const token = this.cookieService.get("accesstoken");
+                this.refresh(token);
             }
-        }, 30000)
+        }, 29900)
     }
 
     public bookTickets(bookTicket: BookTicket): Observable<any> {
