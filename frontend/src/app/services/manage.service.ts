@@ -8,7 +8,7 @@ import { HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class ManageService {
-    public token$: BehaviorSubject<any> = new BehaviorSubject(null);
+    public token?: {token: string, isAlive: boolean};
     public userInfo$: BehaviorSubject<any> = new BehaviorSubject(null);
     public _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     isLoggedIn$ = this._isLoggedIn$.asObservable();
@@ -22,7 +22,7 @@ export class ManageService {
     }
 
     public login(userData: Login): Observable<any> {
-        const data = {login:userData.username,password:userData.password};
+        const data = {login:userData.username, password:userData.password};
         return this.backendService.auth.login$(data).pipe(
             tap((data: any) => {
                 this.cookieService.set("accesstoken",`${data.accessToken}`);
@@ -42,7 +42,7 @@ export class ManageService {
         return this.backendService.auth.refresh$(token, role).pipe(
             tap((response) => {
                 this.userInfo$.next({role: response.role, login: response.login});
-                this.token$.next({token: response.accessToken, isAlive: true});
+                this.token = {token: response.accessToken, isAlive: true};
                 this.setTokenLifeTimer();
                 console.log("refresh success");
             }, (err) => {
@@ -53,8 +53,9 @@ export class ManageService {
 
     public setTokenLifeTimer() {
         setTimeout(async () => {
-            const token = await this.token$.pipe(take(1)).toPromise();
-            this.token$.next({token: token, isAlive: false});
+            if(this.token?.token) {
+                this.token = {token: this.token?.token, isAlive: false};
+            }
         }, 30000)
     }
 

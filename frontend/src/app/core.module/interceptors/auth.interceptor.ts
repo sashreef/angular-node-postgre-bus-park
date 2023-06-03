@@ -20,24 +20,11 @@ export class AuthInterceptor implements HttpInterceptor {
     if (!authToken) {
       return next.handle(request);
     }
-    return from(this.manageService.token$).pipe(
-      switchMap(tokenData => {
-        if (!tokenData?.isAlive) {
-          return from(this.manageService.refresh(tokenData.token)).pipe(
-            switchMap(refreshData => {
-              console.log("refresh success");
-              refreshData.accessToken;
-              request = request.clone({
-                setHeaders: {
-                  "Authorization": "Bearer " + authToken,
-                  // "accept-language":  + ";q=0.8,en-us;q=0.6,de-de;q=0.4,de;q=0.2",
-                  "Role": role
-                }
-              });
-              return next.handle(request);
-            })
-          )
-        } else {
+    if (!this.manageService.token?.isAlive) {
+      return from(this.manageService.refresh(authToken)).pipe(
+        switchMap(refreshData => {
+          console.log("refresh success");
+          refreshData.accessToken;
           request = request.clone({
             setHeaders: {
               "Authorization": "Bearer " + authToken,
@@ -45,9 +32,18 @@ export class AuthInterceptor implements HttpInterceptor {
               "Role": role
             }
           });
-        return next.handle(request);
+          return next.handle(request);
+        })
+      )
+    } else {
+      request = request.clone({
+        setHeaders: {
+          "Authorization": "Bearer " + authToken,
+          // "accept-language":  + ";q=0.8,en-us;q=0.6,de-de;q=0.4,de;q=0.2",
+          "Role": role
         }
-      })
-    )
+      });
+      return next.handle(request);
+    }
   }
 }
