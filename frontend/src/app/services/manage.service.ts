@@ -59,6 +59,7 @@ export class ManageService {
             ...bookTicket,
             login: bookTicket.username
         };
+        console.log(data);
         return this.backendService.bookings.bookingTickets$(data);
     }
 

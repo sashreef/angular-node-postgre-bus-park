@@ -16,7 +16,7 @@ export class MainComponent {
     public pending = false;
     public options: ListItem[] = [];
     public array: ListItem[] = [["label1", "valu1e"], ["label2", "value2"]];
-    public oneTicketCost?: number; 
+    public oneTicketCost?: string; 
     public numberOfSeats?: string; 
 
     private unsubscribe$$: Subject<void> = new Subject();
@@ -27,10 +27,9 @@ export class MainComponent {
     ) {
         this.mainForm = this.formBuilder.group({
             arrival_point: new FormControl(null, Validators.required),
-            login: new FormControl(null, Validators.required),
             quantity_of_seats: new FormControl(null, Validators.required),
-            booking_date: new FormControl(null, Validators.required),//сегодняшняя дата
-            journey_date: new FormControl(null, Validators.required)
+            journey_date: new FormControl(null, Validators.required),
+            journey_id: new FormControl(null)
         });
       
     }
@@ -71,23 +70,27 @@ export class MainComponent {
         ).subscribe((formValue) => {
             if(formValue.arrival_point && formValue.journey_date) {
                 console.log(formValue);
-                this.numberOfSeats = "There is no trip on this date";
                 this.getTicketInfo(formValue);
                 this.getQuantityOfFreeSeats(formValue);
             }
         })
     }
+
     private getTicketInfo(formValue: any): void {
         this.manageService.getTicketPrice(formValue.arrival_point, formValue.journey_date).pipe(take(1)).subscribe((cost) => {
             this.oneTicketCost = cost.ticket_price;
         });
     }
+
     private getQuantityOfFreeSeats(formValue: any): void {
         this.manageService.getQuantityOfFreeSeats(formValue.arrival_point, formValue.journey_date).pipe(take(1)).subscribe((numberOfSeats) => {
-            console.log(numberOfSeats.status);
+            console.log(numberOfSeats);
+            // this.journey_id = .journey_id;
+            this.mainForm.patchValue({journey_id: numberOfSeats.journey_id},{emitEvent:false})
             this.numberOfSeats = numberOfSeats.remaining_seats;
-            
-
+        },(error)=>{
+            this.numberOfSeats = "There is no trip on this date";
+            this.oneTicketCost = "";
         });
     }      
 

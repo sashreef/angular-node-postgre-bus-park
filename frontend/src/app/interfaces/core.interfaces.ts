@@ -16,10 +16,9 @@ export interface BookTicket extends BookTicketDTO{
 
 export interface BookTicketDTO {
     login: string;
-    arrival_point: string;
+    journey_id: number;
     quantity_of_seats: number;
-    booking_date: string;
-    journey_date:string;
+    booking_date?: string;
 }
 
 export interface Trip {

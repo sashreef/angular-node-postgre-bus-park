@@ -10,11 +10,7 @@
 
     <div class="wrapper-form">
       <h2>Запрос стоимости аренды</h2>
-        <form enctype="multipart/form-data" id="simplecallback-98"
-          action="/index.php?option=com_ajax&amp;module=simplecallback&amp;format=json"
-          class="u-form form-inline simplecallback " method="post" data-simplecallback-phone-mask="+38 (999) 999-99-99"
-          data-simplecallback-form="">
-
+        <form class="u-form form-inline simplecallback ">
           <div class="inputs-form">
 
             <div class="row">
@@ -57,17 +53,20 @@
                 <span>
                   Cost: 
                 </span>
-                <span>{{oneTicketCost ? oneTicketCost * mainForm.controls['quantity_of_seats'].value : ""}}</span>
+                <span *ngIf="oneTicketCost; else noData">{{ oneTicketCost * mainForm.controls['quantity_of_seats'].value }}</span>
               </div>
             </div>
 
           </div>
           <div class="control-group">
-            <button type="submit" class="button button-big">Book</button>
-            <button *ngIf="false" type="submit" class="button button-big">Book</button>
+            <button type="button" class="button button-big" (click)="bookTicket(mainForm.value)">Book</button>
+            <button *ngIf="false" type="button" class="button button-big">Book</button>
           </div>
         </form>
     </div>
   </div>
 </section>
 </main>
+<ng-template #noData>
+  <span></span>
+</ng-template>
