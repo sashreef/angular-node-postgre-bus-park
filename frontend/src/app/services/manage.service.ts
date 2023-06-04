@@ -53,11 +53,10 @@ export class ManageService {
     }
 
     public setTokenLifeTimer() {
-        setTimeout(async () => {
+        setTimeout(() => {
             if(this.token?.token) {
-                this.token = {token: this.token?.token, isAlive: false};
-                const token = this.cookieService.get("accesstoken");
-                this.refresh(token);
+                this.token = {token: this.token.token, isAlive: false};
+                this.refresh(this.token.token);
             }
         }, 29900)
     }
