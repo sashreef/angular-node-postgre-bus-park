@@ -1,0 +1,100 @@
+main{
+    display: flex;
+    padding: 10px 0;
+}
+.ActionListWrap {
+    list-style: none;
+}
+ul, ol {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+* {
+    box-sizing: border-box;
+}
+.ActionListItem.ActionListItem--navActive:not(.ActionListItem--danger) {
+    background: var(--color-action-list-item-default-selected-bg);
+}
+.ActionListItem {
+    border-radius: var(--borderRadius-medium, 6px);
+    list-style: none;
+    position: relative;
+}
+.ActionListContent {
+    -webkit-tap-highlight-color: transparent;
+    align-items: start;
+    background-color: initial;
+    border: none;
+    border-radius: var(--borderRadius-medium, 6px);
+    color: var(--color-fg-default);
+    display: grid;
+    grid-template-areas: "leadingAction leadingVisual label trailingVisual trailingAction";
+    grid-template-columns: min-content min-content minmax(0, auto) min-content min-content;
+    grid-template-rows: min-content;
+    padding-block: var(--actionListContent-paddingBlock);
+    padding-inline: var(--control-medium-paddingInline-condensed, 8px);
+    position: relative;
+    text-align: left;
+    touch-action: manipulation;
+    transition: background 33.333ms linear;
+    user-select: none;
+    width: 100%;
+}
+a {
+    text-decoration: none;
+}
+.ActionListContent>:not(:last-child) {
+    margin-right: var(--control-medium-gap, 8px);
+}
+.ActionListItem-action, .ActionListItem-visual {
+    fill: var(--color-fg-muted);
+    align-items: center;
+    color: var(--color-fg-muted);
+    display: flex;
+    min-height: var(--control-medium-lineBoxHeight, 20px);
+    pointer-events: none;
+}
+.ActionListItem-visual--leading {
+    grid-area: leadingVisual;
+}
+.ActionListItem.ActionListItem--navActive:not(.ActionListItem--subItem) .ActionListItem-label {
+    font-weight: var(--base-text-weight-semibold, 600);
+}
+.ActionListItem-label {
+    color: var(--color-fg-default);
+    font-size: var(--text-body-size-medium, 14px);
+    grid-area: label;
+    line-height: var(--text-body-lineHeight-medium, 1.42857);
+    position: relative;
+}
+.ActionList-sectionDivider:empty {
+    display: block;
+    height: 1px;
+    padding: 0;
+    margin: 7px -8px 8px;
+    list-style: none;
+    background: var(--color-action-list-item-inline-divider);
+    border: 0;
+}
+.ActionList-sectionDivider:empty {
+    margin-block-end: var(--base-size-8, 8px);
+    margin-block-start: calc(var(--base-size-8, 8px) - var(--borderWidth-thin, 1px));
+    margin-inline: calc(var(--base-size-8, 8px)*-1);
+}
+* {
+    box-sizing: border-box;
+}
+.ActionList-sectionDivider .ActionList-sectionDivider-title {
+    font-size: 12px;
+    font-weight: var(--base-text-weight-semibold, 600);
+    color: var(--color-fg-muted);
+}
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+li:hover {
+    opacity: 0.8;
+}
+

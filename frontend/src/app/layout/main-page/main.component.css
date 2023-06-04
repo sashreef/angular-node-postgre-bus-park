@@ -120,5 +120,308 @@ button {
 
 
 
+/*Второй блок */
 
+.u-section-3 {
+    background-image: none;
+}
+body, aside, .u-sidebar-block, section, header, footer {
+    position: relative;
+}
+article, aside, details, figcaption, figure, footer, header, main, menu, nav, section, summary {
+    display: block;
+}
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+.u-section-3 .u-container-layout-1 {
+    padding: 50px 20px 0;
+}
 
+.u-container-layout {
+    position: relative;
+    flex: 1;
+    max-width: 100%;
+}
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+div {
+    display: block;
+}
+.u-tabs:not([class*="u-align-"]), .u-accordion:not([class*="u-align-"]), .u-repeater-item:not([class*="u-align-"]), .u-container-style:not([class*="u-align-"]) {
+    text-align: left;
+}
+.u-section-3 .u-image-1 {
+    width: 80px;
+    height: 80px;
+    background-image: url(https://ukrbustour.od.ua/images/nicepage-images/comfort.png);
+    background-position: 50% 50%;
+    box-shadow: 0 7px 15px 0 rgba(128,128,128,0.8);
+    margin: 0 auto;
+}
+.u-image-circle.u-image {
+    border-radius: 50% !important;
+}
+.u-back-image.u-image-contain, .u-image.u-image-contain {
+    object-fit: contain;
+    background-size: contain;
+}
+.u-overlap.u-overlap-transparent .u-header, .u-image, .u-gradient {
+    color: #444444;
+}
+.u-inner-container-layout, .u-container-layout > * {
+    position: relative;
+}
+.u-image{
+    display: block;
+    vertical-align: middle;
+}
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+u-container-style:not([class*="u-align-"]) {
+    text-align: left;
+}
+.u-section-3 .u-text-2 {
+    font-size: 1.16667rem;
+    margin: 15px 0 0;
+}
+.u-body h1, .u-body h2, .u-body h3, .u-body h4, .u-body h5, .u-body h6 {
+    padding: 0;
+}
+.u-text-grey-70, li.active > a.u-button-style.u-text-grey-70, li.active > a.u-button-style.u-text-grey-70[class*="u-border-"], a.u-button-style.u-text-grey-70, a.u-button-style.u-text-grey-70[class*="u-border-"] {
+    color: #4d4d4d !important;
+}
+.u-text {
+    word-wrap: break-word;
+    position: relative;
+}
+
+.u-align-center {
+    text-align: center;
+}
+.u-section-3 .u-text-3 {
+    line-height: 1.2;
+    margin: 15px 0 0;
+}
+p:not(.u-text-variant) {
+    color: #444444;
+}
+.u-section-3 .u-container-layout-2 {
+    padding: 50px 20px 0;
+}
+.u-valign-top {
+    justify-content: flex-start;
+}
+.u-valign-middle, .u-valign-top, .u-valign-bottom {
+    display: flex;
+    flex-direction: column;
+}
+.u-container-layout {
+    position: relative;
+    flex: 1;
+    max-width: 100%;
+}
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+.u-container-style:not([class*="u-align-"]) {
+    text-align: left;
+}
+.u-sheet:not(.u-image):not(.u-video) > * {
+    pointer-events: initial;
+}
+.u-section-3 .u-image-2 {
+    width: 80px;
+    height: 80px;
+    background-image: url(https://ukrbustour.od.ua/images/nicepage-images/safety.png);
+    background-position: 50% 50%;
+    box-shadow: 0 7px 15px 0 rgba(128,128,128,0.8);
+    margin: 0 auto;
+}
+.u-image-circle.u-image {
+    border-radius: 50% !important;
+}
+.u-overlap.u-overlap-transparent .u-header, .u-image, .u-gradient {
+    color: #444444;
+}
+.u-valign-top > *, .u-valign-bottom > * {
+    flex-shrink: 0;
+}
+.u-inner-container-layout, .u-container-layout > * {
+    position: relative;
+}
+.u-image, .u-background-effect-image, .u-video-poster {
+    object-fit: cover;
+    display: block;
+    vertical-align: middle;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+.u-section-3 .u-text-4 {
+    font-size: 1.16667rem;
+    margin: 15px 0 0;
+}
+.u-body h1, .u-body h2, .u-body h3, .u-body h4, .u-body h5, .u-body h6 {
+    padding: 0;
+}
+.u-text-grey-70, li.active > a.u-button-style.u-text-grey-70, li.active > a.u-button-style.u-text-grey-70[class*="u-border-"], a.u-button-style.u-text-grey-70, a.u-button-style.u-text-grey-70[class*="u-border-"] {
+    color: #4d4d4d !important;
+}
+u-align-center {
+    text-align: center;
+}
+.u-valign-middle > *, .u-valign-top > *, .u-valign-bottom > * {
+    flex-shrink: 0;
+}
+.u-section-3 .u-text-5 {
+    line-height: 1.2;
+    margin: 15px 0 0;
+}
+.u-section-3 .u-container-layout-2 {
+    padding: 50px 20px 0;
+}
+.u-valign-top {
+    justify-content: flex-start;
+}
+.u-valign-middle, .u-valign-top, .u-valign-bottom {
+    display: flex;
+    flex-direction: column;
+}
+.u-container-layout {
+    position: relative;
+    flex: 1;
+    max-width: 100%;
+}
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+.u-section-3 .u-container-layout-3 {
+    padding: 50px 20px 0;
+}
+.u-valign-top {
+    justify-content: flex-start;
+}
+.u-valign-middle, .u-valign-top, .u-valign-bottom {
+    display: flex;
+    flex-direction: column;
+}
+.u-container-layout {
+    position: relative;
+    flex: 1;
+    max-width: 100%;
+}
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+.u-section-3 .u-image-3 {
+    width: 80px;
+    height: 80px;
+    background-image: url(https://ukrbustour.od.ua/images/nicepage-images/recom.png);
+    background-position: 50% 50%;
+    box-shadow: 0 7px 15px 0 rgba(128,128,128,0.8);
+    margin: 0 auto;
+}
+.u-image-circle.u-image {
+    border-radius: 50% !important;
+}
+.u-overlap.u-overlap-transparent .u-header, .u-image, .u-gradient {
+    color: #444444;
+}
+.u-section-3 .u-text-6 {
+    font-size: 1.16667rem;
+    margin: 15px 0 0;
+}
+.u-body h1, .u-body h2, .u-body h3, .u-body h4, .u-body h5, .u-body h6 {
+    padding: 0;
+}
+.u-text-grey-70, li.active > a.u-button-style.u-text-grey-70, li.active > a.u-button-style.u-text-grey-70[class*="u-border-"], a.u-button-style.u-text-grey-70, a.u-button-style.u-text-grey-70[class*="u-border-"] {
+    color: #4d4d4d !important;
+}
+.u-section-3 .u-text-7 {
+    line-height: 1.2;
+    margin: 15px 0 0;
+}
+.u-section-3 .u-container-layout-4 {
+    padding: 50px 20px 0;
+}
+.u-valign-top {
+    justify-content: flex-start;
+}
+.u-valign-middle, .u-valign-top, .u-valign-bottom {
+    display: flex;
+    flex-direction: column;
+}
+.u-container-layout {
+    position: relative;
+    flex: 1;
+    max-width: 100%;
+}
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+.u-section-3 .u-image-4 {
+    width: 80px;
+    height: 80px;
+    background-image: url(https://ukrbustour.od.ua/images/nicepage-images/coin.png);
+    background-position: 50% 50%;
+    box-shadow: 0 7px 15px 0 rgba(128,128,128,0.8);
+    margin: 0 auto;
+}
+.u-image-circle.u-image {
+    border-radius: 50% !important;
+}
+.u-overlap.u-overlap-transparent .u-header, .u-image, .u-gradient {
+    color: #444444;
+}
+.u-section-3 .u-text-8 {
+    font-size: 1.16667rem;
+    margin: 15px 0 0;
+}
+.u-body h1, .u-body h2, .u-body h3, .u-body h4, .u-body h5, .u-body h6 {
+    padding: 0;
+}
+.u-text {
+    word-wrap: break-word;
+    position: relative;
+}
+.u-align-center {
+    text-align: center;
+}
+.u-valign-middle > *, .u-valign-top > *, .u-valign-bottom > * {
+    flex-shrink: 0;
+}
+.u-section-3 .u-text-9 {
+    line-height: 1.2;
+    margin: 15px 0 0;
+}
+p:not(.u-text-variant) {
+    color: #444444;
+}
+.u-text {
+    word-wrap: break-word;
+    position: relative;
+}
+.u-align-center {
+    text-align: center;
+}
+.u-valign-middle > *, .u-valign-top > *, .u-valign-bottom > * {
+    flex-shrink: 0;
+}
+.u-sheet:not(.u-image):not(.u-video) > * {
+    pointer-events: initial;
+}
+.u-section-3 .u-text-1 {
+    font-size: 2.22222rem;
+    margin: 50px 0 0;
+}
+.u-body h1, .u-body h2, .u-body h3, .u-body h4, .u-body h5, .u-body h6 {
+    padding: 0;
+}
+.u-text-palette-1-base, li.active > a.u-button-style.u-text-palette-1-base, li.active > a.u-button-style.u-text-palette-1-base[class*="u-border-"], a.u-button-style.u-text-palette-1-base, a.u-button-style.u-text-palette-1-base[class*="u-border-"] {
+    color: #192b52 !important;
+}
