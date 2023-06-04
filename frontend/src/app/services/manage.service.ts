@@ -45,7 +45,7 @@ export class ManageService {
                 this.userInfo$.next({role: response.role, login: response.login});
                 this.token = {token: response.accessToken, isAlive: true};
                 this.setTokenLifeTimer();
-                console.log("refresh success");
+                console.log("refresh success in back service");
             }, (err) => {
                 throw err;
             })
@@ -53,8 +53,14 @@ export class ManageService {
     }
 
     public setTokenLifeTimer() {
+        console.log("timeoutSetted");
+        
         setTimeout(() => {
+            console.log("time expired");
+            
             if(this.token?.token) {
+                console.log("in if");
+                
                 this.token = {token: this.token.token, isAlive: false};
                 this.refresh(this.token.token);
             }
