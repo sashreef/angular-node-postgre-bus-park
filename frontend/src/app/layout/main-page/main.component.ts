@@ -41,7 +41,6 @@ export class MainComponent {
         const token = this.cookieService.get("accesstoken");
          if(!!token) {   
             this.manageService.refresh(token).pipe(take(1)).subscribe(() => {
-
                 this.pending = false;
             });
          }
