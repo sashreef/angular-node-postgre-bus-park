@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Subject, takeUntil } from "rxjs";
 import { ManageService } from "src/app/services/manage.service";
 
 @Component({
@@ -10,11 +11,17 @@ import { ManageService } from "src/app/services/manage.service";
 export class HeaderComponent {
 
     public isLoggedIn = false;
+    private unsubscribe$$: Subject<void> = new Subject();
     constructor(private manageService: ManageService) { }
 
     public ngOnInit(): void {
-        this.manageService.isLoggedIn$.pipe().subscribe((boolean) => {
+        this.manageService._isLoggedIn$.pipe(takeUntil(this.unsubscribe$$)).subscribe((boolean) => {
             this.isLoggedIn = boolean;
         });
+    }
+
+    public ngOnDestroy(): void {
+        this.unsubscribe$$.next();
+        this.unsubscribe$$.complete();
     }
 }

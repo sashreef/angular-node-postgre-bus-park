@@ -1,7 +1,6 @@
 header {
     padding: 17px;
     background-color: var(--button-orange-color);
-    border-radius: 6px;
     height: 60px;
     display: flex;
     justify-content: space-between;
