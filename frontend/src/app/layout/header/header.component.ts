@@ -40,6 +40,8 @@ export class HeaderComponent {
 
     public logout(): void {
         this.manageService.logout().pipe(take(1)).subscribe(() => {
+            this.cookieService.delete("accesstoken");
+            this.cookieService.delete("role");
             this.isLoggedIn = false;
             this.manageService._isLoggedIn$.next(false);
         });

@@ -4,6 +4,7 @@ import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@
 import { take } from "rxjs";
 import { ManageService } from "../services/manage.service";
 import { CookieService } from "ngx-cookie-service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-login",
@@ -20,6 +21,7 @@ export class LoginComponent {
         private manageService: ManageService,
         private formBuilder: UntypedFormBuilder,
         private cookieService: CookieService,
+        private router: Router
     ) {
         this.loginForm = this.formBuilder.group({
             username: new FormControl(null, Validators.required),
@@ -46,12 +48,10 @@ export class LoginComponent {
             throw "Не заполнены обязательные поля"
         }
         this.manageService.login(data).pipe(take(1)).subscribe((data) => {
-            console.log(data);
+            this.router.navigate(["/main"]);
         },
         (err) => {
             console.log(err)
         });
-        console.log(data);
-        
     }
     }

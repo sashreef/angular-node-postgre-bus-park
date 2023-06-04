@@ -33,7 +33,7 @@ export class ManageService {
     }
 
     public logout(): Observable<any> {
-        return this.backendService.auth.logout$().pipe()
+        return this.backendService.auth.logout$().pipe();
     }
 
     public register(userData: Register): Observable<any> {
