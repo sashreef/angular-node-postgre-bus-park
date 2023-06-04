@@ -23,7 +23,6 @@ export class AuthInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           "Authorization": "Bearer " + authToken,
-          // "accept-language":  + ";q=0.8,en-us;q=0.6,de-de;q=0.4,de;q=0.2",
           "Role": role
         }
       });
