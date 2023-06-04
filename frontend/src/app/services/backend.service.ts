@@ -66,11 +66,18 @@ export class BackendService {
             const url = `${this.config.api.root}/public/free_seats`;
             const data = {arrival_point, journey_date}
             return this.http.post(url, data);
-        },
+        }
+    }   
 
+    public readonly user = {
         getUserInfo$:(): Observable<any> => {
             const url = `${this.config.api.root}/user_config/user_info`;
             return this.http.post(url,{});
         },
-    }   
+        changeUserData$:(userData: {login: string, password: string, new_password: string, full_name: string, phone_number: string}): Observable<any> => {
+            const url = `${this.config.api.root}/user_config/update_user`;
+            return this.http.post(url,{});
+        },
+    }
+
 }   

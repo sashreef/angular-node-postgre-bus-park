@@ -33,17 +33,20 @@ export class UserComponent {
     }
     public changeUserData(data: userForm): void {
         
-        // this.manageService.changeUserData(data).pipe(take(1)).subscribe((data) => {
-        //     console.log(data);
-        // },
-        // (err) => {
-        //     console.log(err);
-        // });
+        this.manageService.changeUserData(data).pipe(take(1)).subscribe((data) => {
+            console.log(data);
+        },
+        (err) => {
+            console.log(err);
+        });
     }
   public ngOnInit(): void {
     this.pending = true;
     this.manageService.getUserInfo().pipe(take(1)).subscribe((data : any) => {
-        this.userForm = this.formBuilderService.getUserFormGroup(data);
+        const userData={username: data.login, fullName : data.full_name,phone : data.phone_number , password : data.password ,new_password : data.new_password, confirm_password: data.confirm_password};
+
+        this.userForm = this.formBuilderService.getUserFormGroup(userData);
+        console.log(this.userForm);
     });
 
   }

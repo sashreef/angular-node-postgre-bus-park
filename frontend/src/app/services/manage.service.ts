@@ -78,12 +78,12 @@ export class ManageService {
     }
     
     public getUserInfo(): Observable<any> {
-        return this.backendService.getInfo.getUserInfo$();
+        return this.backendService.user.getUserInfo$();
     }
-    // public changeUserData(userData: userForm): Observable<any> {
-    //     const data = {login:userData.username,password:userData.password,full_name:userData.fullName,phone_number:userData.phone};
-    //     return this.backendService.auth.register$(data);
-    // }
+    public changeUserData(userData: userForm): Observable<any> {
+        const data = {login:userData.username, password: userData.password,new_password:userData.new_password,full_name:userData.fullName,phone_number:userData.phone};
+        return this.backendService.user.changeUserData$(data);
+    }
     
     
 }
