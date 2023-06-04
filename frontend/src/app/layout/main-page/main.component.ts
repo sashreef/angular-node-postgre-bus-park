@@ -38,12 +38,6 @@ export class MainComponent {
 
     public ngOnInit(): void {
         this.pending = true;
-        const token = this.cookieService.get("accesstoken");
-         if(!!token) {   
-            this.manageService.refresh(token).pipe(take(1)).subscribe(() => {
-                this.pending = false;
-            });
-         }
         this.manageService.getArrivalPoints().pipe(take(1)).subscribe((options: string[]) => {
             this.options = options.map((option:any) => {
                 this.pending = false;

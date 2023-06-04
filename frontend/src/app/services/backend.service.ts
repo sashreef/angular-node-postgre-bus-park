@@ -66,6 +66,11 @@ export class BackendService {
             const url = `${this.config.api.root}/public/free_seats`;
             const data = {arrival_point, journey_date}
             return this.http.post(url, data);
-        }
+        },
+
+        getUserInfo$:(): Observable<any> => {
+            const url = `${this.config.api.root}/user_config/user_info`;
+            return this.http.post(url,{});
+        },
     }   
-}
+}   

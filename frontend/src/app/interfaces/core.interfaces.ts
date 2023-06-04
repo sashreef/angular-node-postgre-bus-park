@@ -26,3 +26,12 @@ export interface Trip {
     quantity_of_seats: number;
     journey_date: string;
 }
+
+export interface userForm{
+    username:string;
+    password: string;
+    new_password: string;
+    confirm_password: string;
+    fullName: string;
+    phone: string;
+}

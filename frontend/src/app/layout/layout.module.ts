@@ -7,6 +7,7 @@ import { LayoutComponent } from "./layout.component";
 import { HeaderComponent } from "./header/header.component";
 import { AppRoutingModule } from "../app-routing/app-routing";
 import { RouterModule } from "@angular/router";
+import { UserComponent } from "./user-page/user.component";
 
 
 @NgModule({
@@ -19,11 +20,13 @@ import { RouterModule } from "@angular/router";
     ],
     exports: [
         MainComponent,
+        UserComponent,
         LayoutComponent,
         HeaderComponent,
     ],
     declarations: [
         MainComponent,
+        UserComponent,
         LayoutComponent,
         HeaderComponent
     ]
