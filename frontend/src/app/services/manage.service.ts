@@ -10,6 +10,7 @@ export class ManageService {
     public userInfo$: BehaviorSubject<any> = new BehaviorSubject(null);
     public _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     isLoggedIn$ = this._isLoggedIn$.asObservable();
+    public isLoggedIn = false;
 
 
     constructor(
@@ -26,8 +27,13 @@ export class ManageService {
                 this.cookieService.set("accesstoken",`${data.accessToken}`);
                 this.cookieService.set("role",`${data.role}`);
                 this._isLoggedIn$.next(true);
+                this.isLoggedIn = true;
             })
         );
+    }
+
+    public logout(): Observable<any> {
+        return this.backendService.auth.logout$().pipe()
     }
 
     public register(userData: Register): Observable<any> {

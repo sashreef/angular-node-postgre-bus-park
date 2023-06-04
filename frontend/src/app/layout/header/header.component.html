@@ -6,11 +6,11 @@
     </ul>
     <div class="user-wrapper">
         <ng-container *ngIf="isLoggedIn; else noLogin">
-            <div class="row-icon">
+            <div class="row-icon" [routerLink]="'/login'" >
                 <app-icon>account_circle</app-icon>
                 <span class="text">Your profile</span>
             </div>
-            <app-icon [routerLink]="'/login'">logout</app-icon>
+            <app-icon [routerLink]="'/login'" (click)="logout()">logout</app-icon>
         </ng-container>
     </div>
 </header>

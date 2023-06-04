@@ -35,6 +35,7 @@ export class LoginComponent {
          if(!!token) {
             this.manageService.refresh(token).pipe(take(1)).subscribe(() => {
                 this.manageService._isLoggedIn$.next(true);
+                this.manageService.isLoggedIn = true;
                 this.pending = false;
             });
          }

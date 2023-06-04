@@ -33,6 +33,11 @@ export class BackendService {
             const headers = new HttpHeaders({ Authorization: `Bearer ${token}`,"Role": role });
             const url = `${this.config.api.root}/user/refresh`;
             return this.http.get<any>(url, { withCredentials: true, headers});
+        },
+
+        logout$: (): Observable<any> => {
+            const url = `${this.config.api.root}/user/sign_out`;
+            return this.http.get(url, {withCredentials: true});
         }
 
     }
