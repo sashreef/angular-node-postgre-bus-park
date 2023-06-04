@@ -33,7 +33,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(request);
   }
 
-  private handle403Error(request: HttpRequest<any>, next: HttpHandler) {
+  private handle403Error(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const role = this.cookieService.get("role");
     if (!this.isRefreshing) {
       this.isRefreshing = true;
@@ -45,7 +45,8 @@ export class AuthInterceptor implements HttpInterceptor {
           switchMap((data: any) => {
             this.isRefreshing = false;
             this.refreshTokenSubject.next(data.accessToken);
-            return next.handle(this.addTokenHeader(request, data.accessToken, role));
+            const updatedRequest = this.addTokenHeader(request, data.accessToken, role)
+            return next.handle(updatedRequest);
           }),
           catchError((err) => {
             this.isRefreshing = false;
@@ -58,7 +59,10 @@ export class AuthInterceptor implements HttpInterceptor {
     return this.refreshTokenSubject.pipe(
       filter(token => token !== null),
       take(1),
-      switchMap((token) => next.handle(this.addTokenHeader(request, token, role)))
+      switchMap((token) => {
+        const updatedRequest = this.addTokenHeader(request, token, role);
+        return next.handle(updatedRequest);
+      })
     );
       
 
