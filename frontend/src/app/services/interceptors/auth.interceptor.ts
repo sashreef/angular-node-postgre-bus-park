@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject, Observable, catchError, filter, from, switchMap, take, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, filter, finalize, from, switchMap, take, throwError } from 'rxjs';
 import { ManageService } from 'src/app/services/manage.service';
 
 @Injectable()
@@ -35,27 +35,31 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private handle403Error(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const role = this.cookieService.get("role");
+  
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
-      const token = this.cookieService.get("jwt");
-
+      const token = this.cookieService.get("accesstoken");
       if (token) {
         return this.manageService.refresh(token).pipe(
           switchMap((data: any) => {
-            this.isRefreshing = false;
             this.refreshTokenSubject.next(data.accessToken);
-            const updatedRequest = this.addTokenHeader(request, data.accessToken, role)
+            const updatedRequest = this.addTokenHeader(request, data.accessToken, role);
             return next.handle(updatedRequest);
           }),
           catchError((err) => {
             this.isRefreshing = false;
             return throwError(err);
+          }),
+          finalize(() => {
+            this.isRefreshing = false;
           })
         );
+      } else {
+        this.isRefreshing = false;
       }
     }
-
+  
     return this.refreshTokenSubject.pipe(
       filter(token => token !== null),
       take(1),
@@ -64,33 +68,6 @@ export class AuthInterceptor implements HttpInterceptor {
         return next.handle(updatedRequest);
       })
     );
-      
-
-    // if (!this.manageService.token?.isAlive) {
-    //   return from(this.manageService.refresh(authToken)).pipe(
-    //     switchMap(refreshData => {
-    //       console.log("refresh success");
-    //       refreshData.accessToken;
-    //       request = request.clone({
-    //         setHeaders: {
-    //           "Authorization": "Bearer " + authToken,
-    //           // "accept-language":  + ";q=0.8,en-us;q=0.6,de-de;q=0.4,de;q=0.2",
-    //           "Role": role
-    //         }
-    //       });
-    //       return next.handle(request);
-    //     })
-    //   )
-    // } else {
-    //   request = request.clone({
-    //     setHeaders: {
-    //       "Authorization": "Bearer " + authToken,
-    //       // "accept-language":  + ";q=0.8,en-us;q=0.6,de-de;q=0.4,de;q=0.2",
-    //       "Role": role
-    //     }
-    //   });
-    //   return next.handle(request);
-    // }
   }
 
   private addTokenHeader(request: HttpRequest<any>, token: string, role: string): HttpRequest<any> {

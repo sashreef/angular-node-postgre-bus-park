@@ -6,7 +6,7 @@ import { SharedModule } from './shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ServicesModule } from './services/services.module';
-import { AuthInterceptor } from './core.module/interceptors/auth.interceptor';
+import { AuthInterceptor } from './services/interceptors/auth.interceptor';
 import { LayoutModule } from './layout/layout.module';
 import { RegisterModule } from './register-page/register.module';
 import { LoginModule } from './login-page/login.module';
@@ -22,7 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginModule,
     RegisterModule,
     LayoutModule,
-    HttpClientModule,
+    
     SharedModule,
     ServicesModule,
     BrowserModule,
@@ -34,7 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   providers: [
     CookieService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, 
+    
   ],
   bootstrap: [AppComponent]
 })

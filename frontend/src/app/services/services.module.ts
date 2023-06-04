@@ -2,9 +2,10 @@ import { NgModule } from "@angular/core";
 import { BackendService } from "./backend.service";
 import { FormBuilderService } from "./form-builder.service";
 import { FormMapperService } from "./form-mapper.service";
-import { HttpClientModule } from "@angular/common/http";
 import { ManageService } from "./manage.service";
 import { ConfigurationService } from "./configuration.service";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { AuthInterceptor } from "./interceptors/auth.interceptor";
 
 
 
@@ -14,14 +15,15 @@ import { ConfigurationService } from "./configuration.service";
         // BackendService
     ],
     imports: [
-		HttpClientModule,
+        HttpClientModule
 	],
     providers: [
         ConfigurationService,
         ManageService,
         BackendService,
         FormBuilderService,
-        FormMapperService
+        FormMapperService,
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, 
     ]
 })
 
