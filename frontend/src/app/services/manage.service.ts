@@ -25,7 +25,6 @@ export class ManageService {
             tap((data: any) => {
                 this.cookieService.set("accesstoken",`${data.accessToken}`);
                 this.cookieService.set("role",`${data.role}`);
-                this.setTokenLifeTimer();
                 this._isLoggedIn$.next(true);
             })
         );
@@ -43,25 +42,11 @@ export class ManageService {
                 this.userInfo$.next({role: data.role, login: data.login});
                 this.cookieService.delete("accesstoken");
                 this.cookieService.set("accesstoken", data.accessToken);
-                this.setTokenLifeTimer();
                 console.log("refresh success in back service");
             }, (err) => {
                 throw err;
             })
         )
-    }
-
-    public setTokenLifeTimer() {
-        console.log("timeoutSetted");
-        
-        setTimeout(() => {
-            console.log("time expired");
-            const token = this.cookieService.get("accesstoken");
-            if(!!token) {
-                console.log("in if");
-                this.refresh(token);
-            }
-        }, 29900)
     }
 
     public bookTickets(bookTicket: BookTicket): Observable<any> {
