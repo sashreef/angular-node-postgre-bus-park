@@ -1,0 +1,25 @@
+<header>
+    <ul class="header-links">
+        <li class="text" [routerLink]="'/main'">
+            <span>Main</span>
+        </li>
+    </ul>
+    <div class="user-wrapper">
+        <ng-container *ngIf="true; else noLogin">
+            <div class="row-icon">
+                <app-icon>account_circle</app-icon>
+                <span class="text">Your profile</span>
+            </div>
+            <app-icon [routerLink]="'/login'">logout</app-icon>
+        </ng-container>
+    </div>
+</header>
+
+<ng-template #noLogin>
+        <div class="no-login text" [routerLink]="'/registration'">
+            <span>Sign up</span>
+        </div>
+        <div class="no-login text" [routerLink]="'/login'">
+            <span>Log in</span>
+        </div>
+</ng-template>

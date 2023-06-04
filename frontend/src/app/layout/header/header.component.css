@@ -1,0 +1,52 @@
+header {
+    padding: 17px;
+    background-color: var(--button-orange-color);
+    border-radius: 6px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-links {
+    height: 26px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    margin-left: 50%;
+}
+
+.user-wrapper {
+    width: 180px;
+    margin-right: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.text {
+    font-family: var(--app-font-family-motserrat);
+    color: var(--app-white-color);
+    font-size: 18px;
+    letter-spacing: 0.2px;
+    font-weight: 300;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.text:hover,
+app-icon:hover,
+.row-icon:hover {
+    opacity: 0.8;
+}
+
+app-icon {
+    color: var(--app-white-color);
+}
+
+.row-icon{
+    display: flex;
+    align-items: center;
+}

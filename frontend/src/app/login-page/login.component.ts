@@ -34,6 +34,7 @@ export class LoginComponent {
         const token = this.cookieService.get("accesstoken");
          if(!!token) {
             this.manageService.refresh(token).pipe(take(1)).subscribe(() => {
+                this.manageService._isLoggedIn$.next(true);
                 this.pending = false;
             });
          }

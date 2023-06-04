@@ -13,6 +13,14 @@
     --contol-background-color: #edeef1;
 } 
 
+html {
+	-moz-osx-font-smoothing: antialiased !important;
+	-webkit-font-smoothing: antialiased !important;
+	text-rendering: optimizeLegibility !important;
+	height: 100%;
+	width: 100%;
+}
+
 * {
     box-sizing: border-box;
 }
