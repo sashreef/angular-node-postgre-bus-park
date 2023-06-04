@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BackendService } from "./backend.service";
 import { BehaviorSubject, Observable, take, tap } from "rxjs";
-import { BookTicket, Login, Register } from "../interfaces/core.interfaces";
+import { BookTicket, Login, Register, userForm } from "../interfaces/core.interfaces";
 import { CookieService } from "ngx-cookie-service";
 
 
@@ -61,12 +61,24 @@ export class ManageService {
     public getArrivalPoints(): Observable<any> {
         return this.backendService.getInfo.getArrivalPoints$();
     }
+
     public getTicketPrice(arrival_point:string,journey_date:string): Observable<any> {
         console.log("111111");
         return this.backendService.getInfo.getTicketPrice$(arrival_point,journey_date);
     }
+
     public getQuantityOfFreeSeats(arrival_point:string,journey_date:string): Observable<any> {
         return this.backendService.getInfo.getQuantityOfFreeSeats$(arrival_point,journey_date);
     }
+    
+    public getUserInfo(): Observable<any> {
+        return this.backendService.getInfo.getUserInfo$();
+    }
+    // public changeUserData(userData: userForm): Observable<any> {
+    //     const data = {login:userData.username,password:userData.password,full_name:userData.fullName,phone_number:userData.phone};
+    //     return this.backendService.auth.register$(data);
+    // }
+    
+    
 }
 

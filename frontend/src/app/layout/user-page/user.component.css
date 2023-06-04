@@ -98,3 +98,6 @@ li:hover {
     opacity: 0.8;
 }
 
+.inputContainer{
+    padding: 10px 0;
+}

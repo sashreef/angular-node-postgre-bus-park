@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { CookieService } from "ngx-cookie-service";
-import { Subject, combineLatest, delay, take, takeUntil } from "rxjs";
-import { ListItem } from "src/app/core.module/utils/template";
-import { BookTicket, Register } from "src/app/interfaces/core.interfaces";
+import { Subject,  take  } from "rxjs";
+import {  userForm } from "src/app/interfaces/core.interfaces";
+import { FormBuilderService } from "src/app/services/form-builder.service";
 import { ManageService } from "src/app/services/manage.service";
 
 @Component({
@@ -13,7 +13,7 @@ import { ManageService } from "src/app/services/manage.service";
 })
 
 export class UserComponent {
-    public userForm: UntypedFormGroup;
+    public userForm?: UntypedFormGroup;
     public pending = false;
     public USER_REGEX = /^[A-z0-9-_]{4,23}/;
     public PWD_REGEX = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
@@ -26,49 +26,61 @@ export class UserComponent {
     constructor (
         private manageService: ManageService,   
         private formBuilder: UntypedFormBuilder,
-        private cookieService: CookieService
+        private formBuilderService: FormBuilderService
     ) {
-        this.userForm = this.formBuilder.group({
-            username: new FormControl(null, Validators.required),
-            password: new FormControl(null, Validators.required),
-            new_password: new FormControl(null, Validators.required),
-            confirm_password: new FormControl(null, Validators.required),
-            fullName: new FormControl(null, Validators.required),
-            phone: new FormControl(null, Validators.required),
-        });
-      
+        
+        
     }
-    public changeUserData(data: Register): void {
-        if(this.userForm.invalid) {
-            throw "Not all fields are full";
-        }
-        this.manageService.register(data).pipe(take(1)).subscribe((data) => {
-            console.log(data);
-        },
-        (err) => {
-            console.log(err);
-        });
+    public changeUserData(data: userForm): void {
+        
+        // this.manageService.changeUserData(data).pipe(take(1)).subscribe((data) => {
+        //     console.log(data);
+        // },
+        // (err) => {
+        //     console.log(err);
+        // });
     }
-    public isValidForm(): boolean {
-        const fullName = this.userForm.controls['fullName'].value;
-        const phone = this.userForm.controls['phone'].value;
-        const password = this.userForm.controls['password'].value;
-        const confirmPassword = this.userForm.controls['confirm_password'].value;
-        const new_password = this.userForm.controls['new_password'].value;
+  public ngOnInit(): void {
+    this.pending = true;
+    this.manageService.getUserInfo().pipe(take(1)).subscribe((data : any) => {
+        this.userForm = this.formBuilderService.getUserFormGroup(data);
+    });
+
+  }
+
+    public isValidUserForm(): boolean {
+        const fullName = this.userForm?.controls['fullName'].value;
+        const phone = this.userForm?.controls['phone'].value;
+        const password = this.userForm?.controls['password'].value;
+        const confirmPassword = this.userForm?.controls['confirm_password'].value;
+        const new_password = this.userForm?.controls['new_password'].value;
         const isFullNameValid = this.FULLNAME_REGEX.test(fullName);
         const isPhoneValid = this.PHONE_REGEX.test(phone);
-        const isConfirmPasswordValid = password === confirmPassword;
       
-        return (
-          isFullNameValid &&
-          isPhoneValid &&
-          isConfirmPasswordValid &&
-          fullName.length > 0 &&
-          phone.length > 0 &&
-          password.length > 0 
-        );
+        if (new_password) {
+          const isNewPasswordValid = this.PWD_REGEX.test(new_password);
+          const isConfirmPasswordValid = new_password === confirmPassword;
+      
+          if (isFullNameValid && isPhoneValid && fullName && phone && password) {
+            // Выполнить проверки только если все поля заполнены
+            if (isNewPasswordValid && isConfirmPasswordValid) {
+              return true;
+            }
+          }
+        } else {
+          // Продолжить без проверок new_password и confirm_password
+          if (isFullNameValid && isPhoneValid && fullName && phone && password) {
+            return true;
+          }
+        }
+        return false; // Если условия не выполнены, вернуть false
       }
-
-
+      
+      
+      
+      
+      
+      
+      
 
     }

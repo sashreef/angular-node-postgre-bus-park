@@ -209,13 +209,10 @@
         
     </section>
     <section class="main-wrapper">
-        <form>
+        <form *ngIf="userForm">
             <h2 id="public-profile-heading" data-view-component="true" class="Subhead-heading">Your profile</h2>
             <div class="inputContainer">
-                <label >
-                    Username:<br>
-                </label>
-                <app-text-box [placeholder]="'Username'" ></app-text-box>
+                <app-text-box [placeholder]="'Username'" ngDefaultControl [formControl]="userForm.controls['username']"></app-text-box>
                 <!-- надо залочить -->
             </div>
             <div class="inputContainer">
@@ -231,21 +228,21 @@
                 </p>
               </div>
               <div class="inputContainer">
-                <app-text-box [placeholder]="'your password'" [isPassword]="true" ></app-text-box>
+                <app-text-box [placeholder]="'your password'" [isPassword]="true"  ngDefaultControl [formControl]="userForm.controls['password']"></app-text-box>
               </div>
               <div class="inputContainer" ngDefaultControl [formControl]="userForm.controls['new_password']">
                 <app-text-box [placeholder]="'new password'" [isPassword]="true" ></app-text-box>
-                <p id="pwdnote" *ngIf="userForm.controls['password'].value?.length>0 && !userForm.controls['new_password'].value?.match(PWD_REGEX)">   
+                <p id="pwdnote" *ngIf="userForm.controls['new_password'].value?.length>0 && !userForm.controls['new_password'].value?.match(PWD_REGEX)">   
                   must be at least 8 characters long, must include uppercase letter, number, and a special character (!@#$%^&*)
                 </p>
               </div>
               <div class="inputContainer">
                 <app-text-box [placeholder]="'confirm password'" [isPassword]="true" ngDefaultControl [formControl]="userForm.controls['confirm_password']"></app-text-box>
-                <p id="confirmnote" *ngIf="userForm.controls['confirm_password'].value?.length > 0 && userForm.controls['confirm_password'].value !== userForm.controls['password'].value">
+                <p id="confirmnote" *ngIf="userForm.controls['confirm_password'].value?.length > 0 && userForm.controls['confirm_password'].value !== userForm.controls['new_password'].value">
                   must match the new password input field
                 </p>
               </div>
-              <button (click)="changeUserData(userForm.value)" class="submitBtn" [disabled]="!isValidForm()">
+              <button type = "button" (click)="changeUserData(userForm.value)" class="button" [disabled]="!isValidUserForm()">
                 Save changes
               </button>
         </form>
