@@ -3,12 +3,10 @@ import { BackendService } from "./backend.service";
 import { BehaviorSubject, Observable, take, tap } from "rxjs";
 import { BookTicket, Login, Register } from "../interfaces/core.interfaces";
 import { CookieService } from "ngx-cookie-service";
-import { HttpHeaders } from "@angular/common/http";
 
 
 @Injectable()
 export class ManageService {
-    public token?: {token: string, isAlive: boolean};
     public userInfo$: BehaviorSubject<any> = new BehaviorSubject(null);
     public _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     isLoggedIn$ = this._isLoggedIn$.asObservable();
@@ -41,9 +39,10 @@ export class ManageService {
     public refresh(token: string): Observable<any> {
         const role = this.cookieService.get("role");
         return this.backendService.auth.refresh$(token, role).pipe(
-            tap((response) => {
-                this.userInfo$.next({role: response.role, login: response.login});
-                this.token = {token: response.accessToken, isAlive: true};
+            tap((data) => {
+                this.userInfo$.next({role: data.role, login: data.login});
+                this.cookieService.delete("accesstoken");
+                this.cookieService.set("accesstoken", data.accessToken);
                 this.setTokenLifeTimer();
                 console.log("refresh success in back service");
             }, (err) => {
@@ -57,12 +56,10 @@ export class ManageService {
         
         setTimeout(() => {
             console.log("time expired");
-            
-            if(this.token?.token) {
+            const token = this.cookieService.get("accesstoken");
+            if(!!token) {
                 console.log("in if");
-                
-                this.token = {token: this.token.token, isAlive: false};
-                this.refresh(this.token.token);
+                this.refresh(token);
             }
         }, 29900)
     }
