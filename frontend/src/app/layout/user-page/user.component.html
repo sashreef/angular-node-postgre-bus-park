@@ -3,7 +3,7 @@
     <section class="sidebar">
         <ul class="ActionListWrap">
         
-            <li class="ActionListItem ActionListItem--navActive">
+            <li  *ngFor="let listName of listNamesArray" class="ActionListItem ActionListItem--navActive">
         
                 <a class="ActionListContent ActionListContent--visual16" >
                     <span class="ActionListItem-visual ActionListItem-visual--leading">
@@ -16,12 +16,12 @@
                     </span>
         
                     <span class="ActionListItem-label">
-                        Public profile
+                        {{listName.value}}
                     </span></a>
                     </li>
                     <li class="ActionListItem">
         
-                <a class="ActionListContent ActionListContent--visual16" >
+                <!-- <a class="ActionListContent ActionListContent--visual16" >
                     <span class="ActionListItem-visual ActionListItem-visual--leading">
                         <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
                             data-view-component="true" class="octicon octicon-gear">
@@ -90,7 +90,7 @@
                         Notifications
                     </span></a>
                 
-            </li>
+            </li> -->
         </ul>
 
             <li  class="ActionList-sectionDivider"></li>
@@ -210,35 +210,35 @@
         
     </section>
     <section class="main-wrapper">
-        <form *ngIf="userForm">
+        <form *ngIf="false" name = "UserForm">
             <h2 id="public-profile-heading" data-view-component="true" class="Subhead-heading">Your profile</h2>
             <div class="inputContainer">
-                <app-text-box [placeholder]="'Username'" ngDefaultControl [formControl]="userForm.controls['username']"></app-text-box>
+                <app-text-box [placeholder]="'Username'"  [formControl]="userForm.controls['username']"></app-text-box>
                 <!-- надо залочить -->
             </div>
             <div class="inputContainer">
-                <app-text-box [placeholder]="'full_name'" ngDefaultControl [formControl]="userForm.controls['fullName']" ></app-text-box>
+                <app-text-box [placeholder]="'full_name'"  [formControl]="userForm.controls['fullName']" ></app-text-box>
                 <p id="confirmnote" *ngIf="userForm.controls['fullName'].value?.length>0 && userForm.controls['fullName'].value?.length < 10 && !userForm.controls['phone'].value?.match(FULLNAME_REGEX)">
                   must be at least 10 characters long
                 </p>
               </div>
               <div class="inputContainer">
-                <app-text-box [placeholder]="'phone'" ngDefaultControl [formControl]="userForm.controls['phone']" ></app-text-box>
+                <app-text-box [placeholder]="'phone'"  [formControl]="userForm.controls['phone']" ></app-text-box>
                 <p id="confirmnote" *ngIf="userForm.controls['phone'].value?.length>0 && !userForm.controls['phone'].value?.match(PHONE_REGEX)">
                   contact phone matching +xxxxxxxxxxxx
                 </p>
               </div>
               <div class="inputContainer">
-                <app-text-box [placeholder]="'your password'" [isPassword]="true"  ngDefaultControl [formControl]="userForm.controls['password']"></app-text-box>
+                <app-text-box [placeholder]="'your password'" [isPassword]="true"   [formControl]="userForm.controls['password']"></app-text-box>
               </div>
-              <div class="inputContainer" ngDefaultControl [formControl]="userForm.controls['new_password']">
-                <app-text-box [placeholder]="'new password'" [isPassword]="true" ></app-text-box>
+              <div class="inputContainer" >
+                <app-text-box [placeholder]="'new password'" [name] = "new_password" [isPassword]="true" [formControl]="userForm.controls['new_password']"></app-text-box>
                 <p id="pwdnote" *ngIf="userForm.controls['new_password'].value?.length>0 && !userForm.controls['new_password'].value?.match(PWD_REGEX)">   
                   must be at least 8 characters long, must include uppercase letter, number, and a special character (!@#$%^&*)
                 </p>
               </div>
               <div class="inputContainer">
-                <app-text-box [placeholder]="'confirm password'" [isPassword]="true" ngDefaultControl [formControl]="userForm.controls['confirm_password']"></app-text-box>
+                <app-text-box [placeholder]="'confirm password'" [isPassword]="true"  [formControl]="userForm.controls['confirm_password']"></app-text-box>
                 <p id="confirmnote" *ngIf="userForm.controls['confirm_password'].value?.length > 0 && userForm.controls['confirm_password'].value !== userForm.controls['new_password'].value">
                   must match the new password input field
                 </p>
@@ -246,6 +246,65 @@
               <button type = "button" (click)="changeUserData(userForm.value)" class="button" [disabled]="!isValidUserForm()">
                 Save changes
               </button>
+        </form >
+        <form *ngIf="true" name = "Userbookings">
+            <table>
+                <thead>
+                  <tr>
+                    <th>Booking Id</th>
+                    <th>Bus Brand</th>
+                    <th>Quantity of Seats</th>
+                    <th>Journey Date</th>
+                    <th>Booking Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let booking of bookings" (click)="selectBooking(booking)"[class.active]="isSelected(booking)">
+                    <td>{{ booking.booking_id }}</td>
+                    <td>{{ booking.trip_number }}</td>
+                    <td>{{ booking.bus_brand }}</td>
+                    <td>{{ booking.quantity_of_seats }}</td>
+                    <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
+                    <td>{{ booking.booking_status }}</td>
+                    <td><div>
+                        <button type="button" class="button" (click)="deleteBooking()" *ngIf="booking.booking_status === 'Active'">Сancel </button>
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </form>
+        <form name = "CashierSellTicket">
+            <div class="inputContainer">
+                <app-text-box [placeholder]="'Enter booking id'"    ></app-text-box>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Booking Id</th>
+                    <th>Bus Brand</th>
+                    <th>Quantity of Seats</th>
+                    <th>Journey Date</th>
+                    <th>Booking Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let booking of bookings" (click)="selectBooking(booking)"[class.active]="isSelected(booking)">
+                    <td>{{ booking.booking_id }}</td>
+                    <td>{{ booking.trip_number }}</td>
+                    <td>{{ booking.bus_brand }}</td>
+                    <td>{{ booking.quantity_of_seats }}</td>
+                    <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
+                    <td>{{ booking.booking_status }}</td>
+                    <td><div>
+                        <button type="button" class="button" (click)="deleteBooking()" *ngIf="booking.booking_status === 'Active'">Сancel </button>
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
         </form>
     </section>
 </main>

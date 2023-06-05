@@ -1,16 +1,22 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from "@angular/core";
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild, forwardRef } from "@angular/core";
 import { InputComponent } from "../input/input.component";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 export type NumberType = "int" | "float" | "orderNum";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [{ provide: InputComponent, useExisting: TextBoxComponent }],
+	providers: [{ provide: InputComponent, useExisting: TextBoxComponent },{
+		provide: NG_VALUE_ACCESSOR,
+		useExisting: forwardRef(() => TextBoxComponent),
+		multi: true
+	  }],
 	selector: "app-text-box",
     templateUrl: "./text-box.component.html",
 	styleUrls: ["./text-box.component.css"],
+	
 })
-export class TextBoxComponent extends InputComponent<string | number> {
+export class TextBoxComponent extends InputComponent<string | number> implements ControlValueAccessor{
 	@HostBinding("attr.disabled") public get setDisabled(): "" | null {
 		return this.isDisabled ? "" : null;
 	}
@@ -20,6 +26,7 @@ export class TextBoxComponent extends InputComponent<string | number> {
 	@Input() public max?: number;
 	@Input() public isDisabled?: boolean;
 	@Input() public placeholder?: string;
+	@Input() public name?: string;
     @Input() public isPassword = false;
 	@Input() private isUpperCase?: boolean;
 	@ViewChild("input", { read: ElementRef, static: false }) public inputRef?: ElementRef<HTMLInputElement>;
@@ -31,7 +38,21 @@ export class TextBoxComponent extends InputComponent<string | number> {
 	) {
 		super(elementRef);
 	}
+	onChange: (value: string) => void = () => { };
+	onTouched: () => void = () => { };
 
+	writeValue(value: any): void {
+		this.value = value;
+	}
+
+	registerOnChange(fn: any): void {
+		this.onChange = fn;
+	}
+
+	registerOnTouched(fn: any): void {
+		this.onTouched = fn;
+	}
+	
 	public focus() {
 		this.inputRef?.nativeElement.focus();
 		this.hasFocus = true;
@@ -61,12 +82,14 @@ export class TextBoxComponent extends InputComponent<string | number> {
 					e.target.value = e.target.value.toUpperCase();
 				}
 				this.setInteractiveValue(e.target.value.trim());
+				this.onChange(e.target.value.trim());
 			}
 		}
 	}
 
 	public onInputNumber(value: number) {
 		this.setInteractiveValue(value);
+		this.onChange(value + "");
 	}
 
 	public override setValue(value: TextBoxComponent["value"]) {
@@ -85,11 +108,14 @@ export class TextBoxComponent extends InputComponent<string | number> {
 			this.previousValue = e.target.value;
 		}
 		this.setInteractiveValue(e.target.value);
+		this.onChange(e.target.value);
+		
 	}
 
 	public validateInputFloat(e: any) {
 		if (e.data === null) {
 			this.setInteractiveValue(e.target.value);
+			this.onChange(e.target.value);
 			return;
 		}
 
@@ -109,5 +135,6 @@ export class TextBoxComponent extends InputComponent<string | number> {
 			e.target.value = "0.";
 		}
 		this.setInteractiveValue(e.target.value);
+		this.onChange(e.target.value);
 	}
 }

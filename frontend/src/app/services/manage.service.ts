@@ -80,6 +80,15 @@ export class ManageService {
     public getUserInfo(): Observable<any> {
         return this.backendService.user.getUserInfo$();
     }
+
+    public getBookingInfo(): Observable<any> {
+        return this.backendService.bookings.getBookingInfo$();
+    }
+
+    public deleteBooking(booking_id: number): Observable<any> {
+        return this.backendService.bookings.deleteBooking$(booking_id);
+    }
+
     public changeUserData(userData: userForm): Observable<any> {
         const data = {login:userData.username, password: userData.password,new_password:userData.new_password,full_name:userData.fullName,phone_number:userData.phone};
         return this.backendService.user.changeUserData$(data);

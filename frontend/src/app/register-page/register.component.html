@@ -7,7 +7,7 @@
         <h1 class="formName">create a bus park account</h1>
         <form class="formReg">
           <div class="inputContainer">
-            <app-text-box  ngDefaultControl [formControl]="registerForm.controls['username']"></app-text-box>
+            <app-text-box   [formControl]="registerForm.controls['username']"></app-text-box>
             <label htmlFor="username" [class.labelHasContent]="registerForm.get('username')?.value" required>
               username:
             </label>
@@ -16,7 +16,7 @@
             </p>
           </div>
           <div class="inputContainer">
-            <app-text-box  ngDefaultControl [formControl]="registerForm.controls['fullName']"></app-text-box>
+            <app-text-box   [formControl]="registerForm.controls['fullName']"></app-text-box>
             <label htmlFor="full_name" [class.labelHasContent]="registerForm.get('fullName')?.value">
               full name:
             </label>
@@ -25,7 +25,7 @@
             </p>
           </div>
           <div class="inputContainer">
-            <app-text-box ngDefaultControl [formControl]="registerForm.controls['phone']"></app-text-box>
+            <app-text-box  [formControl]="registerForm.controls['phone']"></app-text-box>
             <label htmlFor="phone" [class.labelHasContent]="registerForm.get('phone')?.value" required>
               phone number:
             </label>
@@ -34,7 +34,7 @@
             </p>
           </div>
           <div class="inputContainer">
-            <app-text-box [isPassword]="true" ngDefaultControl [formControl]="registerForm.controls['password']"></app-text-box>
+            <app-text-box [isPassword]="true"  [formControl]="registerForm.controls['password']"></app-text-box>
             <label htmlFor="password" [class.labelHasContent]="registerForm.get('password')?.value">
               password:
             </label>
@@ -43,7 +43,7 @@
             </p>
           </div>
           <div class="inputContainer">
-            <app-text-box [isPassword]="true" ngDefaultControl [formControl]="registerForm.controls['confirm_password']"></app-text-box>
+            <app-text-box [isPassword]="true"  [formControl]="registerForm.controls['confirm_password']"></app-text-box>
             <label htmlFor="confirm_pwd" [class.labelHasContent]="registerForm.get('confirm_password')?.value" required>
               confirm password:
             </label>

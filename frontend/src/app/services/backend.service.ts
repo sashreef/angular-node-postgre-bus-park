@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { ConfigurationService } from "./configuration.service";
 import { Observable } from "rxjs";
 import { CookieService } from "ngx-cookie-service";
-import { BookTicketDTO } from "../interfaces/core.interfaces";
+import { BookTicketDTO, Booking } from "../interfaces/core.interfaces";
 
 @Injectable()
 export class BackendService {
@@ -45,7 +45,18 @@ export class BackendService {
         bookingTickets$: (userData: BookTicketDTO): Observable<any> => {
             const url = `${this.config.api.root}/booking/book_tickets`;
             return this.http.post(url, userData);
-        }
+        },
+
+        getBookingInfo$: (): Observable<any> => {
+            const url = `${this.config.api.root}/booking/bookings_info`;
+            return this.http.get(url);
+        },
+
+        deleteBooking$: (booking_id : number): Observable<any> => {
+            const url = `${this.config.api.root}/booking/delete_booking`;
+            return this.http.post(url , {booking_id});
+        },
+        
     }
 
     public readonly getInfo = {
@@ -76,7 +87,7 @@ export class BackendService {
         },
         changeUserData$:(userData: {login: string, password: string, new_password: string, full_name: string, phone_number: string}): Observable<any> => {
             const url = `${this.config.api.root}/user_config/update_user`;
-            return this.http.post(url,{});
+            return this.http.post(url,userData);
         },
     }
 

@@ -105,3 +105,25 @@ li:hover {
 .button{
     width: 230.6px;
 }
+table {
+    border-collapse: separate;
+    border-spacing: 10px; /* Adjust this value to increase or decrease the spacing */
+  }
+  
+  td {
+    padding: 10px; /* Adjust this value to add padding within each cell */
+  }
+  
+tr button{
+    display: none;
+    height: 20px;
+    width: 90px;
+    background-color:red;
+}
+tr.active button {
+    display: block;
+    }
+  
+.active {
+    background-color: #f0f6ff;
+}

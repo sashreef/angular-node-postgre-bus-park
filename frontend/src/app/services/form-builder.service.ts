@@ -1,6 +1,6 @@
 import { Directive } from "@angular/core";
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
-import { userForm } from "../interfaces/core.interfaces";
+import { Booking, userForm } from "../interfaces/core.interfaces";
 
 @Directive()
 
@@ -20,4 +20,5 @@ export class FormBuilderService {
             phone: new FormControl(data?.phone || null, Validators.required),
         }); 
     }
+    
 }
