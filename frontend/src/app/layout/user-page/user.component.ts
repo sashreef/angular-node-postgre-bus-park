@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { CookieService } from "ngx-cookie-service";
-import { Subject, take } from "rxjs";
+import { Subject, take, takeUntil } from "rxjs";
 import { userForm } from "src/app/interfaces/core.interfaces";
 import { FormBuilderService } from "src/app/services/form-builder.service";
 import { ManageService } from "src/app/services/manage.service";
@@ -15,12 +15,15 @@ import { ManageService } from "src/app/services/manage.service";
 export class UserComponent {
   public userForm?: UntypedFormGroup;
   public bookings: any[] = [];
+  public filteredBookings: any[] = [];
   public pending = false;
   public USER_REGEX = /^[A-z0-9-_]{4,23}/;
   public PWD_REGEX = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
   public PHONE_REGEX = /^(\+\d{2})\(?(\d{3})\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
   public FULLNAME_REGEX = /^[A-Za-z-\s]{10,50}$/;
-  public listNamesArray = [{ lable: "User profile", value: "User profile" }, { lable: "Your bookings", value: "Your bookings " }]
+  public listNamesArray = [{ lable: "User profile", value: "User profile" }, { lable: "Your bookings", value: "Your bookings " }];
+
+  public searchForm: UntypedFormGroup
 
   private unsubscribe$$: Subject<void> = new Subject();
   private selectedBooking: any;
@@ -31,7 +34,9 @@ export class UserComponent {
     private formBuilderService: FormBuilderService
   ) {
 
-
+    this.searchForm = this.formBuilder.group({
+      search: null
+    })
   }
   public changeUserData(data: userForm): void {
 
@@ -46,20 +51,24 @@ export class UserComponent {
     this.pending = true;
     this.manageService.getUserInfo().pipe(take(1)).subscribe((data: any) => {
       const userData = { username: data.login, fullName: data.full_name, phone: data.phone_number, password: data.password, new_password: data.new_password, confirm_password: data.confirm_password };
-
       this.userForm = this.formBuilderService.getUserFormGroup(userData);
     });
-    this.manageService.getBookingInfo().pipe(take(1)).subscribe((data: any) => {
 
+    this.manageService.getBookingInfo().pipe(take(1)).subscribe((data: any) => {
       this.bookings = data;
     });
+
+    this.setSearchSub();
   }
-  private selectBooking(booking: any) {
+
+  public selectBooking(booking: any): void {
     this.selectedBooking = booking;
   }
+
   isSelected(booking: any): boolean {
     return this.selectedBooking === booking;
   }
+
   public deleteBooking(){
     this.manageService.deleteBooking(this.selectedBooking.booking_id).pipe(take(1)).subscribe((data) => {
     },
@@ -96,6 +105,22 @@ export class UserComponent {
     }
     return false; // Если условия не выполнены, вернуть false
   }
+
+  public ngOnDestroy(): void {
+    this.unsubscribe$$.next();
+    this.unsubscribe$$.complete();
+  }
+
+  private setSearchSub(): void {
+    this.searchForm.controls["search"]?.valueChanges.pipe(takeUntil(this.unsubscribe$$)).subscribe((id) => {
+      if(!id) {
+        this.filteredBookings = this.bookings;
+        return;
+      }
+      this.filteredBookings = this.bookings.filter((booking) => booking.booking_id === id);
+    });
+  }
+
 
 
 

@@ -247,6 +247,8 @@
                 Save changes
               </button>
         </form >
+
+        <app-text-box [placeholder]="'ID'"  [formControl]="searchForm.controls['search']"></app-text-box>
         <form *ngIf="true" name = "Userbookings">
             <table>
                 <thead>
@@ -260,7 +262,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let booking of bookings" (click)="selectBooking(booking)"[class.active]="isSelected(booking)">
+                  <tr *ngFor="let booking of filteredBookings" (click)="selectBooking(booking)"[class.active]="isSelected(booking)">
                     <td>{{ booking.booking_id }}</td>
                     <td>{{ booking.trip_number }}</td>
                     <td>{{ booking.bus_brand }}</td>
