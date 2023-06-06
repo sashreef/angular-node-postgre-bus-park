@@ -146,13 +146,13 @@ export class UserComponent {
     switch(this.userInfo?.role) {
       case "client": {
         specifiedTypes = [
-          { label: "your Bookings", value: "yourBookings" }
+          { label: "Your Bookings", value: "yourBookings" }
         ]
         break;
       }
       case "cashier": {
         specifiedTypes = [
-          { label: "bookings", value: "bookings" },
+          { label: "Bookings", value: "bookings" },
           { label: "Sell tickets", value: "sellTickets" }
         ]
         break;

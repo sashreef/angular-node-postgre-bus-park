@@ -75,43 +75,14 @@
                     </button>
                 </form>
             </ng-container>
-            <form *ngSwitchCase="'yourBookings' || 'bookings'">
-                <app-text-box [placeholder]="'Booking ID'" [formControl]="searchForm.controls['search']"></app-text-box>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Booking Id</th>
-                            <th>Trip number</th>
-                            <th>Bus Brand</th>
-                            <th>Quantity of Seats</th>
-                            <th>Arrival point</th>
-                            <th>Journey Date</th>
-                            <th>Departure Time</th>
-                            <th>Booking Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let booking of filteredBookings" (click)="selectBooking(booking)"
-                            [class.active]="this.selectedBooking === booking">
-                            <td>{{ booking.booking_id }}</td>
-                            <td>{{ booking.trip_number }}</td>
-                            <td>{{ booking.bus_brand }}</td>
-                            <td>{{ booking.quantity_of_seats }}</td>
-                            <td>{{ booking.arrival_point }}</td>
-                            <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
-                            <td>{{ booking.departure_time }}</td>
-                            <td>{{ booking.booking_status }}</td>
-                            <td>
-                                <div>
-                                    <button type="button" class="button" *ngIf="booking.booking_status === 'Active' && userInfo.role !== 'cashier'"
-                                     (click)="deleteBooking()">Сancel</button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+            <ng-container *ngSwitchCase="'yourBookings'">
+                <ng-container *ngTemplateOutlet="bookingsTemplate">
+                </ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="'bookings'">
+                <ng-container *ngTemplateOutlet="bookingsTemplate">
+                </ng-container>
+            </ng-container>
             <form *ngSwitchCase="'sellTickets'">
                 <app-text-box [placeholder]="'Ticket ID'" [formControl]="searchForm.controls['search']"></app-text-box>
                 <table>
@@ -148,3 +119,43 @@
         </ng-container>
     </section>
 </main>
+
+<ng-template #bookingsTemplate>
+    <form>
+        <app-text-box [placeholder]="'Booking ID'" [formControl]="searchForm.controls['search']"></app-text-box>
+        <table>
+            <thead>
+                <tr>
+                    <th>Booking Id</th>
+                    <th>Trip number</th>
+                    <th>Bus Brand</th>
+                    <th>Quantity of Seats</th>
+                    <th>Arrival point</th>
+                    <th>Journey Date</th>
+                    <th>Departure Time</th>
+                    <th>Booking Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let booking of filteredBookings" (click)="selectBooking(booking)"
+                    [class.active]="this.selectedBooking === booking">
+                    <td>{{ booking.booking_id }}</td>
+                    <td>{{ booking.trip_number }}</td>
+                    <td>{{ booking.bus_brand }}</td>
+                    <td>{{ booking.quantity_of_seats }}</td>
+                    <td>{{ booking.arrival_point }}</td>
+                    <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
+                    <td>{{ booking.departure_time }}</td>
+                    <td>{{ booking.booking_status }}</td>
+                    <td>
+                        <div>
+                            <button type="button" class="button" *ngIf="booking.booking_status === 'Active' && userInfo.role !== 'cashier'"
+                             (click)="deleteBooking()">Сancel</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</ng-template>
