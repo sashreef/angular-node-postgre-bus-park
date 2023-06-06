@@ -248,15 +248,18 @@
               </button>
         </form >
 
-        <app-text-box [placeholder]="'ID'"  [formControl]="searchForm.controls['search']"></app-text-box>
-        <form *ngIf="true" name = "Userbookings">
+        <form *ngIf="false" name = "Bookings">
+            <app-text-box [placeholder]="'Booking ID'"  [formControl]="searchForm.controls['search']"></app-text-box>
             <table>
                 <thead>
                   <tr>
                     <th>Booking Id</th>
+                    <th>Trip number</th>
                     <th>Bus Brand</th>
                     <th>Quantity of Seats</th>
+                    <th>Arrival point</th>
                     <th>Journey Date</th>
+                    <th>Departure Time</th>
                     <th>Booking Status</th>
                     <th></th>
                   </tr>
@@ -267,41 +270,42 @@
                     <td>{{ booking.trip_number }}</td>
                     <td>{{ booking.bus_brand }}</td>
                     <td>{{ booking.quantity_of_seats }}</td>
+                    <td>{{ booking.arrival_point }}</td>
                     <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
+                    <td>{{ booking.departure_time }}</td>
                     <td>{{ booking.booking_status }}</td>
                     <td><div>
-                        <button type="button" class="button" (click)="deleteBooking()" *ngIf="booking.booking_status === 'Active'">Сancel </button>
+                        <button type="button" class="button" (click)="deleteBooking()" *ngIf="booking.booking_status === 'Active' && currentUserInfo.role != 'cashier'">Сancel </button>
                         </div>
                     </td>
                   </tr>
                 </tbody>
               </table>
         </form>
-        <form name = "CashierSellTicket">
-            <div class="inputContainer">
-                <app-text-box [placeholder]="'Enter booking id'"    ></app-text-box>
-              </div>
-              <table>
+        <form *ngIf="true">
+            <app-text-box [placeholder]="'Ticket ID'"  [formControl]="searchForm.controls['search']"></app-text-box>
+            <table>
                 <thead>
                   <tr>
-                    <th>Booking Id</th>
-                    <th>Bus Brand</th>
-                    <th>Quantity of Seats</th>
+                    <th>Ticket Id</th>
+                    <th>Journey Id</th>
+                    <th>Arrival point</th>
                     <th>Journey Date</th>
-                    <th>Booking Status</th>
+                    <th>Client login</th>
+                    <th>Ticket Status</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let booking of bookings" (click)="selectBooking(booking)"[class.active]="isSelected(booking)">
-                    <td>{{ booking.booking_id }}</td>
-                    <td>{{ booking.trip_number }}</td>
-                    <td>{{ booking.bus_brand }}</td>
-                    <td>{{ booking.quantity_of_seats }}</td>
+                  <tr *ngFor="let booking of filteredBookings" (click)="selectBooking(booking)"[class.active]="isSelected(booking)">
+                    <td>{{ booking.ticket_id }}</td>
+                    <td>{{ booking.journey_id }}</td>
+                    <td>{{ booking.arrival_point }}</td>
                     <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
-                    <td>{{ booking.booking_status }}</td>
+                    <td>{{ booking.login }}</td>
+                    <td>{{ booking.ticket_status }}</td>
                     <td><div>
-                        <button type="button" class="button" (click)="deleteBooking()" *ngIf="booking.booking_status === 'Active'">Сancel </button>
+                        <button type="button" class="button" (click)="sellTicket(booking.ticket_id)" > Pay </button>
                         </div>
                     </td>
                   </tr>

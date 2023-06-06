@@ -27,6 +27,7 @@ export class UserComponent {
 
   private unsubscribe$$: Subject<void> = new Subject();
   private selectedBooking: any;
+  private currentUserInfo: { username: string; role: string} | null = null;
 
   constructor(
     private manageService: ManageService,
@@ -41,7 +42,6 @@ export class UserComponent {
   public changeUserData(data: userForm): void {
 
     this.manageService.changeUserData(data).pipe(take(1)).subscribe((data) => {
-      console.log(data);
     },
       (err) => {
         console.log(err);
@@ -53,11 +53,17 @@ export class UserComponent {
       const userData = { username: data.login, fullName: data.full_name, phone: data.phone_number, password: data.password, new_password: data.new_password, confirm_password: data.confirm_password };
       this.userForm = this.formBuilderService.getUserFormGroup(userData);
     });
-
+    
     this.manageService.getBookingInfo().pipe(take(1)).subscribe((data: any) => {
       this.bookings = data;
+      this.filteredBookings = data;
     });
 
+    this.manageService.getUnpaidTickets().pipe(take(1)).subscribe((data: any) => {
+      this.bookings = data;
+      this.filteredBookings = data;
+    });
+    this.currentUserInfo = this.manageService.userInfo;
     this.setSearchSub();
   }
 
@@ -69,14 +75,20 @@ export class UserComponent {
     return this.selectedBooking === booking;
   }
 
-  public deleteBooking(){
+  public deleteBooking() {
     this.manageService.deleteBooking(this.selectedBooking.booking_id).pipe(take(1)).subscribe((data) => {
     },
       (err) => {
         console.log(err);
       });
   }
-
+  public sellTicket(ticket_id:number) {
+    this.manageService.sellTicket(ticket_id).pipe(take(1)).subscribe((data ) => {
+    },
+      (err) => {
+        console.log(err);
+      });
+  }
   public isValidUserForm(): boolean {
     const fullName = this.userForm?.controls['fullName'].value;
     const phone = this.userForm?.controls['phone'].value;
@@ -113,11 +125,11 @@ export class UserComponent {
 
   private setSearchSub(): void {
     this.searchForm.controls["search"]?.valueChanges.pipe(takeUntil(this.unsubscribe$$)).subscribe((id) => {
-      if(!id) {
+      if (!id) {
         this.filteredBookings = this.bookings;
         return;
       }
-      this.filteredBookings = this.bookings.filter((booking) => booking.booking_id === id);
+      this.filteredBookings = this.bookings.filter((booking) => booking.booking_id == id);
     });
   }
 

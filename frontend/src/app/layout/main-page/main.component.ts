@@ -53,7 +53,6 @@ export class MainComponent {
             throw "Не заполнены обязательные поля"
         }
         this.manageService.bookTickets(data).pipe(take(1)).subscribe((data) => {
-            console.log(data);
         },
         (err) => {
             console.log(err)

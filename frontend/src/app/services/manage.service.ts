@@ -11,6 +11,7 @@ export class ManageService {
     public _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     isLoggedIn$ = this._isLoggedIn$.asObservable();
     public isLoggedIn = false;
+    public userInfo: { username: string; role: string} | null = null;
 
 
     constructor(
@@ -27,6 +28,8 @@ export class ManageService {
                 this.cookieService.set("accesstoken",`${data.accessToken}`);
                 this.cookieService.set("role",`${data.role}`);
                 this._isLoggedIn$.next(true);
+                this.userInfo = {username : data.login,role : data.role};
+
                 this.isLoggedIn = true;
             })
         );
@@ -48,6 +51,7 @@ export class ManageService {
                 this.userInfo$.next({role: data.role, login: data.login});
                 this.cookieService.delete("accesstoken");
                 this.cookieService.set("accesstoken", data.accessToken);
+                this.userInfo = {username : data.login,role : data.role};
                 console.log("refresh success in back service");
             }, (err) => {
                 throw err;
@@ -60,7 +64,6 @@ export class ManageService {
             ...bookTicket,
             login: bookTicket.username
         };
-        console.log(data);
         return this.backendService.bookings.bookingTickets$(data);
     }
 
@@ -69,7 +72,6 @@ export class ManageService {
     }
 
     public getTicketPrice(arrival_point:string,journey_date:string): Observable<any> {
-        console.log("111111");
         return this.backendService.getInfo.getTicketPrice$(arrival_point,journey_date);
     }
 
@@ -85,6 +87,10 @@ export class ManageService {
         return this.backendService.bookings.getBookingInfo$();
     }
 
+    public getUnpaidTickets(): Observable<any> {
+        return this.backendService.tickets.getUnpaidTickets$();
+    }
+
     public deleteBooking(booking_id: number): Observable<any> {
         return this.backendService.bookings.deleteBooking$(booking_id);
     }
@@ -93,7 +99,12 @@ export class ManageService {
         const data = {login:userData.username, password: userData.password,new_password:userData.new_password,full_name:userData.fullName,phone_number:userData.phone};
         return this.backendService.user.changeUserData$(data);
     }
+
+    public sellTicket(ticket_id: number): Observable<any> {
+        return this.backendService.tickets.sellTicket$(ticket_id);
+    }
     
+
     
 }
 

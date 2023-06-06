@@ -59,6 +59,19 @@ export class BackendService {
         
     }
 
+    public readonly tickets = {
+        getUnpaidTickets$: (): Observable<any> => {
+            const url = `${this.config.api.root}/ticket/unpaid_tickets`;
+            return this.http.get(url);
+        },
+
+        sellTicket$: (ticket_id : number): Observable<any> => {
+            const url = `${this.config.api.root}/ticket/sell_ticket`;
+            return this.http.post(url , {ticket_id});
+        },
+        
+    
+    }
     public readonly getInfo = {
         getArrivalPoints$:(): Observable<any> => {
             const url = `${this.config.api.root}/public/arrival_points`;
