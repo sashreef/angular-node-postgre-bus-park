@@ -2,25 +2,36 @@ main{
     display: flex;
     padding: 10px 0;
 }
+
 .ActionListWrap {
     list-style: none;
 }
+
 ul, ol {
     padding-left: 0;
     margin-top: 0;
     margin-bottom: 0;
 }
+
 * {
     box-sizing: border-box;
 }
+
 .ActionListItem.ActionListItem--navActive:not(.ActionListItem--danger) {
     background: var(--color-action-list-item-default-selected-bg);
 }
+
 .ActionListItem {
     border-radius: var(--borderRadius-medium, 6px);
     list-style: none;
     position: relative;
+    cursor: pointer;
 }
+
+.active-tab {
+    font-weight: var(--base-text-weight-semibold, 600);
+}
+
 .ActionListContent {
     -webkit-tap-highlight-color: transparent;
     align-items: start;
@@ -57,9 +68,6 @@ a {
 }
 .ActionListItem-visual--leading {
     grid-area: leadingVisual;
-}
-.ActionListItem.ActionListItem--navActive:not(.ActionListItem--subItem) .ActionListItem-label {
-    font-weight: var(--base-text-weight-semibold, 600);
 }
 .ActionListItem-label {
     color: var(--color-fg-default);

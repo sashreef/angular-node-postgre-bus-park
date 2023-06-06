@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
-import { Subject, take, takeUntil } from "rxjs";
+import { Subject, combineLatest, take, takeUntil } from "rxjs";
+import { UserInfo } from "src/app/interfaces/core.interfaces";
 import { ManageService } from "src/app/services/manage.service";
 
 @Component({
@@ -14,6 +15,7 @@ export class HeaderComponent {
 
     public pending = false;
     public isLoggedIn = false;
+    public userInfo: UserInfo | null = null;
     private unsubscribe$$: Subject<void> = new Subject();
     constructor(
         private manageService: ManageService,
@@ -27,24 +29,19 @@ export class HeaderComponent {
         const token = this.cookieService.get("accesstoken");
          if(!!token) {
             this.manageService.refresh(token).pipe(take(1)).subscribe(() => {
-                this.isLoggedIn = true;
-                this.manageService._isLoggedIn$.next(true);
-                this.manageService.isLoggedIn = true;
                 this.pending = false;
             });
          }
         this.manageService._isLoggedIn$.pipe(takeUntil(this.unsubscribe$$)).subscribe((boolean) => {
             this.isLoggedIn = boolean;
         });
+        this.manageService.userInfo$.pipe(takeUntil(this.unsubscribe$$)).subscribe((info) => {
+            this.userInfo = info;
+        })
     }
 
     public logout(): void {
-        this.manageService.logout().pipe(take(1)).subscribe(() => {
-            this.cookieService.delete("accesstoken");
-            this.cookieService.delete("role");
-            this.isLoggedIn = false;
-            this.manageService._isLoggedIn$.next(false);
-        });
+        this.manageService.logout();
     }
 
     public ngOnDestroy(): void {

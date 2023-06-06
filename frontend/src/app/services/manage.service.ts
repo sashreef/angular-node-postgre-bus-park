@@ -7,12 +7,8 @@ import { CookieService } from "ngx-cookie-service";
 
 @Injectable()
 export class ManageService {
-    public userInfo$: BehaviorSubject<any> = new BehaviorSubject(null);
+    public userInfo$: BehaviorSubject<{ login: string; role: string } | null> = new BehaviorSubject<{ login: string; role: string } | null>(null);
     public _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    isLoggedIn$ = this._isLoggedIn$.asObservable();
-    public isLoggedIn = false;
-    public userInfo: { username: string; role: string} | null = null;
-
 
     constructor(
         private readonly backendService:  BackendService,
@@ -23,20 +19,23 @@ export class ManageService {
 
     public login(userData: Login): Observable<any> {
         const data = {login:userData.username, password:userData.password};
+        this._isLoggedIn$.next(true);
         return this.backendService.auth.login$(data).pipe(
             tap((data: any) => {
                 this.cookieService.set("accesstoken",`${data.accessToken}`);
                 this.cookieService.set("role",`${data.role}`);
                 this._isLoggedIn$.next(true);
-                this.userInfo = {username : data.login,role : data.role};
-
-                this.isLoggedIn = true;
             })
         );
     }
 
     public logout(): Observable<any> {
-        return this.backendService.auth.logout$().pipe();
+        return this.backendService.auth.logout$().pipe(
+            tap(() => {
+            this.cookieService.delete("accesstoken");
+            this.cookieService.delete("role");
+            this._isLoggedIn$.next(false);
+        }));
     }
 
     public register(userData: Register): Observable<any> {
@@ -48,10 +47,10 @@ export class ManageService {
         const role = this.cookieService.get("role");
         return this.backendService.auth.refresh$(token, role).pipe(
             tap((data) => {
+                this._isLoggedIn$.next(true);
                 this.userInfo$.next({role: data.role, login: data.login});
                 this.cookieService.delete("accesstoken");
                 this.cookieService.set("accesstoken", data.accessToken);
-                this.userInfo = {username : data.login,role : data.role};
                 console.log("refresh success in back service");
             }, (err) => {
                 throw err;
@@ -103,8 +102,5 @@ export class ManageService {
     public sellTicket(ticket_id: number): Observable<any> {
         return this.backendService.tickets.sellTicket$(ticket_id);
     }
-    
-
-    
 }
 

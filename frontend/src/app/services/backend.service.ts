@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { ConfigurationService } from "./configuration.service";
 import { Observable } from "rxjs";
 import { CookieService } from "ngx-cookie-service";
-import { BookTicketDTO, Booking } from "../interfaces/core.interfaces";
+import { BookTicketDTO } from "../interfaces/core.interfaces";
 
 @Injectable()
 export class BackendService {
@@ -98,6 +98,7 @@ export class BackendService {
             const url = `${this.config.api.root}/user_config/user_info`;
             return this.http.post(url,{});
         },
+
         changeUserData$:(userData: {login: string, password: string, new_password: string, full_name: string, phone_number: string}): Observable<any> => {
             const url = `${this.config.api.root}/user_config/update_user`;
             return this.http.post(url,userData);

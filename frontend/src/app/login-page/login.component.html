@@ -21,14 +21,23 @@
           <button type = "button" (click)="login(loginForm.value)" class="submitBtn">sign in</button>
         </form>
       </div>
-      <p class="alreadyText">
-        <span  >need an account?</span>
-        <br/>
-        <span class="line">
-          <a class="logInLink" [routerLink]="'/registration'">
-            sign up
-          </a>
-        </span>
-      </p>
+      <footer>
+        <div>
+          <span>
+            <a class="logInLink" [routerLink]="'/main'">
+              Back to main
+            </a>
+          </span>
+        </div>
+        <div>
+          <p class="alreadyText">
+            <span class="line">
+              <a class="logInLink" [routerLink]="'/registration'">
+                sign up
+              </a>
+            </span>
+          </p>
+        </div>
+      </footer>
     </section>
   </div>

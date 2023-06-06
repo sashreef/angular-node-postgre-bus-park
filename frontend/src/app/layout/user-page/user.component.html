@@ -2,315 +2,149 @@
 <main>
     <section class="sidebar">
         <ul class="ActionListWrap">
-        
-            <li  *ngFor="let listName of listNamesArray" class="ActionListItem ActionListItem--navActive">
-        
-                <a class="ActionListContent ActionListContent--visual16" >
-                    <span class="ActionListItem-visual ActionListItem-visual--leading">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
-                            data-view-component="true" class="octicon octicon-person">
-                            <path
-                                d="M10.561 8.073a6.005 6.005 0 0 1 3.432 5.142.75.75 0 1 1-1.498.07 4.5 4.5 0 0 0-8.99 0 .75.75 0 0 1-1.498-.07 6.004 6.004 0 0 1 3.431-5.142 3.999 3.999 0 1 1 5.123 0ZM10.5 5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z">
-                            </path>
-                        </svg>
-                    </span>
-        
-                    <span class="ActionListItem-label">
-                        {{listName.value}}
-                    </span></a>
-                    </li>
-                    <li class="ActionListItem">
-        
-                <!-- <a class="ActionListContent ActionListContent--visual16" >
-                    <span class="ActionListItem-visual ActionListItem-visual--leading">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
-                            data-view-component="true" class="octicon octicon-gear">
-                            <path
-                                d="M8 0a8.2 8.2 0 0 1 .701.031C9.444.095 9.99.645 10.16 1.29l.288 1.107c.018.066.079.158.212.224.231.114.454.243.668.386.123.082.233.09.299.071l1.103-.303c.644-.176 1.392.021 1.82.63.27.385.506.792.704 1.218.315.675.111 1.422-.364 1.891l-.814.806c-.049.048-.098.147-.088.294.016.257.016.515 0 .772-.01.147.038.246.088.294l.814.806c.475.469.679 1.216.364 1.891a7.977 7.977 0 0 1-.704 1.217c-.428.61-1.176.807-1.82.63l-1.102-.302c-.067-.019-.177-.011-.3.071a5.909 5.909 0 0 1-.668.386c-.133.066-.194.158-.211.224l-.29 1.106c-.168.646-.715 1.196-1.458 1.26a8.006 8.006 0 0 1-1.402 0c-.743-.064-1.289-.614-1.458-1.26l-.289-1.106c-.018-.066-.079-.158-.212-.224a5.738 5.738 0 0 1-.668-.386c-.123-.082-.233-.09-.299-.071l-1.103.303c-.644.176-1.392-.021-1.82-.63a8.12 8.12 0 0 1-.704-1.218c-.315-.675-.111-1.422.363-1.891l.815-.806c.05-.048.098-.147.088-.294a6.214 6.214 0 0 1 0-.772c.01-.147-.038-.246-.088-.294l-.815-.806C.635 6.045.431 5.298.746 4.623a7.92 7.92 0 0 1 .704-1.217c.428-.61 1.176-.807 1.82-.63l1.102.302c.067.019.177.011.3-.071.214-.143.437-.272.668-.386.133-.066.194-.158.211-.224l.29-1.106C6.009.645 6.556.095 7.299.03 7.53.01 7.764 0 8 0Zm-.571 1.525c-.036.003-.108.036-.137.146l-.289 1.105c-.147.561-.549.967-.998 1.189-.173.086-.34.183-.5.29-.417.278-.97.423-1.529.27l-1.103-.303c-.109-.03-.175.016-.195.045-.22.312-.412.644-.573.99-.014.031-.021.11.059.19l.815.806c.411.406.562.957.53 1.456a4.709 4.709 0 0 0 0 .582c.032.499-.119 1.05-.53 1.456l-.815.806c-.081.08-.073.159-.059.19.162.346.353.677.573.989.02.03.085.076.195.046l1.102-.303c.56-.153 1.113-.008 1.53.27.161.107.328.204.501.29.447.222.85.629.997 1.189l.289 1.105c.029.109.101.143.137.146a6.6 6.6 0 0 0 1.142 0c.036-.003.108-.036.137-.146l.289-1.105c.147-.561.549-.967.998-1.189.173-.086.34-.183.5-.29.417-.278.97-.423 1.529-.27l1.103.303c.109.029.175-.016.195-.045.22-.313.411-.644.573-.99.014-.031.021-.11-.059-.19l-.815-.806c-.411-.406-.562-.957-.53-1.456a4.709 4.709 0 0 0 0-.582c-.032-.499.119-1.05.53-1.456l.815-.806c.081-.08.073-.159.059-.19a6.464 6.464 0 0 0-.573-.989c-.02-.03-.085-.076-.195-.046l-1.102.303c-.56.153-1.113.008-1.53-.27a4.44 4.44 0 0 0-.501-.29c-.447-.222-.85-.629-.997-1.189l-.289-1.105c-.029-.11-.101-.143-.137-.146a6.6 6.6 0 0 0-1.142 0ZM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM9.5 8a1.5 1.5 0 1 0-3.001.001A1.5 1.5 0 0 0 9.5 8Z">
-                            </path>
-                        </svg>
-                    </span>
-        
-                    <span  class="ActionListItem-label">
-                        Account
-                    </span></a>
-        
-        
-            </li>
-        
+            <ng-container *ngIf="listTypesArray">
+                <ng-container *ngFor="let listType of listTypesArray">
+                    <li class="ActionListItem ActionListItem--navActive"
+                    (click)="activeType = listType" [class.active-tab]="listType.value === activeType.value">
+                    <a class="ActionListContent ActionListContent--visual16">
+                        <span class="ActionListItem-visual ActionListItem-visual--leading">
+                            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
+                                data-view-component="true" class="octicon octicon-person">
+                                <path
+                                    d="M10.561 8.073a6.005 6.005 0 0 1 3.432 5.142.75.75 0 1 1-1.498.07 4.5 4.5 0 0 0-8.99 0 .75.75 0 0 1-1.498-.07 6.004 6.004 0 0 1 3.431-5.142 3.999 3.999 0 1 1 5.123 0ZM10.5 5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z">
+                                </path>
+                            </svg>
+                        </span>
+                        <span class="ActionListItem-label">
+                            {{listType.label}}
+                        </span></a>
+                </li>
+                </ng-container>
+            </ng-container>
             <li class="ActionListItem">
-        
-                <a class="ActionListContent ActionListContent--visual16" >
-                    <span class="ActionListItem-visual ActionListItem-visual--leading">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
-                            data-view-component="true" class="octicon octicon-paintbrush">
-                            <path
-                                d="M11.134 1.535c.7-.509 1.416-.942 2.076-1.155.649-.21 1.463-.267 2.069.34.603.601.568 1.411.368 2.07-.202.668-.624 1.39-1.125 2.096-1.011 1.424-2.496 2.987-3.775 4.249-1.098 1.084-2.132 1.839-3.04 2.3a3.744 3.744 0 0 1-1.055 3.217c-.431.431-1.065.691-1.657.861-.614.177-1.294.287-1.914.357A21.151 21.151 0 0 1 .797 16H.743l.007-.75H.749L.742 16a.75.75 0 0 1-.743-.742l.743-.008-.742.007v-.054a21.25 21.25 0 0 1 .13-2.284c.067-.647.187-1.287.358-1.914.17-.591.43-1.226.86-1.657a3.746 3.746 0 0 1 3.227-1.054c.466-.893 1.225-1.907 2.314-2.982 1.271-1.255 2.833-2.75 4.245-3.777ZM1.62 13.089c-.051.464-.086.929-.104 1.395.466-.018.932-.053 1.396-.104a10.511 10.511 0 0 0 1.668-.309c.526-.151.856-.325 1.011-.48a2.25 2.25 0 1 0-3.182-3.182c-.155.155-.329.485-.48 1.01a10.515 10.515 0 0 0-.309 1.67Zm10.396-10.34c-1.224.89-2.605 2.189-3.822 3.384l1.718 1.718c1.21-1.205 2.51-2.597 3.387-3.833.47-.662.78-1.227.912-1.662.134-.444.032-.551.009-.575h-.001V1.78c-.014-.014-.113-.113-.548.027-.432.14-.995.462-1.655.942Zm-4.832 7.266-.001.001a9.859 9.859 0 0 0 1.63-1.142L7.155 7.216a9.7 9.7 0 0 0-1.161 1.607c.482.302.889.71 1.19 1.192Z">
-                            </path>
-                        </svg>
-                    </span>
-        
-                    <span class="ActionListItem-label">
-                        Appearance
-                    </span></a>
-               
-            </li>
-              
-            <li  class="ActionListItem">
-        
-                <a class="ActionListContent ActionListContent--visual16" >
-                    <span class="ActionListItem-visual ActionListItem-visual--leading">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
-                            data-view-component="true" class="octicon octicon-accessibility">
-                            <path
-                                d="M9.923 5.302c.063.063.122.129.178.198H14A.75.75 0 0 1 14 7h-3.3l.578 5.163.362 2.997a.75.75 0 0 1-1.49.18L9.868 13H6.132l-.282 2.34a.75.75 0 0 1-1.49-.18l.362-2.997L5.3 7H2a.75.75 0 0 1 0-1.5h3.9a2.54 2.54 0 0 1 .176-.198 3 3 0 1 1 3.847 0ZM9.2 7.073h-.001a1.206 1.206 0 0 0-2.398 0L6.305 11.5h3.39ZM9.5 3a1.5 1.5 0 1 0-3.001.001A1.5 1.5 0 0 0 9.5 3Z">
-                            </path>
-                        </svg>
-                    </span>
-        
-                    <span  class="ActionListItem-label">
-                        Accessibility
-                    </span></a>
-        
-            </li>
-        
-            <li data-item-id="" data-targets="nav-list.items"  class="ActionListItem">
-        
-                <a class="ActionListContent ActionListContent--visual16" >
-                    <span class="ActionListItem-visual ActionListItem-visual--leading">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
-                            data-view-component="true" class="octicon octicon-bell">
-                            <path
-                                d="M8 16a2 2 0 0 0 1.985-1.75c.017-.137-.097-.25-.235-.25h-3.5c-.138 0-.252.113-.235.25A2 2 0 0 0 8 16ZM3 5a5 5 0 0 1 10 0v2.947c0 .05.015.098.042.139l1.703 2.555A1.519 1.519 0 0 1 13.482 13H2.518a1.516 1.516 0 0 1-1.263-2.36l1.703-2.554A.255.255 0 0 0 3 7.947Zm5-3.5A3.5 3.5 0 0 0 4.5 5v2.947c0 .346-.102.683-.294.97l-1.703 2.556a.017.017 0 0 0-.003.01l.001.006c0 .002.002.004.004.006l.006.004.007.001h10.964l.007-.001.006-.004.004-.006.001-.007a.017.017 0 0 0-.003-.01l-1.703-2.554a1.745 1.745 0 0 1-.294-.97V5A3.5 3.5 0 0 0 8 1.5Z">
-                            </path>
-                        </svg>
-                    </span>
-        
-                    <span  class="ActionListItem-label">
-                        Notifications
-                    </span></a>
-                
-            </li> -->
         </ul>
-
-            <li  class="ActionList-sectionDivider"></li>
-            <!-- <li >
-        
-                <div >
-                    <div  class="ActionList-sectionDivider">
-                        <h2 class="ActionList-sectionDivider-title">
-                            Access
-                        </h2>
-                    </div> -->
-                    <ul class="ActionListWrap">
-        
-                        
-        
-        
-                        <li class="ActionListItem">
-                            <a class="ActionListContent ActionListContent--visual16" >
-                                <span class="ActionListItem-visual ActionListItem-visual--leading">
-                                    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
-                                        data-view-component="true" class="octicon octicon-mail">
-                                        <path
-                                            d="M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25v-8.5C0 2.784.784 2 1.75 2ZM1.5 12.251c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V5.809L8.38 9.397a.75.75 0 0 1-.76 0L1.5 5.809v6.442Zm13-8.181v-.32a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25v.32L8 7.88Z">
-                                        </path>
-                                    </svg>
-                                </span>
-        
-                                <span class="ActionListItem-label">
-                                    Emails
-                                </span></a>
-                        </li>
-        
-        
-                        <li class="ActionListItem">
-        
-                            <a class="ActionListContent ActionListContent--visual16">
-                                <span class="ActionListItem-visual ActionListItem-visual--leading">
-                                    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
-                                        data-view-component="true" class="octicon octicon-shield-lock">
-                                        <path
-                                            d="m8.533.133 5.25 1.68A1.75 1.75 0 0 1 15 3.48V7c0 1.566-.32 3.182-1.303 4.682-.983 1.498-2.585 2.813-5.032 3.855a1.697 1.697 0 0 1-1.33 0c-2.447-1.042-4.049-2.357-5.032-3.855C1.32 10.182 1 8.566 1 7V3.48a1.75 1.75 0 0 1 1.217-1.667l5.25-1.68a1.748 1.748 0 0 1 1.066 0Zm-.61 1.429.001.001-5.25 1.68a.251.251 0 0 0-.174.237V7c0 1.36.275 2.666 1.057 3.859.784 1.194 2.121 2.342 4.366 3.298a.196.196 0 0 0 .154 0c2.245-.957 3.582-2.103 4.366-3.297C13.225 9.666 13.5 8.358 13.5 7V3.48a.25.25 0 0 0-.174-.238l-5.25-1.68a.25.25 0 0 0-.153 0ZM9.5 6.5c0 .536-.286 1.032-.75 1.3v2.45a.75.75 0 0 1-1.5 0V7.8A1.5 1.5 0 1 1 9.5 6.5Z">
-                                        </path>
-                                    </svg>
-                                </span>
-        
-                                <span class="ActionListItem-label">
-                                    Password and authentication
-                                </span></a>
-        
-        
-                        </li>
-        
-        
-                        <li class="ActionListItem">
-        
-                            <a class="ActionListContent ActionListContent--visual16">
-                                <span class="ActionListItem-visual ActionListItem-visual--leading">
-                                    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
-                                        data-view-component="true" class="octicon octicon-broadcast">
-                                        <path
-                                            d="M8.75 8.582v5.668a.75.75 0 0 1-1.5 0V8.582a1.75 1.75 0 1 1 1.5 0Zm3.983-7.125a.75.75 0 0 1 1.06.026A7.976 7.976 0 0 1 16 7c0 2.139-.84 4.083-2.207 5.517a.75.75 0 1 1-1.086-1.034A6.474 6.474 0 0 0 14.5 7a6.474 6.474 0 0 0-1.793-4.483.75.75 0 0 1 .026-1.06Zm-9.466 0c.3.286.312.76.026 1.06A6.474 6.474 0 0 0 1.5 7a6.47 6.47 0 0 0 1.793 4.483.75.75 0 0 1-1.086 1.034A7.973 7.973 0 0 1 0 7c0-2.139.84-4.083 2.207-5.517a.75.75 0 0 1 1.06-.026Zm8.556 2.321A4.988 4.988 0 0 1 13 7a4.988 4.988 0 0 1-1.177 3.222.75.75 0 1 1-1.146-.967A3.487 3.487 0 0 0 11.5 7c0-.86-.309-1.645-.823-2.255a.75.75 0 0 1 1.146-.967Zm-6.492.958A3.48 3.48 0 0 0 4.5 7a3.48 3.48 0 0 0 .823 2.255.75.75 0 0 1-1.146.967A4.981 4.981 0 0 1 3 7a4.982 4.982 0 0 1 1.188-3.236.75.75 0 1 1 1.143.972Z">
-                                        </path>
-                                    </svg>
-                                </span>
-        
-                                <span class="ActionListItem-label">
-                                    Sessions
-                                </span></a>
-        
-        
-                        </li>
-        
-        
-                        <li class="ActionListItem">
-        
-                            <a class="ActionListContent ActionListContent--visual16" >
-                                <span class="ActionListItem-visual ActionListItem-visual--leading">
-                                    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
-                                        data-view-component="true" class="octicon octicon-key">
-                                        <path
-                                            d="M10.5 0a5.499 5.499 0 1 1-1.288 10.848l-.932.932a.749.749 0 0 1-.53.22H7v.75a.749.749 0 0 1-.22.53l-.5.5a.749.749 0 0 1-.53.22H5v.75a.749.749 0 0 1-.22.53l-.5.5a.749.749 0 0 1-.53.22h-2A1.75 1.75 0 0 1 0 14.25v-2c0-.199.079-.389.22-.53l4.932-4.932A5.5 5.5 0 0 1 10.5 0Zm-4 5.5c-.001.431.069.86.205 1.269a.75.75 0 0 1-.181.768L1.5 12.56v1.69c0 .138.112.25.25.25h1.69l.06-.06v-1.19a.75.75 0 0 1 .75-.75h1.19l.06-.06v-1.19a.75.75 0 0 1 .75-.75h1.19l1.023-1.025a.75.75 0 0 1 .768-.18A4 4 0 1 0 6.5 5.5ZM11 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z">
-                                        </path>
-                                    </svg>
-                                </span>
-        
-                                <span class="ActionListItem-label">
-                                    SSH and GPG keys
-                                </span></a>
-        
-        
-                        </li>
-        
-        
-                        <li class="ActionListItem">
-        
-                            <a class="ActionListContent ActionListContent--visual16">
-                                <span class="ActionListItem-visual ActionListItem-visual--leading">
-                                    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16"
-                                        data-view-component="true" class="octicon octicon-organization">
-                                        <path
-                                            d="M1.75 16A1.75 1.75 0 0 1 0 14.25V1.75C0 .784.784 0 1.75 0h8.5C11.216 0 12 .784 12 1.75v12.5c0 .085-.006.168-.018.25h2.268a.25.25 0 0 0 .25-.25V8.285a.25.25 0 0 0-.111-.208l-1.055-.703a.749.749 0 1 1 .832-1.248l1.055.703c.487.325.779.871.779 1.456v5.965A1.75 1.75 0 0 1 14.25 16h-3.5a.766.766 0 0 1-.197-.026c-.099.017-.2.026-.303.026h-3a.75.75 0 0 1-.75-.75V14h-1v1.25a.75.75 0 0 1-.75.75Zm-.25-1.75c0 .138.112.25.25.25H4v-1.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 .75.75v1.25h2.25a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25ZM3.75 6h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5ZM3 3.75A.75.75 0 0 1 3.75 3h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 3.75Zm4 3A.75.75 0 0 1 7.75 6h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 7 6.75ZM7.75 3h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5ZM3 9.75A.75.75 0 0 1 3.75 9h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 9.75ZM7.75 9h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5Z">
-                                        </path>
-                                    </svg>
-                                </span>
-        
-                                <span class="ActionListItem-label">
-                                    Organizations
-                                </span></a>
-        
-                        </li>
-        
-                        
-        
-                    </ul>
-                <!-- </div>
-            </li> -->
-        
     </section>
-    <section class="main-wrapper">
-        <form *ngIf="false" name = "UserForm">
-            <h2 id="public-profile-heading" data-view-component="true" class="Subhead-heading">Your profile</h2>
-            <div class="inputContainer">
-                <app-text-box [placeholder]="'Username'"  [formControl]="userForm.controls['username']"></app-text-box>
-                <!-- надо залочить -->
-            </div>
-            <div class="inputContainer">
-                <app-text-box [placeholder]="'full_name'"  [formControl]="userForm.controls['fullName']" ></app-text-box>
-                <p id="confirmnote" *ngIf="userForm.controls['fullName'].value?.length>0 && userForm.controls['fullName'].value?.length < 10 && !userForm.controls['phone'].value?.match(FULLNAME_REGEX)">
-                  must be at least 10 characters long
-                </p>
-              </div>
-              <div class="inputContainer">
-                <app-text-box [placeholder]="'phone'"  [formControl]="userForm.controls['phone']" ></app-text-box>
-                <p id="confirmnote" *ngIf="userForm.controls['phone'].value?.length>0 && !userForm.controls['phone'].value?.match(PHONE_REGEX)">
-                  contact phone matching +xxxxxxxxxxxx
-                </p>
-              </div>
-              <div class="inputContainer">
-                <app-text-box [placeholder]="'your password'" [isPassword]="true"   [formControl]="userForm.controls['password']"></app-text-box>
-              </div>
-              <div class="inputContainer" >
-                <app-text-box [placeholder]="'new password'" [name] = "new_password" [isPassword]="true" [formControl]="userForm.controls['new_password']"></app-text-box>
-                <p id="pwdnote" *ngIf="userForm.controls['new_password'].value?.length>0 && !userForm.controls['new_password'].value?.match(PWD_REGEX)">   
-                  must be at least 8 characters long, must include uppercase letter, number, and a special character (!@#$%^&*)
-                </p>
-              </div>
-              <div class="inputContainer">
-                <app-text-box [placeholder]="'confirm password'" [isPassword]="true"  [formControl]="userForm.controls['confirm_password']"></app-text-box>
-                <p id="confirmnote" *ngIf="userForm.controls['confirm_password'].value?.length > 0 && userForm.controls['confirm_password'].value !== userForm.controls['new_password'].value">
-                  must match the new password input field
-                </p>
-              </div>
-              <button type = "button" (click)="changeUserData(userForm.value)" class="button" [disabled]="!isValidUserForm()">
-                Save changes
-              </button>
-        </form >
 
-        <form *ngIf="false" name = "Bookings">
-            <app-text-box [placeholder]="'Booking ID'"  [formControl]="searchForm.controls['search']"></app-text-box>
-            <table>
-                <thead>
-                  <tr>
-                    <th>Booking Id</th>
-                    <th>Trip number</th>
-                    <th>Bus Brand</th>
-                    <th>Quantity of Seats</th>
-                    <th>Arrival point</th>
-                    <th>Journey Date</th>
-                    <th>Departure Time</th>
-                    <th>Booking Status</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let booking of filteredBookings" (click)="selectBooking(booking)"[class.active]="isSelected(booking)">
-                    <td>{{ booking.booking_id }}</td>
-                    <td>{{ booking.trip_number }}</td>
-                    <td>{{ booking.bus_brand }}</td>
-                    <td>{{ booking.quantity_of_seats }}</td>
-                    <td>{{ booking.arrival_point }}</td>
-                    <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
-                    <td>{{ booking.departure_time }}</td>
-                    <td>{{ booking.booking_status }}</td>
-                    <td><div>
-                        <button type="button" class="button" (click)="deleteBooking()" *ngIf="booking.booking_status === 'Active' && currentUserInfo.role != 'cashier'">Сancel </button>
-                        </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-        </form>
-        <form *ngIf="true">
-            <app-text-box [placeholder]="'Ticket ID'"  [formControl]="searchForm.controls['search']"></app-text-box>
-            <table>
-                <thead>
-                  <tr>
-                    <th>Ticket Id</th>
-                    <th>Journey Id</th>
-                    <th>Arrival point</th>
-                    <th>Journey Date</th>
-                    <th>Client login</th>
-                    <th>Ticket Status</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let booking of filteredBookings" (click)="selectBooking(booking)"[class.active]="isSelected(booking)">
-                    <td>{{ booking.ticket_id }}</td>
-                    <td>{{ booking.journey_id }}</td>
-                    <td>{{ booking.arrival_point }}</td>
-                    <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
-                    <td>{{ booking.login }}</td>
-                    <td>{{ booking.ticket_status }}</td>
-                    <td><div>
-                        <button type="button" class="button" (click)="sellTicket(booking.ticket_id)" > Pay </button>
-                        </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-        </form>
+    <section class="main-wrapper">
+        <ng-container [ngSwitch]="activeType.value">
+            <ng-container *ngSwitchCase="'userProfile'">
+                <form  *ngIf="userForm?.controls">
+                    <h2 id="public-profile-heading" class="Subhead-heading">Your profile</h2>
+                    <div class="inputContainer">
+                        <app-text-box [placeholder]="'Username'" [formControl]="userForm.controls['username']"></app-text-box>
+                        <!-- надо залочить -->
+                    </div>
+                    <div class="inputContainer">
+                        <app-text-box [placeholder]="'full_name'" [formControl]="userForm.controls['fullName']"></app-text-box>
+                        <p id="confirmnote"
+                            *ngIf="userForm.controls['fullName'].value?.length>0 && userForm.controls['fullName'].value?.length < 10 && !userForm.controls['phone'].value?.match(FULLNAME_REGEX)">
+                            must be at least 10 characters long
+                        </p>
+                    </div>
+                    <div class="inputContainer">
+                        <app-text-box [placeholder]="'phone'" [formControl]="userForm.controls['phone']"></app-text-box>
+                        <p id="confirmnote"
+                            *ngIf="userForm.controls['phone'].value?.length>0 && !userForm.controls['phone'].value?.match(PHONE_REGEX)">
+                            contact phone matching +xxxxxxxxxxxx
+                        </p>
+                    </div>
+                    <div class="inputContainer">
+                        <app-text-box [placeholder]="'your password'" [isPassword]="true"
+                            [formControl]="userForm.controls['password']"></app-text-box>
+                    </div>
+                    <div class="inputContainer">
+                        <app-text-box [placeholder]="'new password'" [isPassword]="true"
+                            [formControl]="userForm.controls['new_password']"></app-text-box>
+                        <p id="pwdnote"
+                            *ngIf="userForm.controls['new_password'].value?.length>0 && !userForm.controls['new_password'].value?.match(PWD_REGEX)">
+                            must be at least 8 characters long, must include uppercase letter, number, and a special character
+                            (!@#$%^&*)
+                        </p>
+                    </div>
+                    <div class="inputContainer">
+                        <app-text-box [placeholder]="'confirm password'" [isPassword]="true"
+                            [formControl]="userForm.controls['confirm_password']"></app-text-box>
+                        <p id="confirmnote"
+                            *ngIf="userForm.controls['confirm_password'].value?.length > 0 && userForm.controls['confirm_password'].value !== userForm.controls['new_password'].value">
+                            must match the new password input field
+                        </p>
+                    </div>
+                    <button type="button" (click)="changeUserData(userForm.value)" class="button"
+                        [disabled]="!isValidUserForm()">
+                        Save changes
+                    </button>
+                </form>
+            </ng-container>
+            <form *ngSwitchCase="'yourBookings' || 'bookings'">
+                <app-text-box [placeholder]="'Booking ID'" [formControl]="searchForm.controls['search']"></app-text-box>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking Id</th>
+                            <th>Trip number</th>
+                            <th>Bus Brand</th>
+                            <th>Quantity of Seats</th>
+                            <th>Arrival point</th>
+                            <th>Journey Date</th>
+                            <th>Departure Time</th>
+                            <th>Booking Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let booking of filteredBookings" (click)="selectBooking(booking)"
+                            [class.active]="this.selectedBooking === booking">
+                            <td>{{ booking.booking_id }}</td>
+                            <td>{{ booking.trip_number }}</td>
+                            <td>{{ booking.bus_brand }}</td>
+                            <td>{{ booking.quantity_of_seats }}</td>
+                            <td>{{ booking.arrival_point }}</td>
+                            <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
+                            <td>{{ booking.departure_time }}</td>
+                            <td>{{ booking.booking_status }}</td>
+                            <td>
+                                <div>
+                                    <button type="button" class="button" *ngIf="booking.booking_status === 'Active' && userInfo.role !== 'cashier'"
+                                     (click)="deleteBooking()">Сancel</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+            <form *ngSwitchCase="'sellTickets'">
+                <app-text-box [placeholder]="'Ticket ID'" [formControl]="searchForm.controls['search']"></app-text-box>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ticket Id</th>
+                            <th>Journey Id</th>
+                            <th>Arrival point</th>
+                            <th>Journey Date</th>
+                            <th>Client login</th>
+                            <th>Ticket Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let booking of filteredBookings" (click)="selectBooking(booking)"
+                            [class.active]="isSelected(booking)">
+                            <td>{{ booking.ticket_id }}</td>
+                            <td>{{ booking.journey_id }}</td>
+                            <td>{{ booking.arrival_point }}</td>
+                            <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
+                            <td>{{ booking.login }}</td>
+                            <td>{{ booking.ticket_status }}</td>
+                            <td>
+                                <div>
+                                    <button type="button" class="button" (click)="sellTicket(booking.ticket_id)"> Pay
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </ng-container>
     </section>
 </main>
