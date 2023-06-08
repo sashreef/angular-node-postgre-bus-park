@@ -7,16 +7,16 @@
         <h1 class="formName">sign in</h1>
         <form class="formReg">
           <div class="inputContainer">
-            <app-text-box ngDefaultControl [formControl]="loginForm.controls['username']" ></app-text-box>
             <label htmlFor="username" [class.labelHasContent]="loginForm.get('username')?.value" required>
               username:
             </label>
+            <app-text-box class="auth-input" ngDefaultControl [formControl]="loginForm.controls['username']" ></app-text-box>
           </div>
           <div class="inputContainer">
-            <app-text-box [isPassword]="true" ngDefaultControl [formControl]="loginForm.controls['password']" ></app-text-box>
             <label htmlFor="password" [class.labelHasContent]="loginForm.get('password')?.value">
               password:
             </label>
+            <app-text-box class="auth-input" [isPassword]="true" ngDefaultControl [formControl]="loginForm.controls['password']" ></app-text-box>
           </div>
           <button type = "button" (click)="login(loginForm.value)" class="submitBtn">sign in</button>
         </form>

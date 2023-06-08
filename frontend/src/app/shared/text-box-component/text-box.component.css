@@ -59,6 +59,8 @@
 	}
 }
 
-:host-context(.auth-input) {
-	/* здесь попытаться стили для инпута входа сделать(лейбл передаем внутрь) */
+:host(.auth-input) {
+	>div>input {
+		padding-left: 0px !important;
+	}
 }
