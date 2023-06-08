@@ -44,7 +44,7 @@ export class BackendService {
     public readonly bookings = {
         bookingTickets$: (userData: BookTicketDTO): Observable<any> => {
             const url = `${this.config.api.root}/booking/book_tickets`;
-            return this.http.post(url, userData);
+            return this.http.post(url, {userData});
         },
 
         getBookingInfo$: (): Observable<any> => {
@@ -52,9 +52,9 @@ export class BackendService {
             return this.http.get(url);
         },
 
-        deleteBooking$: (booking_id : number): Observable<any> => {
+        deleteBooking$: (user_id : number): Observable<any> => {
             const url = `${this.config.api.root}/booking/delete_booking`;
-            return this.http.post(url , {booking_id});
+            return this.http.post(url , {user_id});
         },
         
     }
@@ -99,9 +99,19 @@ export class BackendService {
             return this.http.post(url,{});
         },
 
+        getAllUsers$:(): Observable<any> => {
+            const url = `${this.config.api.root}/user_config/all_users`;
+            return this.http.post(url,{});
+        },
+
         changeUserData$:(userData: {login: string, password: string, new_password: string, full_name: string, phone_number: string}): Observable<any> => {
             const url = `${this.config.api.root}/user_config/update_user`;
             return this.http.post(url,userData);
+        },
+
+        deleteUser$:(user_id : number): Observable<any> => {
+            const url = `${this.config.api.root}/user_config/delete_user`;
+            return this.http.post(url,{user_id});
         },
     }
 

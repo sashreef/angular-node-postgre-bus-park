@@ -115,12 +115,20 @@ li:hover {
 }
 table {
     border-collapse: separate;
-    border-spacing: 10px; /* Adjust this value to increase or decrease the spacing */
-  }
-  
-  td {
-    padding: 10px; /* Adjust this value to add padding within each cell */
-  }
+    border-spacing: 0px;
+}
+
+th {
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+}
+
+tr {
+    cursor: pointer;
+}
   
 tr button{
     display: none;

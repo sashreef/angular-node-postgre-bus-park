@@ -8,7 +8,7 @@
         <ng-container *ngIf="userInfo; else noLogin">
             <div class="row-icon" [routerLink]="'/user_page'" >
                 <app-icon>account_circle</app-icon>
-                <span class="text">{{userInfo.username}}</span>
+                <span class="text">{{userInfo.login}}</span>
             </div>
             <app-icon [routerLink]="'/login'" (click)="logout()">logout</app-icon>
         </ng-container>

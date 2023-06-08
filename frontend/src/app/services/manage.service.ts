@@ -82,6 +82,10 @@ export class ManageService {
         return this.backendService.user.getUserInfo$();
     }
 
+    public getAllUsers(): Observable<any> {
+        return this.backendService.user.getAllUsers$();
+    }
+
     public getBookingInfo(): Observable<any> {
         return this.backendService.bookings.getBookingInfo$();
     }
@@ -92,6 +96,10 @@ export class ManageService {
 
     public deleteBooking(booking_id: number): Observable<any> {
         return this.backendService.bookings.deleteBooking$(booking_id);
+    }
+
+    public deleteUser(user_id: number): Observable<any> {
+        return this.backendService.user.deleteUser$(user_id);
     }
 
     public changeUserData(userData: userForm): Observable<any> {

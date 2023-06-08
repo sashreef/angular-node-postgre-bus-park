@@ -35,6 +35,7 @@ export interface userForm {
     confirm_password: string;
     fullName: string;
     phone: string;
+    role?: string;
 }
 
 export interface Booking extends BookingCommon {

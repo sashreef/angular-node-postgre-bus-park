@@ -41,7 +41,7 @@ export class HeaderComponent {
     }
 
     public logout(): void {
-        this.manageService.logout();
+        this.manageService.logout().pipe(take(1)).subscribe();
     }
 
     public ngOnDestroy(): void {
