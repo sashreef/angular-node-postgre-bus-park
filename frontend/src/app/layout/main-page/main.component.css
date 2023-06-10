@@ -138,9 +138,7 @@ body, aside, .u-sidebar-block, section, header, footer {
 article, aside, details, figcaption, figure, footer, header, main, menu, nav, section, summary {
     display: block;
 }
-*, *:before, *:after {
-    box-sizing: border-box;
-}
+
 .u-section-3 .u-container-layout-1 {
     padding: 50px 20px 0;
 }
@@ -150,9 +148,7 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
     flex: 1;
     max-width: 100%;
 }
-*, *:before, *:after {
-    box-sizing: border-box;
-}
+
 div {
     display: block;
 }
@@ -184,9 +180,7 @@ div {
     display: block;
     vertical-align: middle;
 }
-*, *:before, *:after {
-    box-sizing: border-box;
-}
+
 u-container-style:not([class*="u-align-"]) {
     text-align: left;
 }
@@ -230,9 +224,7 @@ p:not(.u-text-variant) {
     flex: 1;
     max-width: 100%;
 }
-*, *:before, *:after {
-    box-sizing: border-box;
-}
+
 .u-container-style:not([class*="u-align-"]) {
     text-align: left;
 }
@@ -266,9 +258,7 @@ p:not(.u-text-variant) {
     background-size: cover;
     background-repeat: no-repeat;
 }
-*, *:before, *:after {
-    box-sizing: border-box;
-}
+
 .u-section-3 .u-text-4 {
     font-size: 1.16667rem;
     margin: 15px 0 0;
@@ -304,9 +294,7 @@ u-align-center {
     flex: 1;
     max-width: 100%;
 }
-*, *:before, *:after {
-    box-sizing: border-box;
-}
+
 .u-section-3 .u-container-layout-3 {
     padding: 50px 20px 0;
 }
@@ -322,9 +310,7 @@ u-align-center {
     flex: 1;
     max-width: 100%;
 }
-*, *:before, *:after {
-    box-sizing: border-box;
-}
+
 .u-section-3 .u-image-3 {
     width: 80px;
     height: 80px;
@@ -368,9 +354,7 @@ u-align-center {
     flex: 1;
     max-width: 100%;
 }
-*, *:before, *:after {
-    box-sizing: border-box;
-}
+
 .u-section-3 .u-image-4 {
     width: 80px;
     height: 80px;

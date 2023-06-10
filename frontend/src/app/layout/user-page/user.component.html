@@ -84,48 +84,55 @@
                 </ng-container>
             </ng-container>
             <ng-container *ngSwitchCase="'usersActions'">
-                <div>
-                    <button type="button" class="button" *ngIf="!mode" (click)="mode = true">Add user </button>
-                </div>
                 <ng-container *ngIf="!mode">
-                <app-text-box [placeholder]="'User ID'" [formControl]="searchForm.controls['search']"></app-text-box>
-                <table >
-                    <thead>
-                        <tr>
-                            <th>User Id</th>
-                            <th>User login</th>
-                            <th>Full Name</th>
-                            <th>Phone Number</th>
-                            <th>Role</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of filteredBookings" (click)="selectUser(user)"
-                            [class.active]="this.selectedUser === user">
-                            <td>{{ user.user_id }}</td>
-                            <td>{{ user.login }}</td>
-                            <td>{{ user.full_name }}</td>
-                            <td>{{ user.phone_number }}</td>
-                            <td>{{ user.category }}</td>
-                            <td>
-                                <div>
-                                    <button type="button" class="button" *ngIf="user.category !== 'administrator'"
-                                        (click)="updateUser()">Update </button>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <button type="button" class="button" *ngIf="user.category !== 'administrator'"
-                                        (click)="deleteUser()">Delete </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <form>
+                        <article>
+                            <app-text-box [placeholder]="'User ID'" [formControl]="searchForm.controls['search']"></app-text-box>
+                        </article>
+                        <div class="table-wrapper">
+                            <table class="user-table">
+                                <thead>
+                                    <tr>
+                                        <th>User Id</th>
+                                        <th>User login</th>
+                                        <th>Full Name</th>
+                                        <th>Phone Number</th>
+                                        <th>Role</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of filteredBookings" (click)="selectUser(user)"
+                                        [class.active]="this.selectedUser === user">
+                                        <td>{{ user.user_id }}</td>
+                                        <td>{{ user.login }}</td>
+                                        <td>{{ user.full_name }}</td>
+                                        <td>{{ user.phone_number }}</td>
+                                        <td>{{ user.category }}</td>
+                                        <td>
+                                            <div>
+                                                <button type="button" class="button" *ngIf="user.category !== 'administrator'"
+                                                    (click)="updateUser()">Update</button>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <button type="button" class="button red" *ngIf="user.category !== 'administrator'"
+                                                    (click)="deleteUser()">Delete</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                <div class="add-form">
+                    <button type="button" class="button" *ngIf="!mode" (click)="mode = true">Add user</button>
+                </div>
                 </ng-container>
                 <ng-container *ngIf="userForm?.controls && mode">
-                    <h2 id="public-profile-heading" class="Subhead-heading">Add user </h2>
+                    <h2 class="Subhead-heading">Add user</h2>
                     <div class="inputContainer">
                         <app-text-box [placeholder]="'Username'" [formControl]="adminUserForm.controls['username']"
                             readonly></app-text-box>
@@ -182,45 +189,53 @@
             </ng-container>
             <form *ngSwitchCase="'sellTickets'">
                 <article>
-                    <h2>Filter</h2>
                     <app-text-box [placeholder]="'Ticket ID'" [formControl]="searchForm.controls['search']"></app-text-box>
                 </article>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Ticket Id</th>
-                            <th>Journey Id</th>
-                            <th>Arrival point</th>
-                            <th>Journey Date</th>
-                            <th>Client login</th>
-                            <th>Ticket Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let booking of filteredBookings" (click)="selectBooking(booking)"
-                            [class.active]="isSelected(booking)">
-                            <td>{{ booking.ticket_id }}</td>
-                            <td>{{ booking.journey_id }}</td>
-                            <td>{{ booking.arrival_point }}</td>
-                            <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
-                            <td>{{ booking.login }}</td>
-                            <td>{{ booking.ticket_status }}</td>
-                            <td>
-                                <div>
-                                    <button type="button" class="button" (click)="sellTicket(booking.ticket_id)"> Pay
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <ng-container>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ticket Id</th>
+                                <th>Journey Id</th>
+                                <th>Arrival point</th>
+                                <th>Journey Date</th>
+                                <th>Client login</th>
+                                <th>Ticket Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let booking of filteredBookings" (click)="selectBooking(booking)"
+                                [class.active]="selectedBooking === booking">
+                                <td>{{ booking.ticket_id }}</td>
+                                <td>{{ booking.journey_id }}</td>
+                                <td>{{ booking.arrival_point }}</td>
+                                <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
+                                <td>{{ booking.login }}</td>
+                                <td>{{ booking.ticket_status }}</td>
+                                <td>
+                                    <div>
+                                        <button type="button" class="button green" (click)="sellTicket(booking.ticket_id)">Pay
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="add-form add-ticket-form">
+                <div *ngIf="!addTicketForm">
+                    <button class="button" type="button" (click)="addTicketForm = formBuilderService.getTicketFormGroup()">Add ticket</button>
+                </div>
+                <ng-container *ngIf="addTicketForm">
+                    <button class="button red" type="button" (click)="createTicket(false)">Close</button>
+                    <button class="button green" type="button" (click)="createTicket(true)">Add</button>
                     <app-text-box [placeholder]="'Trip ID'" [isPassword]="true"
-                            [formControl]="addTicketForm.controls['trip_id']"></app-text-box>
+                         [formControl]="addTicketForm.controls['trip_id']"></app-text-box>
                     <app-text-box [placeholder]="'User login'" [isPassword]="true"
-                            [formControl]="addTicketForm.controls['login']"></app-text-box>
+                        [formControl]="addTicketForm.controls['login']" required="true"></app-text-box>
                 </ng-container>
+            </div>
             </form>
             <ng-container *ngSwitchCase="'Trips'">
 
@@ -249,44 +264,53 @@
   </ng-template> -->
 
 <ng-template #bookingsTemplate>
-    <form>
+    <form *ngIf="bookings?.length; else noData">
         <article>
             <app-text-box [placeholder]="'Booking ID'" [formControl]="searchForm.controls['search']"></app-text-box>
         </article>
-        <table>
-            <thead>
-                <tr>
-                    <th>Booking Id</th>
-                    <th>Trip number</th>
-                    <th>Bus Brand</th>
-                    <th>Quantity of Seats</th>
-                    <th>Arrival point</th>
-                    <th>Journey Date</th>
-                    <th>Departure Time</th>
-                    <th>Booking Status</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let booking of filteredBookings" (click)="selectBooking(booking)"
-                    [class.active]="this.selectedBooking === booking">
-                    <td>{{ booking.booking_id }}</td>
-                    <td>{{ booking.trip_number }}</td>
-                    <td>{{ booking.bus_brand }}</td>
-                    <td>{{ booking.quantity_of_seats }}</td>
-                    <td>{{ booking.arrival_point }}</td>
-                    <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
-                    <td>{{ booking.departure_time }}</td>
-                    <td>{{ booking.booking_status }}</td>
-                    <td>
-                        <div>
-                            <button type="button" class="button"
-                                *ngIf="booking.booking_status === 'Active' && userInfo.role !== 'cashier'"
-                                (click)="deleteBooking()">Сancel</button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-wrapper">
+            <table *ngIf="filteredBookings?.length; else noData">
+                <thead>
+                    <tr>
+                        <th>Booking Id</th>
+                        <th>Trip number</th>
+                        <th>Bus Brand</th>
+                        <th>Quantity of Seats</th>
+                        <th>Arrival point</th>
+                        <th>Journey Date</th>
+                        <th>Departure Time</th>
+                        <th>Booking Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let booking of filteredBookings" (click)="selectBooking(booking)"
+                        [class.active]="this.selectedBooking === booking">
+                        <td>{{ booking.booking_id }}</td>
+                        <td>{{ booking.trip_number }}</td>
+                        <td>{{ booking.bus_brand }}</td>
+                        <td>{{ booking.quantity_of_seats }}</td>
+                        <td>{{ booking.arrival_point }}</td>
+                        <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
+                        <td>{{ booking.departure_time }}</td>
+                        <td>{{ booking.booking_status }}</td>
+                        <td>
+                            <div>
+                                <button type="button" class="button"
+                                    *ngIf="booking.booking_status === 'Active' && userInfo.role !== 'cashier'"
+                                    (click)="deleteBooking()">Сancel</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </form>
+</ng-template>
+
+
+<ng-template #noData>
+    <div class="no-data">
+        <span>Nothing found</span>
+    </div>
 </ng-template>

@@ -3,7 +3,7 @@
     --app-font-family-motserrat: Montserrat,sans-serif !important;
     --app-font-family-opensans: 'Open Sans',sans-serif;
 
-    --app-background-color: #f9f1f1d4;
+    --app-background-color: #fffefe;
     --app-white-color: #ffffff;
     --app-cream-text-color: #e5e5e5;
 
@@ -55,3 +55,25 @@ body {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #cfc7c7;
+    border: 1px solid #fff;
+    border-radius: 30px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9b9999;
+  }

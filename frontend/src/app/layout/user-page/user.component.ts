@@ -15,8 +15,8 @@
     public activeType = { label: "User profile", value: "userProfile" , icon: "account_circle"};
     public userInfo?: { login: string; role: string; };
     public userForm?: UntypedFormGroup;
-    public adminUserForm?: UntypedFormGroup;
-    public addTicketForm?: UntypedFormGroup;
+    public adminUserForm?: UntypedFormGroup | null;
+    public addTicketForm?: UntypedFormGroup | null;
     public bookings: BookingInfo[] = [];
     public users: userForm[] = [];
     public selectedUser: any;
@@ -58,7 +58,7 @@
       this.setSearchSub();
     }
 
-    public selectType(type: { label: string, value: string , icon: string}) {
+    public selectType(type: { label: string, value: string , icon: string}): void {
       this.activeType = type;
       this.getSelectedReq(type);
     }
@@ -69,10 +69,6 @@
 
     public selectBooking(booking: any): void {
       this.selectedBooking = booking;
-    }
-
-    public isSelected(booking: any): boolean {
-      return this.selectedBooking === booking;
     }
 
     public selectUser(user: any): void {
@@ -90,17 +86,17 @@
       return this.selectedUser === user;
     }
 
-    public deleteBooking() {
+    public deleteBooking(): void {
       this.pending = true;
       this.manageService.deleteBooking(this.selectedBooking.booking_id).pipe(take(1)).subscribe((data) => {
         this.pending = false;
       },
-        (err) => {
+      (err) => {
           throw err;
-        });
+      });
     }
 
-    public deleteUser() {
+    public deleteUser(): void {
       this.pending = true;
       this.manageService.deleteUser(this.selectedUser.user_id).pipe(take(1)).subscribe((data) => {
         this.pending = false;
@@ -110,14 +106,25 @@
         });
     }
 
+    public createTicket(flag: boolean): void {
+      if(!flag) {
+        this.addTicketForm = null;
+        return;
+      }
+      //req for create
+      this.addTicketForm = null;
+      // если на создание не будет отправляется форма => попробовать создать отдельную bool паблик переменную
+      // и условия открытия формы создания завязать на нее, 
+    }
+
     public sellTicket(ticket_id: number): void {
       this.pending = true;
       this.manageService.sellTicket(ticket_id).pipe(take(1)).subscribe((data) => {
         this.pending = false;
       },
-        (err) => {
-          console.log(err);
-        });
+      (err) => {
+         throw err;
+      });
         this.getUnpaidTickets();
     }
 
@@ -166,24 +173,22 @@
       });
     }
 
-    private getUserInfo() {
+    private getUserInfo(): void {
       this.manageService.getUserInfo().pipe(take(1)).subscribe((data: any) => {
         const userData = { username: data.login, fullName: data.full_name, phone: data.phone_number, password: data.password, new_password: data.new_password, confirm_password: data.confirm_password };
         this.userForm = this.formBuilderService.getUserFormGroup(userData);
       });
     }
     
-    
-    public getAllUsers (){
-      this.manageService.getAllUsers().pipe(takeUntil(this.unsubscribe$$)).subscribe((data:userForm[]) => {
-        if (data) {
-          console.log(this.users);
+    public getAllUsers(): void {
+      this.filteredBookings = [];
+      this.manageService.getAllUsers().pipe(takeUntil(this.unsubscribe$$)).subscribe((data: userForm[]) => {
           this.filteredBookings = data;
-        }
       })
     }
 
-    private getBookingInfo() {
+    private getBookingInfo(): void {
+      this.filteredBookings = [];
       this.manageService.getBookingInfo().pipe(take(1)).subscribe((data: BookingInfo[]) => {
         this.bookings = data;
         this.filteredBookings = data;
@@ -191,6 +196,7 @@
     }
 
     private getUnpaidTickets() {
+      this.filteredBookings = [];
       this.manageService.getUnpaidTickets().pipe(take(1)).subscribe((data: UnpaidTicket[]) => {
         this.unpaidTickets = data;
         this.filteredBookings = data;
@@ -270,11 +276,4 @@
         }    
       }
     }
-
-
-
-
-
-
-
   }

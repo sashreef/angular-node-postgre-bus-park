@@ -1,3 +1,7 @@
+::-webkit-scrollbar-track {
+    background: var(--app-background-color) !important;
+}
+
 main{
     display: flex;
 }
@@ -11,10 +15,6 @@ ul, ol {
     padding-left: 0;
     margin-top: 0;
     margin-bottom: 0;
-}
-
-* {
-    box-sizing: border-box;
 }
 
 .sidebar {
@@ -123,9 +123,12 @@ li:hover {
     background: rgb(162 196 219);
 }
 
+
+/* forms */
 .main-wrapper {
     padding-top: 30px;
     width: 100%;
+    background-color: var(--app-background-color);
 }
 
 .form-user{
@@ -144,7 +147,7 @@ form article {
     display: flex;
     width: 100%;
     margin-bottom: 16px;
-    padding-left: 10px;
+    padding-left: 24px;
 }
 
 form article h2 {
@@ -160,7 +163,40 @@ form article h2 {
 }
 
 .button{
+    padding: 8px 0;
     width: 230.6px;
+}
+
+.add-form {
+    display: flex;
+    width: 100%;
+    padding: 20px 0 20px 24px;
+}
+
+.add-ticket-form {
+    display: flex;
+    width: 100%;
+    padding: 20px 0 20px 10px;
+}
+
+.add-ticket-form app-text-box:not(.add-ticket-form app-text-box:last-child),
+.add-ticket-form button {
+    margin-right: 40px;
+}
+
+.add-ticket-form button {
+    width: 110px;
+}
+
+.add-ticket-form button:not(.add-ticket-form button:last-child) {
+    margin-right: 20px;
+}
+
+
+/* tables */
+.table-wrapper {
+    max-height: calc(100vh - 214px);
+    overflow: auto;
 }
 
 table {
@@ -177,7 +213,7 @@ tr {
 }
 
 table tbody tr:hover {
-    background-color: #f9f6e552;  
+    background-color: #e9e9e5e3;  
 }
 
 thead {
@@ -196,12 +232,20 @@ th:last-child {
 td {
     padding: 10px;
 }
+
+th:first-child {
+    padding-left: 24px;
+}
+
+td:first-child {
+    padding-left: 24px;
+}
   
 tr button{
+    padding: unset;
     display: none;
     height: 20px;
     width: 90px;
-    background-color:red;
 }
 
 tr.active button {
@@ -210,4 +254,29 @@ tr.active button {
   
 tr.active {
     background-color: #f0f6ff;
+}
+
+.user-table th:nth-last-child(2) {
+    width: 110px;
+}
+
+
+.green {
+    background-color: green !important;
+}
+
+.red {
+    background-color: red !important;
+}
+
+.no-data {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-data span {
+    color: #918d8d;
 }

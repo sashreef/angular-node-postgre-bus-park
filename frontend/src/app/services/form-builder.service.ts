@@ -10,7 +10,7 @@ export class FormBuilderService {
     ) {
         
     }
-    public getUserFormGroup(data:userForm): UntypedFormGroup {
+    public getUserFormGroup(data: userForm): UntypedFormGroup {
         return this.formBuilder.group({
             username: new FormControl(data?.username || null, Validators.required),
             password: new FormControl(data?.password || null, Validators.required),
@@ -20,7 +20,8 @@ export class FormBuilderService {
             phone: new FormControl(data?.phone || null, Validators.required),
         }); 
     }
-    public getAdminUserFormGroup(data:userForm): UntypedFormGroup {
+
+    public getAdminUserFormGroup(data: userForm): UntypedFormGroup {
         return this.formBuilder.group({
             username: new FormControl(data?.username || null, Validators.required),
             new_password: new FormControl(data?.new_password || null, Validators.required),
@@ -29,5 +30,11 @@ export class FormBuilderService {
             phone: new FormControl(data?.phone || null, Validators.required),
         }); 
     }
-    
+
+    public getTicketFormGroup(): UntypedFormGroup {
+        return this.formBuilder.group({
+            trip_id: new FormControl(),
+            login: new FormControl()
+        });
+    }
 }
