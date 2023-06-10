@@ -1,9 +1,9 @@
 main{
     display: flex;
-    padding: 10px 0;
 }
 
 .ActionListWrap {
+    width: 100%;
     list-style: none;
 }
 
@@ -17,12 +17,30 @@ ul, ol {
     box-sizing: border-box;
 }
 
-.ActionListItem.ActionListItem--navActive:not(.ActionListItem--danger) {
-    background: var(--color-action-list-item-default-selected-bg);
+.sidebar {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    width: 230px;
+    justify-content: flex-start;
+    flex-direction: column;
+    background-color: rgb(243 229 234);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    height: calc(100vh - 60px);
+    padding-top: 10px;
+}
+
+.sidebar header {
+    padding: 5px 0 10px 0;
+}
+
+.sidebar header h2 {
+    font-size: 22px;
 }
 
 .ActionListItem {
-    border-radius: var(--borderRadius-medium, 6px);
+    padding: 5px 10px 5px 44px;
     list-style: none;
     position: relative;
     cursor: pointer;
@@ -30,31 +48,26 @@ ul, ol {
 
 .active-tab {
     font-weight: var(--base-text-weight-semibold, 600);
+    
 }
 
 .ActionListContent {
-    -webkit-tap-highlight-color: transparent;
-    align-items: start;
-    background-color: initial;
-    border: none;
-    border-radius: var(--borderRadius-medium, 6px);
-    color: var(--color-fg-default);
-    display: grid;
-    grid-template-areas: "leadingAction leadingVisual label trailingVisual trailingAction";
-    grid-template-columns: min-content min-content minmax(0, auto) min-content min-content;
-    grid-template-rows: min-content;
-    padding-block: var(--actionListContent-paddingBlock);
-    padding-inline: var(--control-medium-paddingInline-condensed, 8px);
     position: relative;
+    display: flex;
+    -webkit-tap-highlight-color: transparent;
+    align-items: center;
+    border: none;
     text-align: left;
     touch-action: manipulation;
     transition: background 33.333ms linear;
     user-select: none;
     width: 100%;
 }
+
 a {
     text-decoration: none;
 }
+
 .ActionListContent>:not(:last-child) {
     margin-right: var(--control-medium-gap, 8px);
 }
@@ -66,9 +79,11 @@ a {
     min-height: var(--control-medium-lineBoxHeight, 20px);
     pointer-events: none;
 }
+
 .ActionListItem-visual--leading {
     grid-area: leadingVisual;
 }
+
 .ActionListItem-label {
     color: var(--color-fg-default);
     font-size: var(--text-body-size-medium, 14px);
@@ -76,6 +91,7 @@ a {
     line-height: var(--text-body-lineHeight-medium, 1.42857);
     position: relative;
 }
+
 .ActionList-sectionDivider:empty {
     display: block;
     height: 1px;
@@ -85,49 +101,100 @@ a {
     background: var(--color-action-list-item-inline-divider);
     border: 0;
 }
+
 .ActionList-sectionDivider:empty {
     margin-block-end: var(--base-size-8, 8px);
     margin-block-start: calc(var(--base-size-8, 8px) - var(--borderWidth-thin, 1px));
     margin-inline: calc(var(--base-size-8, 8px)*-1);
 }
-* {
-    box-sizing: border-box;
-}
+
 .ActionList-sectionDivider .ActionList-sectionDivider-title {
     font-size: 12px;
     font-weight: var(--base-text-weight-semibold, 600);
     color: var(--color-fg-muted);
 }
+
 h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
     margin-bottom: 0;
 }
+
 li:hover {
-    opacity: 0.8;
+    background: rgb(162 196 219);
+}
+
+.main-wrapper {
+    padding-top: 30px;
+    width: 100%;
+}
+
+.form-user{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 154px;
+}
+
+.form-user .button {
+    padding: 8px 0;
+}
+
+form article {
+    display: flex;
+    width: 100%;
+    margin-bottom: 16px;
+    padding-left: 10px;
+}
+
+form article h2 {
+    padding: 0 10px;
 }
 
 .inputContainer{
     padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .button{
     width: 230.6px;
 }
+
 table {
     border-collapse: separate;
     border-spacing: 0px;
+    width: 100%;
+    text-align: left;
+    
 }
+
+tr {
+    height: 40px;
+    cursor: pointer;
+}
+
+table tbody tr:hover {
+    background-color: #f9f6e552;  
+}
+
+thead {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
 
 th {
     padding: 10px;
 }
 
-td {
-    padding: 10px;
+th:last-child {
+    width: 138px;
 }
 
-tr {
-    cursor: pointer;
+td {
+    padding: 10px;
 }
   
 tr button{
@@ -136,10 +203,11 @@ tr button{
     width: 90px;
     background-color:red;
 }
+
 tr.active button {
     display: block;
-    }
+}
   
-.active {
+tr.active {
     background-color: #f0f6ff;
 }

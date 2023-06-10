@@ -1,4 +1,5 @@
 .submitBtn {
+    width: 100%;
     margin-top: 1rem;
     padding: 0.5rem;
     background-color: #0381fe;
@@ -37,12 +38,12 @@
   }
   
   .submitBtn:active {
-    border: 1px solid var(--white);
+    border: 1px solid var(--app-cream-text-color);
   }
   
   .formName {
     text-align: center;
-    color: var(--white);
+    color: var(--app-cream-text-color);
   }
   
   .sectionReg {
@@ -170,3 +171,6 @@
     margin: 0 auto;
   }
 
+  .inputContainer p {
+    color: var(--app-cream-text-color);
+  }

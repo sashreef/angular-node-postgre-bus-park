@@ -26,7 +26,7 @@
     public pending = false;
     public listTypesArray: { label: string; value: string }[] = [];
     public searchForm: UntypedFormGroup
-    public mode:boolean = false;
+    public mode: boolean = false;
 
     private unsubscribe$$: Subject<void> = new Subject();
     private selectedBooking: any;
@@ -53,54 +53,14 @@
           this.userInfo = info;
           this.createTabsArray();
         }
-      })
+      });
       this.getUserInfo();
       this.setSearchSub();
     }
 
     public selectType(type: { label: string, value: string , icon: string}) {
       this.activeType = type;
-      switch (type.value) {
-        // case "userProfile": {
-        //   break;
-        // }
-        case "yourBookings": case "bookings": {
-          this.getBookingInfo();
-          break;
-        }
-        case "sellTickets": {
-          this.getUnpaidTickets();
-          break;
-        }
-        case "usersActions": {
-          this.getAllUsers();
-          break;
-        }
-        case "tripsActions": {
-          this.getAllUsers();
-          break;
-        }
-        case "busesActions": {
-          this.getAllUsers();
-          break;
-        }
-        case "driversActions": {
-          this.getAllUsers();
-          break;
-        }
-        case "timetablesActions": {
-          this.getAllUsers();
-          break;
-        }
-        case "journeysActions": {
-          this.getAllUsers();
-          break;
-        }
-        case "statistics": {
-          this.getAllUsers();
-
-        }    
-      }
+      this.getSelectedReq(type);
     }
 
     public changeUserData(data: userForm): void {
@@ -160,6 +120,7 @@
         });
         this.getUnpaidTickets();
     }
+
     public isValidUserForm(): boolean {
       const fullName = this.userForm?.controls['fullName'].value;
       const phone = this.userForm?.controls['phone'].value;
@@ -203,7 +164,6 @@
           this.bookings.filter((booking) => booking.booking_id.toString().includes(id)) :
           this.unpaidTickets.filter((ticket) => ticket.ticket_id.toString().includes(id))
       });
-      console.log(this.filteredBookings);
     }
 
     private getUserInfo() {
@@ -236,8 +196,6 @@
         this.filteredBookings = data;
       });
     }
-
-
     
     private createTabsArray(): void {
       const commonTypes = [{ label: "User profile", value: "userProfile" , icon: "account_circle"}];
@@ -273,7 +231,45 @@
       this.listTypesArray = commonTypes.concat(specifiedTypes || []);
     }
 
-
+    private getSelectedReq(type: { label: string, value: string , icon: string}): void {
+      switch (type.value) {
+        case "yourBookings": case "bookings": {
+          this.getBookingInfo();
+          break;
+        }
+        case "sellTickets": {
+          this.getUnpaidTickets();
+          break;
+        }
+        case "usersActions": {
+          this.getAllUsers();
+          break;
+        }
+        case "tripsActions": {
+          this.getAllUsers();
+          break;
+        }
+        case "busesActions": {
+          this.getAllUsers();
+          break;
+        }
+        case "driversActions": {
+          this.getAllUsers();
+          break;
+        }
+        case "timetablesActions": {
+          this.getAllUsers();
+          break;
+        }
+        case "journeysActions": {
+          this.getAllUsers();
+          break;
+        }
+        case "statistics": {
+          this.getAllUsers();
+        }    
+      }
+    }
 
 
 

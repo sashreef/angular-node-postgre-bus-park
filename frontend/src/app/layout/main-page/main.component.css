@@ -59,6 +59,8 @@
 }
 
 .wrapper-form {
+    display: flex;
+    flex-direction: column;
     background-color: var(--app-white-color);
     padding: 20px;
     border-radius: 5px;
@@ -113,8 +115,14 @@ app-date-box {
     width: 262px;
 }
 
-button {
-    margin-top: 90px;
+.form-wrapper {
+    flex: 1;
+}
+
+.u-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 
@@ -423,4 +431,8 @@ p:not(.u-text-variant) {
 }
 .u-text-palette-1-base, li.active > a.u-button-style.u-text-palette-1-base, li.active > a.u-button-style.u-text-palette-1-base[class*="u-border-"], a.u-button-style.u-text-palette-1-base, a.u-button-style.u-text-palette-1-base[class*="u-border-"] {
     color: #192b52 !important;
+}
+
+.inputs-form {
+    flex: 1;
 }

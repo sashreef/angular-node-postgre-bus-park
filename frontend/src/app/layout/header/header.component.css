@@ -23,6 +23,8 @@ header {
 }
 
 .text {
+    display: flex;
+    align-items: center;
     font-family: var(--app-font-family-motserrat);
     color: var(--app-white-color);
     font-size: 18px;
@@ -31,8 +33,11 @@ header {
     text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
     line-height: 1;
     cursor: pointer;
-    display: flex;
-    align-items: center;
+    border-bottom: 2px solid var(--button-orange-color);
+}
+
+.log-out {
+    border-bottom: 2px solid var(--button-orange-color);
 }
 
 .text:hover,
@@ -45,7 +50,15 @@ app-icon {
     color: var(--app-white-color);
 }
 
-.row-icon{
+.row-icon {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+}
+
+.row-icon app-icon {
+    margin-right: 5px;
+}
+
+.active-link {
+    border-bottom: 2px solid #a3c0cf;
 }

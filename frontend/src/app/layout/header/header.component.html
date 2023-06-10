@@ -1,16 +1,16 @@
 <header>
     <ul class="header-links">
-        <li class="text" [routerLink]="'/main'">
+        <li class="text" [routerLink]="'/main'" routerLinkActive="active-link">
             <span>Main</span>
         </li>
     </ul>
     <div class="user-wrapper">
         <ng-container *ngIf="userInfo; else noLogin">
-            <div class="row-icon" [routerLink]="'/user_page'" >
+            <div class="row-icon" [routerLink]="'/user_page'" routerLinkActive="active-link" >
                 <app-icon>account_circle</app-icon>
                 <span class="text">{{userInfo.login}}</span>
             </div>
-            <app-icon [routerLink]="'/login'" (click)="logout()">logout</app-icon>
+            <app-icon [routerLink]="'/login'" (click)="logout()" class="log-out">logout</app-icon>
         </ng-container>
     </div>
 </header>
