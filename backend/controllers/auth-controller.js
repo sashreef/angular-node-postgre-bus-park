@@ -3,7 +3,7 @@ const sha256 = require("sha256");
 const jwt = require("jsonwebtoken");
 
 class AuthController {
-  // signup
+
   async signUpUser(req, res) {
     const { login, password, full_name, phone_number } = req.body;
     let newUser;
@@ -13,30 +13,26 @@ class AuthController {
         [login, password, full_name, phone_number]
       );
     } catch (err) {
-      newUser = db("connect_user").query(`select reset_user_id_seq()`); // decrement user_id to fix serial sequence
+      // newUser = db("connect_user").query(`select reset_user_id_seq()`); // decrement user_id to fix serial sequence
       if (err.code == 23505)
         return res.status(409).json({ error: `${err.detail}` });
-      // duplicate
-      else return res.status(400).json({ error: "bad request" }); // bad request
+
+      else return res.status(400).json({ error: "bad request" }); 
     }
     res.status(201).json(newUser);
   }
 
-  // signin
   async signInUser(req, res) {
     try {
       const { login, password } = req.body;
-      console.log(req.body)
       const foundUser = await db().query(
         `select * from Users where Users.login = $1 and Users.password = $2`,
         [
           login,
-          sha256(password), //
+          sha256(password), 
         ]
       );
-      //console.log(foundUser)
       if (!foundUser.rowCount) throw "no such user yet";
-      // if select returned nothing then throw error
       const accessToken = jwt.sign(
         { login, role: foundUser.rows[0].category },
         process.env.ACCESS_TOKEN_SALT,
@@ -58,7 +54,6 @@ class AuthController {
     }
   }
 
-  // signout
   signOutUser(req, res) {
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(204); // no content
@@ -66,7 +61,7 @@ class AuthController {
     res.sendStatus(204);
   }
 
-  // refreshtoken
+
   userRefreshToken(req, res) {
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(401);
@@ -93,22 +88,6 @@ class AuthController {
       }
     );
   }
-
-  // // guest slots
-  // async getParkingSlots(req, res) {
-  //   const allSlots = await db("connect_user").query(
-  //     `select * from slot_status order by slot_id`
-  //   );
-  //   res.json(allSlots);
-  // }
-
-  // // guest bookings
-  // async getBookings(req, res) {
-  //   const allBookings = await db("connect_user").query(
-  //     `select start_date, end_date, slot_id from booking_status where status = 'ongoing' or status = 'upcoming'`
-  //   );
-  //   res.json(allBookings);
-  // }
 }
 
 module.exports = new AuthController();
