@@ -245,7 +245,7 @@
       switch (this.userInfo?.role) {
         case "client": {
           specifiedTypes = [
-            { label: "Your Bookings", value: "yourBookings", icon: "account_circle" }
+            { label: "Your Bookings", value: "yourBookings", icon: "event_seat" }
           ]
           break;
         }
