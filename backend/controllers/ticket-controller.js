@@ -60,6 +60,30 @@ class TicketController {
         }
         res.status(201).json();
     }
+
+    async addTicket(req, res) {
+        const { user_id,  journey_id } = req.body;
+        let login;
+        try {
+            login = await db(req.body.role).query(
+              `SELECT login  FROM Users 
+               WHERE user_id = $1`,
+               [user_id]
+            );
+          
+        } catch (error) {
+          console.error(error);
+        }
+        try {
+            await db(req.body.role).query(
+                `insert into Ticket (client_id, journey_id) values ($1, $2)`,
+                [user_id, journey_id]
+            );
+        } catch (error) {
+            console.log(error);
+        }
+        res.status(201).json();
+    }
     
 }
 

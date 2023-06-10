@@ -2,27 +2,29 @@ const db = require("../db-config");
 
 class TimetableController {
 
-        // async allTimetables(req, res) {
-        //     const login = req.body.user;
-        //     let allTrips;
-        //     try {
-        //         allTrips = await db(req.body.role).query(
-        //             `
-        //           SELECT
-        //             trip.trip_id,
-        //             trip.trip_number,
-        //             trip.arrival_point,
-        //             trip.ticket_price
-        //           FROM
-        //             booking
-        //           ORDER BY trip.trip_id ASC
+        async allTimetables(req, res) {
+            const login = req.body.user;
+            let allTimetables;
+            try {
+                allTimetables = await db(req.body.role).query(
+                    `
+                  SELECT
+                    timetable.timetable_id,
+                    timetable.departure_time,
+                    timetable.arrival_time,
+                    bus.bus_number,
+                    bus.bus_brand
+                  FROM
+                    timetable
+                    JOIN bus ON timetable.bus_id = bus.bus_id
+                  ORDER BY timetable.timetable_id ASC
 
-        //         ` );
-        //     } catch (error) {
-        //         console.error(error);
-        //     }
-        //     res.json(allTrips.rows);
-        // }
+                ` );
+            } catch (error) {
+                console.error(error);
+            }
+            res.json(allTimetables.rows);
+        }
 
     async addTimetable(req, res) {
         const { bus_id, departure_time, arrival_time } = req.body;

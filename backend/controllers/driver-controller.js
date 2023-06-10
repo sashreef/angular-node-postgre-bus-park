@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 
 class DriverController {
   async allDrivers(req, res) {
-    const login = req.body.user;
     let allTrips;
     try {
       allTrips = await db(req.body.role).query(
@@ -37,11 +36,9 @@ class DriverController {
         [full_name, passport_id, date_of_birth, phone_number, salary]
       );
     } catch (err) {
-      // newUser = db(req.body.role).query(`select reset_driver_id_seq()`); // decrement user_id to fix serial sequence
       if (err.code == 23505)
         return res.status(409).json({ error: `${err.detail}` });
-      // duplicate
-      else return res.status(400).json({ error: "bad request" }); // bad request
+      else return res.status(400).json({ error: "bad request" }); 
     }
     res.json(newDriver);
   }
