@@ -2,7 +2,8 @@ const db = require("../db-config");
 
 class BookingController {
   async bookTickets(req, res) {
-    const { journey_id, quantity_of_seats } = req.body;
+    const { journey_id, quantity_of_seats } = req.body.userData;
+    console.log(req.body.userData);
     let userId;
     try {
       userId = await db(req.body.role).query(

@@ -22,8 +22,10 @@ app.use("/trip", require("./routes/trip-routes"));
 app.use("/booking", require("./routes/booking-routes"));
 app.use("/user_config", require("./routes/user-routes"));
 app.use("/ticket", require("./routes/ticket-routes"));
-// app.use("/discount", require("./routes/discount-routes"));
-// app.use("/vehicle", require("./routes/vehicle-routes"));
+app.use("/bus", require("./routes/bus-routes"));
+app.use("/timetable", require("./routes/timetable-routes"));
+app.use("/driver", require("./routes/driver-routes"));
+app.use("/journey", require("./routes/journey-routes"));
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);

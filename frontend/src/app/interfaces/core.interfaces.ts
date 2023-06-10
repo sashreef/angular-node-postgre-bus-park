@@ -64,3 +64,53 @@ export interface UnpaidTicket {
     login: string;
     ticket_status: string;
 }
+
+export interface Ticket {
+    ticket_id: number;
+    user_id: number;
+    journey_id: number;
+    sale_time: string;
+    sale_date: string;
+    ticket_status: string;
+}
+
+export interface Bus {
+    bus_id: number;
+    bus_number: number;
+    number_of_seats: string;
+    driver_id: string;
+    trip_id: string;
+}
+
+export interface Driver {
+    driver_id?:number;
+    full_name: string;
+    passport_id: string;
+    date_of_birth: string;
+    phone_number: string;
+    salary: number;
+}
+
+export interface Journey {
+    journey_id: number;
+    timetable_id: number;
+    actual_departure_time: string;
+    actual_arrival_time: string;
+    journey_status: string;
+    journey_date: number;
+}
+
+export interface Timetable {
+    timetable_id: number;
+    departure_time: string;
+    arrival_time: string;
+    bus_number: string;
+    bus_brand: number;
+}
+
+export interface Trip {
+    trip_id: number;
+    trip_number: string;
+    arrival_point: string;
+    ticket_price: string;
+}

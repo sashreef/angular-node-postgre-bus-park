@@ -57,7 +57,6 @@ class UserController {
         } else {
           new_password = sha256(new_password);
         }
-        console.log(new_password);
         updatedUser = await db(req.body.role).query(
           `UPDATE Users SET password = $1, full_name = $2, phone_number = $3 WHERE login = $4`,
           [new_password, full_name, phone_number, login]
@@ -75,7 +74,6 @@ class UserController {
 
   async deleteUser(req, res) {
     const user_id = req.body.user_id;
-    console.log(req.body.user_id);
     try {
       await db(req.body.role).query(
         `DELETE FROM booking WHERE client_id = $1`,

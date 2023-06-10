@@ -8,12 +8,11 @@ class AuthController {
     const { login, password, full_name, phone_number } = req.body;
     let newUser;
     try {
-      newUser = await db("connect_user").query(
+      newUser = await db().query(
         `insert into Users (login, password, full_name, phone_number) values ($1, $2, $3, $4)`,
         [login, password, full_name, phone_number]
       );
     } catch (err) {
-      // newUser = db("connect_user").query(`select reset_user_id_seq()`); // decrement user_id to fix serial sequence
       if (err.code == 23505)
         return res.status(409).json({ error: `${err.detail}` });
 

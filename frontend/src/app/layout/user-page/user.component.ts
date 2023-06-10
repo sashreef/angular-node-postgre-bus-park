@@ -64,7 +64,7 @@
     }
 
     public changeUserData(data: userForm): void {
-      this.manageService.changeUserData(data);
+      this.manageService.changeUserData(data).pipe(take(1)).subscribe();
     }
 
     public selectBooking(booking: any): void {
@@ -136,7 +136,7 @@
       const new_password = this.userForm?.controls['new_password'].value;
       const isFullNameValid = this.FULLNAME_REGEX.test(fullName);
       const isPhoneValid = this.PHONE_REGEX.test(phone);
-
+      
       if (new_password) {
         const isNewPasswordValid = this.PWD_REGEX.test(new_password);
         const isConfirmPasswordValid = new_password === confirmPassword;
