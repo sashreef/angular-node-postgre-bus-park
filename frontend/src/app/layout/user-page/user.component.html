@@ -143,7 +143,7 @@
                                 <th>Journey Id</th>
                                 <th>Arrival point</th>
                                 <th>Journey Date</th>
-                                <th>Client login</th>
+                                <th>Client ID</th>
                                 <th>Ticket Status</th>
                                 <th></th>
                             </tr>
@@ -155,7 +155,7 @@
                                 <td>{{ booking.journey_id }}</td>
                                 <td>{{ booking.arrival_point }}</td>
                                 <td>{{ booking.journey_date | date:'yyyy-MM-dd' }}</td>
-                                <td>{{ booking.login }}</td>
+                                <td>{{ booking.client_id }}</td>
                                 <td>{{ booking.ticket_status }}</td>
                                 <td>
                                     <div>
@@ -172,11 +172,11 @@
                     <button class="button" type="button" (click)="addTicketForm = formBuilderService.getTicketFormGroup()">Add ticket</button>
                 </div>
                 <ng-container *ngIf="addTicketForm">
-                    <button class="button red" type="button" (click)="createTicket(false)">Close</button>
-                    <button class="button green" type="button" (click)="createTicket(true)">Add</button>
-                    <app-text-box [placeholder]="'Trip ID'" [isPassword]="true"
+                    <button class="button red" type="button" (click)="createTicket(false,addTicketForm.value)">Close</button>
+                    <button class="button green" type="button" (click)="createTicket(true,addTicketForm.value)">Add</button>
+                    <app-text-box [placeholder]="'Journey ID'" 
                          [formControl]="addTicketForm.controls['trip_id']"></app-text-box>
-                    <app-text-box [placeholder]="'User login'" [isPassword]="true"
+                    <app-text-box [placeholder]="'User login'" 
                         [formControl]="addTicketForm.controls['login']" required="true"></app-text-box>
                 </ng-container>
             </div>

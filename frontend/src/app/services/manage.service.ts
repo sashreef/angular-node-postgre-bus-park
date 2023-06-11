@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BackendService } from "./backend.service";
 import { BehaviorSubject, Observable, take, tap } from "rxjs";
-import { BookTicket, Login, Register, Trip, userForm } from "../interfaces/core.interfaces";
+import { BookTicket, Login, Register, Ticket, Trip, userForm } from "../interfaces/core.interfaces";
 import { CookieService } from "ngx-cookie-service";
 
 
@@ -109,6 +109,10 @@ export class ManageService {
 
     public sellTicket(ticket_id: number): Observable<any> {
         return this.backendService.tickets.sellTicket$(ticket_id);
+    }
+
+    public addTicket(ticketData: Ticket): Observable<any> {
+        return this.backendService.tickets.addTicket$(ticketData);
     }
 
     public getAllTrips(): Observable<any> {

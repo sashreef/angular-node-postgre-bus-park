@@ -1,7 +1,7 @@
   import { Component } from "@angular/core";
   import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
   import { Subject, take, takeUntil } from "rxjs";
-  import { BookingInfo, Trip, UnpaidTicket, userForm } from "src/app/interfaces/core.interfaces";
+  import { BookingInfo, Ticket, Trip, UnpaidTicket, userForm } from "src/app/interfaces/core.interfaces";
   import { FormBuilderService } from "src/app/services/form-builder.service";
   import { ManageService } from "src/app/services/manage.service";
 
@@ -115,12 +115,17 @@
         });
     }
 
-    public createTicket(flag: boolean): void {
+    public createTicket(flag: boolean,ticketForm:Ticket): void {
       if(!flag) {
         this.addTicketForm = null;
         return;
       }
-      //req for create
+      this.manageService.addTicket(ticketForm).pipe(take(1)).subscribe((data) => {
+        this.pending = false;
+      },
+      (err) => {
+         throw err;
+      });
       this.addTicketForm = null;
       // если на создание не будет отправляется форма => попробовать создать отдельную bool паблик переменную
       // и условия открытия формы создания завязать на нее, 
