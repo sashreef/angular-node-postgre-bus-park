@@ -215,8 +215,8 @@
         }
         case "cashier": {
           specifiedTypes = [
-            { label: "Bookings", value: "bookings", icon: "account_circle" },
-            { label: "Sell tickets", value: "sellTickets", icon: "account_circle" }
+            { label: "Bookings", value: "bookings", icon: "event_seat" },
+            { label: "Sell tickets", value: "sellTickets", icon: "attach_money" }
           ]
           break;
         }

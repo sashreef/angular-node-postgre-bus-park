@@ -12,6 +12,7 @@ const port = 3001;
 app.use(credentials);
 app.use(cors(corsOptions));
 
+require('./scheduler');
 app.use(express.json());
 app.use(cookieParser());
 
@@ -26,6 +27,7 @@ app.use("/bus", require("./routes/bus-routes"));
 app.use("/timetable", require("./routes/timetable-routes"));
 app.use("/driver", require("./routes/driver-routes"));
 app.use("/journey", require("./routes/journey-routes"));
+app.use("/statistics", require("./routes/statistics-routes"));
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);

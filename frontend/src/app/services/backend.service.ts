@@ -110,22 +110,22 @@ export class BackendService {
     }
 
     public readonly journey = {
-        addDriver$: (journeyData: Journey): Observable<any> => {
+        addJourney$: (journeyData: Journey): Observable<any> => {
             const url = `${this.config.api.root}/journey/add_journey`;
             return this.http.post(url, {journeyData});
         },
 
-        updateDriver$: (journeyData: Journey): Observable<any> => {
+        updateJourney$: (journeyData: Journey): Observable<any> => {
             const url = `${this.config.api.root}/journey/update_journey`;
             return this.http.post(url, {journeyData});
         },
 
-        deleteDriver$: (journey_id : number): Observable<any> => {
+        deleteJourney$: (journey_id : number): Observable<any> => {
             const url = `${this.config.api.root}/journey/delete_journey`;
             return this.http.post(url , {journey_id});
         },
 
-        getAllDrivers$: (): Observable<any> => {
+        getAllJourneys$: (): Observable<any> => {
             const url = `${this.config.api.root}/journey/all_journeys`;
             return this.http.get(url);
         }
@@ -214,6 +214,27 @@ export class BackendService {
         }
     }   
 
+    public readonly statistics = {
+        busInTrip$:(bus_number:string, start_date:string, end_date:string): Observable<any> => {
+            const url = `${this.config.api.root}/statistics/bus_trip`;
+            const data = {bus_number, start_date, end_date}
+            return this.http.post(url, data);
+        },
+
+        sumTicketsOnTrip$:(trip_number:string, start_date:string, end_date:string): Observable<any> => {
+            const url = `${this.config.api.root}/statistics/ticket_trip`;
+            const data = {trip_number, start_date, end_date}
+            return this.http.post(url, data);
+        },
+        
+        difBookedAndPaid$:(trip_number:string, start_date:string, end_date:string): Observable<any> => {
+            const url = `${this.config.api.root}/statistics/booked_paid`;
+            const data = {trip_number, start_date, end_date}
+            return this.http.post(url, data);
+        },
+
+    }
+
     public readonly user = {
         getUserInfo$:(): Observable<any> => {
             const url = `${this.config.api.root}/user_config/user_info`;
@@ -230,10 +251,16 @@ export class BackendService {
             return this.http.post(url,userData);
         },
 
+        updateUserForAdmin$:(userData: {login: string, password: string,  full_name: string, phone_number: string , category:string}): Observable<any> => {
+            const url = `${this.config.api.root}/user_config/update_admin`;
+            return this.http.post(url,userData);
+        },
+
         deleteUser$:(user_id : number): Observable<any> => {
             const url = `${this.config.api.root}/user_config/delete_user`;
             return this.http.post(url,{user_id});
         },
+        
     }
 
 }   
