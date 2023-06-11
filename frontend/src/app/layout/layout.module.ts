@@ -8,6 +8,8 @@ import { HeaderComponent } from "./header/header.component";
 import { AppRoutingModule } from "../app-routing/app-routing";
 import { RouterModule } from "@angular/router";
 import { UserComponent } from "./user-page/user.component";
+import { AddUserFormComponent } from "./user-page/add-user-form/add-user-form.component";
+import { TripsTableComponent } from "./user-page/trips-component/trips-table.component";
 
 
 @NgModule({
@@ -23,12 +25,17 @@ import { UserComponent } from "./user-page/user.component";
         UserComponent,
         LayoutComponent,
         HeaderComponent,
+        AddUserFormComponent,
+        TripsTableComponent
+
     ],
     declarations: [
         MainComponent,
         UserComponent,
         LayoutComponent,
-        HeaderComponent
+        HeaderComponent,
+        AddUserFormComponent,
+        TripsTableComponent
     ]
 })
 

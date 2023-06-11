@@ -260,15 +260,6 @@ tr.active {
     width: 110px;
 }
 
-
-.green {
-    background-color: green !important;
-}
-
-.red {
-    background-color: red !important;
-}
-
 .no-data {
     height: 100%;
     width: 100%;

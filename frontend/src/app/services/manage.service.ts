@@ -110,5 +110,9 @@ export class ManageService {
     public sellTicket(ticket_id: number): Observable<any> {
         return this.backendService.tickets.sellTicket$(ticket_id);
     }
+
+    public getAllTrips(): Observable<any> {
+        return this.backendService.trip.getAllTrips$();
+    }
 }
 

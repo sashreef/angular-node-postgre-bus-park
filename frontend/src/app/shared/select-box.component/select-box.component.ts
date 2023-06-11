@@ -112,7 +112,7 @@ export class SelectBoxComponent extends InputComponent<any> implements OnChanges
 
     public setControlValue(value: SelectBoxComponent["value"]) {
         if(this.form) {
-            this.form.setValue(value)
+            this.form.setValue(value);
         }
     }
 

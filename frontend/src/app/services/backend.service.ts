@@ -190,8 +190,6 @@ export class BackendService {
             const url = `${this.config.api.root}/trip/all_trips`;
             return this.http.get(url);
         }
-        
-        
     }
 
     public readonly getInfo = {

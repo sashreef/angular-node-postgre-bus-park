@@ -1,0 +1,44 @@
+<form *ngIf="mode === 'view' && trips">
+    <article>
+        <app-text-box [placeholder]="'User ID'" [formControl]="searchForm.controls['search']"></app-text-box>
+    </article>
+    <div class="table-wrapper">
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Trip Id</th>
+                    <th>Trip number</th>
+                    <th>Arrival point</th>
+                    <th>Ticket Price</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let trip of filteredTrips" (click)="selectTrip(trip)"
+                    [class.active]="this.activeTrip === trip">
+                    <td>{{ trip.trip_id }}</td>
+                    <td>{{ trip.trip_number }}</td>
+                    <td>{{ trip.arrival_point }}</td>
+                    <td>{{ trip.ticket_price }}</td>
+                    <td>
+                        <div>
+                            <button type="button" class="button"
+                                (click)="updateTrip(trip)">Update</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button type="button" class="button red"
+                                (click)="deleteTrip()">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="add-form">
+        <button type="button" class="button" (click)="showAddUserForm(true)">Add user</button>
+    </div>
+</form>
+<app-add-user-form *ngIf="['create', 'edit'].includes(mode)" [form]="addUserForm" [mode]="mode" (closeEmitter)="closeForm()" ></app-add-user-form>

@@ -22,13 +22,22 @@ export interface BookTicketDTO {
     quantity_of_seats: number;
     booking_date?: string;
 }
-export interface Trip {
-    arrival_point: string;
-    quantity_of_seats: number;
-    journey_date: string;
-}
 
 export interface userForm {
+    username: string;
+    password: string;
+    new_password: string;
+    confirm_password: string;
+    fullName: string;
+    phone: string;
+    role?: string;
+    phone_number?: string;
+    login?: string;
+    full_name?: string;
+    category?: string
+}
+
+export interface addUserForm {
     username: string;
     password: string;
     new_password: string;

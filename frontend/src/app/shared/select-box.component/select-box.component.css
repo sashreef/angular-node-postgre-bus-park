@@ -164,3 +164,9 @@ ul li:hover {
     background-color: var(--control-hover-color);
     color: var(--app-white-color);
 }
+
+:host(.small-input) {
+	>.select-input {
+		width: 231px;
+	}
+}

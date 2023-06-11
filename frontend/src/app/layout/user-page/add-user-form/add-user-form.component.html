@@ -1,0 +1,53 @@
+<form *ngIf="form?.controls">
+    <h2 class="Subhead-heading">{{mode === "create" ? 'Add user': 'Update user'}}</h2>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'Username'" [formControl]="form.controls['username']"
+            readonly></app-text-box>
+        <!-- надо залочить -->
+    </div>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'full name'"
+            [formControl]="form.controls['fullName']"></app-text-box>
+        <p id="confirmnote"
+            *ngIf="form.controls['fullName'].value?.length > 0 && form.controls['fullName'].value?.length < 10 && !form.controls['phone'].value?.match(FULLNAME_REGEX)">
+            must be at least 10 characters long
+        </p>
+    </div>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'phone'"
+            [formControl]="form.controls['phone']"></app-text-box>
+        <p id="confirmnote"
+            *ngIf="form.controls['phone'].value?.length > 0 && !form.controls['phone'].value?.match(PHONE_REGEX)">
+            contact phone matching +xxxxxxxxxxxx
+        </p>
+    </div>
+    <div class="inputContainer" *ngIf="form?.controls['new_password']">
+        <app-text-box [placeholder]="'new password'" [isPassword]="true"
+            [formControl]="form.controls['new_password']"></app-text-box>
+    </div>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'password'" [isPassword]="true"
+            [formControl]="form.controls['password']"></app-text-box>
+    </div>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'confirm password'" [isPassword]="true"
+            [formControl]="form.controls['confirm_password']"></app-text-box>
+        <p id="confirmnote"
+            *ngIf="form.controls['confirm_password'].value?.length > 0 && form.controls['confirm_password'].value !== form.controls['new_password'].value">
+            must match the new password input field
+        </p>
+    </div>
+    <div class="inputContainer">
+        <app-select-box [appDataSource]="selectData" ngDefaultControl [formControl]="form.controls['role']" [form]="form.controls['role']" class="small-input"></app-select-box>
+    </div>
+        
+    <button *ngIf="mode === 'edit'" type="button" (click)="updateUser(form.value)" class="button"
+        [disabled]="!isValidform(form)">
+        Save changes
+    </button>
+    <button *ngIf="mode === 'create'" type="button" (click)="addUser(form.value)" class="button green"
+        [disabled]="!isValidform(form)">
+        Add User
+    </button>
+    <div><button type="button" class="button red" (click)="close()">Close</button></div>
+</form>

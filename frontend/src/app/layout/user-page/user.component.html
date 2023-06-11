@@ -84,108 +84,52 @@
                 </ng-container>
             </ng-container>
             <ng-container *ngSwitchCase="'usersActions'">
-                <ng-container *ngIf="!mode">
-                    <form>
-                        <article>
-                            <app-text-box [placeholder]="'User ID'" [formControl]="searchForm.controls['search']"></app-text-box>
-                        </article>
-                        <div class="table-wrapper">
-                            <table class="user-table">
-                                <thead>
-                                    <tr>
-                                        <th>User Id</th>
-                                        <th>User login</th>
-                                        <th>Full Name</th>
-                                        <th>Phone Number</th>
-                                        <th>Role</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let user of filteredBookings" (click)="selectUser(user)"
-                                        [class.active]="this.selectedUser === user">
-                                        <td>{{ user.user_id }}</td>
-                                        <td>{{ user.login }}</td>
-                                        <td>{{ user.full_name }}</td>
-                                        <td>{{ user.phone_number }}</td>
-                                        <td>{{ user.category }}</td>
-                                        <td>
-                                            <div>
-                                                <button type="button" class="button" *ngIf="user.category !== 'administrator'"
-                                                    (click)="updateUser()">Update</button>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <button type="button" class="button red" *ngIf="user.category !== 'administrator'"
-                                                    (click)="deleteUser()">Delete</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
-                <div class="add-form">
-                    <button type="button" class="button" *ngIf="!mode" (click)="mode = true">Add user</button>
-                </div>
-                </ng-container>
-                <ng-container *ngIf="userForm?.controls && mode">
-                    <h2 class="Subhead-heading">Add user</h2>
-                    <div class="inputContainer">
-                        <app-text-box [placeholder]="'Username'" [formControl]="adminUserForm.controls['username']"
-                            readonly></app-text-box>
-                        <!-- надо залочить -->
+                <form *ngIf="mode === 'view'">
+                    <article>
+                        <app-text-box [placeholder]="'User ID'" [formControl]="searchForm.controls['search']"></app-text-box>
+                    </article>
+                    <div class="table-wrapper">
+                        <table class="user-table">
+                            <thead>
+                                <tr>
+                                    <th>User Id</th>
+                                    <th>User login</th>
+                                    <th>Full Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Role</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of filteredBookings" (click)="selectUser(user)"
+                                    [class.active]="this.selectedUser === user">
+                                    <td>{{ user.user_id }}</td>
+                                    <td>{{ user.login }}</td>
+                                    <td>{{ user.full_name }}</td>
+                                    <td>{{ user.phone_number }}</td>
+                                    <td>{{ user.category }}</td>
+                                    <td>
+                                        <div>
+                                            <button type="button" class="button" *ngIf="user.category !== 'administrator'"
+                                                (click)="updateUser(user)">Update</button>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <button type="button" class="button red" *ngIf="user.category !== 'administrator'"
+                                                (click)="deleteUser()">Delete</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="inputContainer">
-                        <app-text-box [placeholder]="'full_name'"
-                            [formControl]="adminUserForm.controls['fullName']"></app-text-box>
-                        <p id="confirmnote"
-                            *ngIf="adminUserForm.controls['fullName'].value?.length > 0 && adminUserForm.controls['fullName'].value?.length < 10 && !adminUserForm.controls['phone'].value?.match(FULLNAME_REGEX)">
-                            must be at least 10 characters long
-                        </p>
+                    <div class="add-form">
+                        <button type="button" class="button" (click)="showAddUserForm(true)">Add user</button>
                     </div>
-                    <div class="inputContainer">
-                        <app-text-box [placeholder]="'phone'"
-                            [formControl]="adminUserForm.controls['phone']"></app-text-box>
-                        <p id="confirmnote"
-                            *ngIf="adminUserForm.controls['phone'].value?.length > 0 && !adminUserForm.controls['phone'].value?.match(PHONE_REGEX)">
-                            contact phone matching +xxxxxxxxxxxx
-                        </p>
-                    </div>
-                    <div class="inputContainer">
-                        <!-- *ngIf="!adminUserForm.controls['password']" -->
-                        <app-text-box [placeholder]="'your password'" [isPassword]="true"
-                            [formControl]="adminUserForm.controls['password']"></app-text-box>
-                    </div>
-                    <div class="inputContainer">
-                        <app-text-box [placeholder]="'new password'" [isPassword]="true"
-                            [formControl]="c.controls['new_password']"></app-text-box>
-                        <p id="pwdnote"
-                            *ngIf="adminUserForm.controls['new_password'].value?.length > 0 && !adminUserForm.controls['new_password'].value?.match(PWD_REGEX)">
-                            must be at least 8 characters long, must include uppercase letter, number, and a special
-                            character (!@#$%^&*)
-                        </p>
-                    </div>
-                    <div class="inputContainer">
-                        <app-text-box [placeholder]="'confirm password'" [isPassword]="true"
-                            [formControl]="adminUserForm.controls['confirm_password']"></app-text-box>
-                        <p id="confirmnote"
-                            *ngIf="adminUserForm.controls['confirm_password'].value?.length > 0 && adminUserForm.controls['confirm_password'].value !== adminUserForm.controls['new_password'].value">
-                            must match the new password input field
-                        </p>
-                    </div>
-                    <button type="button" (click)="changeUserData(adminUserForm.value)" *ngIf="adminUserForm" class="button"
-                        [disabled]="!isValidUserForm(adminUserForm)">
-                        Save changes
-                    </button>
-                    <button type="button" (click)="register(adminUserForm.value)" class="button"
-                        [disabled]="!isValidUserForm(adminUserForm)">
-                        Add User
-                    </button>
-                    <div><button type="button" class="button" (click)="mode = false">Close </button></div>
-                </ng-container>
+                </form>
+                <app-add-user-form *ngIf="['create', 'edit'].includes(mode)" [form]="addUserForm" [mode]="mode" (closeEmitter)="closeForm()" ></app-add-user-form>
             </ng-container>
             <form *ngSwitchCase="'sellTickets'">
                 <article>
@@ -238,7 +182,7 @@
             </div>
             </form>
             <ng-container *ngSwitchCase="'Trips'">
-
+                <app-trips-table [trips]="tableArray" ></app-trips-table>
             </ng-container>
             <ng-container *ngSwitchCase="'Buses'">
                 
