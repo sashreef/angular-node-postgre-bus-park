@@ -181,22 +181,22 @@
                 </ng-container>
             </div>
             </form>
-            <ng-container *ngSwitchCase="'Trips'">
-                <app-trips-table [trips]="tableArray" ></app-trips-table>
+            <ng-container *ngSwitchCase="'tripsActions'">
+                <app-trips-table *ngIf="tableArray" [trips]="tableArray"></app-trips-table>
             </ng-container>
-            <ng-container *ngSwitchCase="'Buses'">
+            <ng-container *ngSwitchCase="'busesActions'">
                 
             </ng-container>
-            <ng-container *ngSwitchCase="'Drivers'">
+            <ng-container *ngSwitchCase="'driversActions'">
                 
             </ng-container>
-            <ng-container *ngSwitchCase="'Timetables'">
+            <ng-container *ngSwitchCase="'timetablesActions'">
                 
             </ng-container>
-            <ng-container *ngSwitchCase="'Journeys'">
+            <ng-container *ngSwitchCase="'journeysActions'">
                 
             </ng-container>
-            <ng-container *ngSwitchCase="'Statictics'">
+            <ng-container *ngSwitchCase="'statistics'">
                 
             </ng-container>
 

@@ -19,7 +19,7 @@
     public addTicketForm?: UntypedFormGroup | null;
     public bookings: BookingInfo[] = [];
     public users: userForm[] = [];
-    public tableArray: any[] = [];
+    public tableArray: any[] | null = null;
     public selectedUser: any;
     public selectedAdminUser: any;
     public unpaidTickets: UnpaidTicket[] = [];
@@ -101,10 +101,8 @@
     }
 
     public updateUser(user: userForm): void{
-      console.log(user);
-      
+      this.addUserForm = this.formBuilderService.getAdminUserFormGroup(user, true);
       this.mode = "edit";
-      this.addUserForm = this.formBuilderService.getAdminUserFormGroup(user);
     }
 
     public deleteUser(): void {
@@ -221,7 +219,7 @@
 
     private getTripsInfo() {
       this.filteredBookings = [];
-      this.tableArray = [];
+      this.tableArray = null;
       this.manageService.getAllTrips().pipe(take(1)).subscribe((data: Trip[]) => {
         this.tableArray = data;
       });

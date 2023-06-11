@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BackendService } from "./backend.service";
 import { BehaviorSubject, Observable, take, tap } from "rxjs";
-import { BookTicket, Login, Register, userForm } from "../interfaces/core.interfaces";
+import { BookTicket, Login, Register, Trip, userForm } from "../interfaces/core.interfaces";
 import { CookieService } from "ngx-cookie-service";
 
 
@@ -113,6 +113,18 @@ export class ManageService {
 
     public getAllTrips(): Observable<any> {
         return this.backendService.trip.getAllTrips$();
+    }
+
+    public addTrip(trip: Trip): Observable<any> {
+        return this.backendService.trip.addTrip$(trip);
+    }
+
+    public deleteTrip(id: number): Observable<any> {
+        return this.backendService.trip.deleteTrip$(id);
+    }
+
+    public updateTrip(trip: Trip): Observable<any> {
+        return this.backendService.trip.updateTrip$(trip);
     }
 }
 

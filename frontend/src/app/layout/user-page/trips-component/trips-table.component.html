@@ -1,9 +1,9 @@
 <form *ngIf="mode === 'view' && trips">
     <article>
-        <app-text-box [placeholder]="'User ID'" [formControl]="searchForm.controls['search']"></app-text-box>
+        <app-text-box [placeholder]="'Trip ID'" [formControl]="searchForm.controls['search']"></app-text-box>
     </article>
     <div class="table-wrapper">
-        <table class="user-table">
+        <table>
             <thead>
                 <tr>
                     <th>Trip Id</th>
@@ -30,7 +30,7 @@
                     <td>
                         <div>
                             <button type="button" class="button red"
-                                (click)="deleteTrip()">Delete</button>
+                                (click)="deleteTrip(trip.trip_id)">Delete</button>
                         </div>
                     </td>
                 </tr>
@@ -38,7 +38,7 @@
         </table>
     </div>
     <div class="add-form">
-        <button type="button" class="button" (click)="showAddUserForm(true)">Add user</button>
+        <button type="button" class="button" (click)="addTrip()">Add trip</button>
     </div>
 </form>
-<app-add-user-form *ngIf="['create', 'edit'].includes(mode)" [form]="addUserForm" [mode]="mode" (closeEmitter)="closeForm()" ></app-add-user-form>
+<app-trips-form *ngIf="['create', 'edit'].includes(mode)" [form]="form" [mode]="mode" (closeEmitter)="closeForm()"></app-trips-form>

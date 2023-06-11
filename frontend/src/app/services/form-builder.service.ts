@@ -1,6 +1,6 @@
 import { Directive } from "@angular/core";
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
-import { Booking, userForm } from "../interfaces/core.interfaces";
+import { Booking, Trip, userForm } from "../interfaces/core.interfaces";
 
 @Directive()
 
@@ -41,5 +41,16 @@ export class FormBuilderService {
             trip_id: new FormControl(),
             login: new FormControl()
         });
+    }
+
+    public getTripFormGroup(data?: Trip, isCreate = false): UntypedFormGroup {
+        const form = this.formBuilder.group({
+            trip_number: data?.trip_number,
+            ticket_price: data?.ticket_price,
+        });
+        if(isCreate) {
+            form.addControl("arrival_point", new FormControl(null));
+        }
+        return form;
     }
 }

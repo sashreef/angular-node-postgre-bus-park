@@ -10,6 +10,7 @@ import { RouterModule } from "@angular/router";
 import { UserComponent } from "./user-page/user.component";
 import { AddUserFormComponent } from "./user-page/add-user-form/add-user-form.component";
 import { TripsTableComponent } from "./user-page/trips-component/trips-table.component";
+import { TripsFormComponent } from "./user-page/trips-component/trips-form/trips-form.component";
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { TripsTableComponent } from "./user-page/trips-component/trips-table.com
         LayoutComponent,
         HeaderComponent,
         AddUserFormComponent,
-        TripsTableComponent
+        TripsTableComponent,
+        TripsFormComponent
 
     ],
     declarations: [
@@ -35,7 +37,8 @@ import { TripsTableComponent } from "./user-page/trips-component/trips-table.com
         LayoutComponent,
         HeaderComponent,
         AddUserFormComponent,
-        TripsTableComponent
+        TripsTableComponent,
+        TripsFormComponent
     ]
 })
 
