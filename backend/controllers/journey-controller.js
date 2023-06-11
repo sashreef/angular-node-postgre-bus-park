@@ -28,20 +28,19 @@ class JouneyController {
   async addJourneysForScheduler(req, res) {
 
     try {
-      const timetables = await db.query('SELECT * FROM trip');
+      const timetables = await db("administrator").query('SELECT * FROM timetable');
 
       const currentDate = new Date();
       const year = currentDate.getFullYear();
       const month = String(currentDate.getMonth() + 1).padStart(2, '0');
       const day = String(currentDate.getDate() + 14).padStart(2, '0');
       const formattedDate = `${year}-${month}-${day}`;
-      for (const timetable of timetables) {
-        await db.query('INSERT INTO journey (timetable_id, journey_date) VALUES ($1, $2)', [timetable.timetable_id, formattedDate]);
+      for (const timetable of timetables.rows) {
+        await db("administrator").query('INSERT INTO journey (timetable_id, journey_date) VALUES ($1, $2)', [timetable.timetable_id, formattedDate]);
       }
     } catch (error) {
       console.log(error);
     }
-    res.status(201).json();
   }
 
   async addJourney(req, res) {
