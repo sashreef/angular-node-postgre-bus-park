@@ -15,7 +15,7 @@ class BusController {
                 bus.driver_id,
                 bus.trip_id
               FROM
-                booking
+                bus
               ORDER BY bus.bus_id ASC
 
             ` );

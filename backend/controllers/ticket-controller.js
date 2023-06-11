@@ -62,7 +62,8 @@ class TicketController {
     }
 
     async addTicket(req, res) {
-        const { user_id,  journey_id } = req.body;
+        const { user_id,  trip_id } = req.body.ticketData;
+        console.log(req.body);
         let login;
         try {
             login = await db(req.body.role).query(
@@ -76,8 +77,8 @@ class TicketController {
         }
         try {
             await db(req.body.role).query(
-                `insert into Ticket (client_id, journey_id) values ($1, $2)`,
-                [user_id, journey_id]
+                `insert into Ticket (client_id, journey_id , ticket_status ) values ($1, $2, 'Unpaid')`,
+                [user_id, trip_id]
             );
         } catch (error) {
             console.log(error);
