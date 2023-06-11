@@ -77,3 +77,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   ::-webkit-scrollbar-thumb:hover {
     background: #9b9999;
   }
+
+  .green {
+    background-color: green !important;
+}
+
+.red {
+    background-color: red !important;
+}

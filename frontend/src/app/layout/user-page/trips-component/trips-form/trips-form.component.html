@@ -1,0 +1,23 @@
+<form *ngIf="form?.controls">
+    <h2 class="Subhead-heading">{{mode === "create" ? 'Add trip': 'Update trip'}}</h2>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'Trip number'" [formControl]="form?.controls['trip_number']">
+        </app-text-box>
+    </div>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'Ticket price'" [formControl]="form?.controls['ticket_price']">
+
+        </app-text-box>
+    </div>
+    <div *ngIf="mode === 'create'" class="inputContainer">
+        <app-text-box [placeholder]="'Arrival point'" [formControl]="form?.controls['arrival_point']">
+        </app-text-box>
+    </div>
+    <button *ngIf="mode === 'edit'" type="button" (click)="update(form.value)" class="button">
+        Save changes
+    </button>
+    <button *ngIf="mode === 'create'" type="button" (click)="add(form.value)" class="button green">
+        Add trip
+    </button>
+    <div><button type="button" class="button red" (click)="close()">Close</button></div>
+</form>

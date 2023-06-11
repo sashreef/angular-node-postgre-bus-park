@@ -1,7 +1,7 @@
   import { Component } from "@angular/core";
   import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
   import { Subject, take, takeUntil } from "rxjs";
-  import { BookingInfo, UnpaidTicket, userForm } from "src/app/interfaces/core.interfaces";
+  import { BookingInfo, Trip, UnpaidTicket, userForm } from "src/app/interfaces/core.interfaces";
   import { FormBuilderService } from "src/app/services/form-builder.service";
   import { ManageService } from "src/app/services/manage.service";
 
@@ -15,10 +15,11 @@
     public activeType = { label: "User profile", value: "userProfile" , icon: "account_circle"};
     public userInfo?: { login: string; role: string; };
     public userForm?: UntypedFormGroup;
-    public adminUserForm?: UntypedFormGroup | null;
+    public addUserForm?: UntypedFormGroup | null;
     public addTicketForm?: UntypedFormGroup | null;
     public bookings: BookingInfo[] = [];
     public users: userForm[] = [];
+    public tableArray: any[] | null = null;
     public selectedUser: any;
     public selectedAdminUser: any;
     public unpaidTickets: UnpaidTicket[] = [];
@@ -26,7 +27,7 @@
     public pending = false;
     public listTypesArray: { label: string; value: string }[] = [];
     public searchForm: UntypedFormGroup
-    public mode: boolean = false;
+    public mode: "view" | "create" | "edit" = "view";
 
     private unsubscribe$$: Subject<void> = new Subject();
     private selectedBooking: any;
@@ -75,11 +76,14 @@
       this.selectedUser = user;
     }
 
-    public selectAdminUser(user: any): void {
-      // const adminUser
-      const userData = { username: user.login, fullName: user.full_name, phone: user.phone_number, password: user.password, new_password: user.new_password, confirm_password: user.confirm_password };
-      this.selectedAdminUser = user;
-      this.adminUserForm = this.formBuilderService.getAdminUserFormGroup(user);
+    public showAddUserForm(flag: boolean): void {
+      if(!flag) {
+        this.mode = "view";
+        this.addUserForm = null;
+        return;
+      }
+      this.mode = "create";
+      this.addUserForm = this.formBuilderService.getAdminUserFormGroup();
     }
 
     public isSelectedUser(user: any): boolean {
@@ -94,6 +98,11 @@
       (err) => {
           throw err;
       });
+    }
+
+    public updateUser(user: userForm): void{
+      this.addUserForm = this.formBuilderService.getAdminUserFormGroup(user, true);
+      this.mode = "edit";
     }
 
     public deleteUser(): void {
@@ -156,6 +165,11 @@
       return false; // Если условия не выполнены, вернуть false
     }
 
+    public closeForm() {
+      this.mode = "view";
+      this.addUserForm = null;
+    }
+
     public ngOnDestroy(): void {
       this.unsubscribe$$.next();
       this.unsubscribe$$.complete();
@@ -200,6 +214,14 @@
       this.manageService.getUnpaidTickets().pipe(take(1)).subscribe((data: UnpaidTicket[]) => {
         this.unpaidTickets = data;
         this.filteredBookings = data;
+      });
+    }
+
+    private getTripsInfo() {
+      this.filteredBookings = [];
+      this.tableArray = null;
+      this.manageService.getAllTrips().pipe(take(1)).subscribe((data: Trip[]) => {
+        this.tableArray = data;
       });
     }
     
@@ -252,7 +274,7 @@
           break;
         }
         case "tripsActions": {
-          this.getAllUsers();
+          this.getTripsInfo();
           break;
         }
         case "busesActions": {

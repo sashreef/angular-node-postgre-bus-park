@@ -1,0 +1,83 @@
+article{
+    display: flex;
+    width: 100%;
+    margin-bottom: 16px;
+    padding-left: 24px;
+}
+
+.table-wrapper {
+    max-height: calc(100vh - 214px);
+    overflow: auto;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0px;
+    width: 100%;
+    text-align: left;
+    
+}
+
+tr {
+    height: 40px;
+    cursor: pointer;
+}
+
+table tbody tr:hover {
+    background-color: #e9e9e5e3;  
+}
+
+thead {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+
+th {
+    padding: 10px;
+}
+
+th:nth-last-child(2) {
+    width: 110px;
+}
+
+th:last-child {
+    width: 120px;
+}
+
+td {
+    padding: 10px;
+}
+
+th:first-child {
+    padding-left: 24px;
+}
+
+td:first-child {
+    padding-left: 24px;
+}
+  
+tr button{
+    padding: unset;
+    display: none;
+    height: 20px;
+    width: 90px;
+}
+
+tr.active button {
+    display: block;
+}
+  
+tr.active {
+    background-color: #f0f6ff;
+}
+
+.add-form {
+    display: flex;
+    width: 100%;
+    padding: 20px 0 20px 24px;
+}
+
+.add-form button {
+    padding: 8px 0;
+    width: 230.6px;
+}
