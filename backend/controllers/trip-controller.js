@@ -25,7 +25,7 @@ class TripController {
                 trip.arrival_point,
                 trip.ticket_price
               FROM
-                booking
+                trip
               ORDER BY trip.trip_id ASC
 
             ` );

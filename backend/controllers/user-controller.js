@@ -62,7 +62,39 @@ class UserController {
           [new_password, full_name, phone_number, login]
         );
 
-        res.json(updatedUser);
+        res.json(updatedUser.rows[0]);
+      } else {
+        return res.status(404).json({ error: "User not found" });
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  }
+
+  async updateUserForAdmin(req, res) {
+    let { login, password,  full_name, phone_number , category} = req.body;
+    let updatedUser;
+    try {
+      const user = await db(req.body.role).query(
+        'SELECT password FROM Users WHERE login = $1',
+        [login]
+      );
+
+      if (user && user.rows.length > 0) {
+        const currentPassword = user.rows[0].password;
+        
+        if (password == null) {
+          password = currentPassword;
+        } else {
+          password = sha256(password);
+        }
+        updatedUser = await db(req.body.role).query(
+          `UPDATE Users SET password = $1, full_name = $2, phone_number = $3, category = $4  WHERE login = $5`,
+          [password, full_name, phone_number, category, login]
+        );
+
+        res.json(updatedUser.rows[0]);
       } else {
         return res.status(404).json({ error: "User not found" });
       }
