@@ -165,9 +165,7 @@ export class BackendService {
         getAllTimetables$: (): Observable<any> => {
             const url = `${this.config.api.root}/timetable/all_timetables`;
             return this.http.get(url);
-        }
-        
-        
+        }  
     }
 
     public readonly trip = {

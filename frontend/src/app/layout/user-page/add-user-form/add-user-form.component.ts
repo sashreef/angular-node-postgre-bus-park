@@ -14,9 +14,14 @@ export class AddUserFormComponent {
     @Input() mode?: "create" | "edit";
     @Output() closeEmitter: EventEmitter<void> = new EventEmitter<void>();
 
+    public selectValue: string;
     public selectData = [[ "administrator", "Administrator"], ["cashier", "Cashier"], ["client", "Client"]]
 
-    constructor(private manageService: ManageService) { }
+    constructor(private manageService: ManageService) {
+        this.selectValue = this.selectData.find((data) => data[0] === this.form?.controls['role'].value)?.[0] || "client";
+     }
+
+
 
     public addUser(formValue: any): void {
         // if(this.form?.invalid) {

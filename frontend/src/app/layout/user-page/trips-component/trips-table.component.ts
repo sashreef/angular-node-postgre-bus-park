@@ -33,18 +33,17 @@ export class TripsTableComponent {
         })
     }
 
-    public ngOnInit() {
+    public ngOnInit(): void {
         this.filteredTrips = this.trips || [];
         this.setSearchSub();
     }
 
-    public selectTrip(trip: Trip) {
+    public selectTrip(trip: Trip): void {
         this.activeTrip = trip;
     }
 
     public deleteTrip(id: number): void {
         this.manageService.deleteTrip(id).pipe(take(1)).subscribe(() => {
-
         }, 
         (err) => {
             throw err;

@@ -197,7 +197,7 @@
                 
             </ng-container>
             <ng-container *ngSwitchCase="'statistics'">
-                
+                <app-statistics-table *ngIf="tableArray && optionalTableArray" [trips]="tableArray" [buses]="optionalTableArray" ></app-statistics-table>
             </ng-container>
 
         </ng-container>

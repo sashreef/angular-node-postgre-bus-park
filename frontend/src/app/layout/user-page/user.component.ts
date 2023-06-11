@@ -1,6 +1,6 @@
   import { Component } from "@angular/core";
   import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
-  import { Subject, take, takeUntil } from "rxjs";
+  import { Subject, combineLatest, take, takeUntil } from "rxjs";
   import { BookingInfo, Trip, UnpaidTicket, userForm } from "src/app/interfaces/core.interfaces";
   import { FormBuilderService } from "src/app/services/form-builder.service";
   import { ManageService } from "src/app/services/manage.service";
@@ -20,6 +20,7 @@
     public bookings: BookingInfo[] = [];
     public users: userForm[] = [];
     public tableArray: any[] | null = null;
+    public optionalTableArray: any[] | null = null;
     public selectedUser: any;
     public selectedAdminUser: any;
     public unpaidTickets: UnpaidTicket[] = [];
@@ -224,6 +225,22 @@
         this.tableArray = data;
       });
     }
+
+    private getStatisticsInfo() {
+      this.filteredBookings = [];
+      this.tableArray = null;
+      this.optionalTableArray = null;
+    //   combineLatest(reqArray).pipe(take(1)).subscribe((data) => {
+    //     this.oneTicketCost = data[0].ticket_price;
+    //     this.mainForm.patchValue({journey_id: data[1].journey_id}, {emitEvent:false})
+    //     this.numberOfSeats = data[1].remaining_seats;
+    // },
+      // const reqArray = [this.manageService.getAllTrips(), this.manageService.getAllBuses()]; 
+      combineLatest([this.manageService.getAllTrips(), this.manageService.getAllBuses()]).pipe(take(1)).subscribe((data) => {
+        this.tableArray = data[0];
+        this.optionalTableArray = data[1];
+      });
+    }
     
     private createTabsArray(): void {
       const commonTypes = [{ label: "User profile", value: "userProfile" , icon: "account_circle"}];
@@ -294,7 +311,7 @@
           break;
         }
         case "statistics": {
-          this.getAllUsers();
+          this.getStatisticsInfo();
         }    
       }
     }
