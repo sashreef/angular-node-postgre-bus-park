@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
-import { Subject, combineLatest, take, takeUntil } from "rxjs";
+import { Subject, take, takeUntil } from "rxjs";
 import { UserInfo } from "src/app/interfaces/core.interfaces";
 import { ManageService } from "src/app/services/manage.service";
 

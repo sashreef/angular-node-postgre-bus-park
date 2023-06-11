@@ -1,0 +1,80 @@
+<form *ngIf="mode === 'view' && trips">
+    <article>
+        <h3>Trips</h3>
+    </article>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Trip Id</th>
+                    <th>Trip number</th>
+                    <th>Arrival point</th>
+                    <th>Ticket Price</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let trip of trips" (click)="selectTrip(trip)"
+                    [class.active]="this.activeTrip === trip">
+                    <td>{{ trip.trip_id }}</td>
+                    <td>{{ trip.trip_number }}</td>
+                    <td>{{ trip.arrival_point }}</td>
+                    <td>{{ trip.ticket_price }}</td>
+                    <td>
+                        <div>
+                            <button type="button" class="button"
+                                (click)="updateTrip(trip)">Update</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button type="button" class="button red"
+                                (click)="deleteTrip(trip.trip_id)">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <article>
+        <h3>Buses</h3>
+    </article>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Bus id</th>
+                    <th>Bus number</th>
+                    <th>Number of seatst</th>
+                    <th>Driver ID</th>
+                    <th>Trip ID</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bus of buses" (click)="selectBus(bus)"
+                    [class.active]="this.activeBus === bus">
+                    <td>{{ bus.bus_id }}</td>
+                    <td>{{ bus.bus_number }}</td>
+                    <td>{{ bus.number_of_seats }}</td>
+                    <td>{{ bus.driver_id }}</td>
+                    <td>{{ bus.trip_id }}</td>
+                    <td>
+                        <div>
+                            <button type="button" class="button"
+                                (click)="updateTrip(trip)">Update</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button type="button" class="button red"
+                                (click)="deleteTrip(trip.trip_id)">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>

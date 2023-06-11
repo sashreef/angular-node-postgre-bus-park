@@ -12,11 +12,13 @@ import { FormControl } from "@angular/forms";
 		{ provide: InputComponent, useExisting: SelectBoxComponent },
 		{ provide: POSITION_FUNCTION, useValue: normalFixedPosition },
 	],
+	
 	selector: "app-select-box",
 	styleUrls: ["./select-box.component.css"],
 	templateUrl: "./select-box.component.html"
 })
 export class SelectBoxComponent extends InputComponent<any> implements OnChanges, AfterContentInit {
+	@Input() initedValue?: string;
     @Input() public form?: FormControl;
 	@Input() public active = true;
 	@Input("appDataSource") public dataSource?: IterableIterator<ListItem> | HTMLElement;
@@ -81,6 +83,7 @@ export class SelectBoxComponent extends InputComponent<any> implements OnChanges
 			this.itemsTemplate = this.defaultItemsTemplate;
 		this.cdr.detectChanges();
 		this.value$$.next(this.value);
+		this.setInteractiveValue(this.initedValue);
 	}
 
 	public expand(expand: boolean) {
@@ -98,6 +101,7 @@ export class SelectBoxComponent extends InputComponent<any> implements OnChanges
 	}
 
 	public override setInteractiveValue(value: SelectBoxComponent["value"]) {
+		console.log(value);
         this.setControlValue(value);
 		super.setInteractiveValue(value);
 		this.cdr.detectChanges();

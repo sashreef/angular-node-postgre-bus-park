@@ -130,5 +130,9 @@ export class ManageService {
     public updateTrip(trip: Trip): Observable<any> {
         return this.backendService.trip.updateTrip$(trip);
     }
+
+    public getAllBuses(): Observable<any> {
+        return this.backendService.bus.getAllBuses$();
+    }
 }
 

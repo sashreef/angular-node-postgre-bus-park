@@ -38,7 +38,7 @@
         </p>
     </div>
     <div class="inputContainer">
-        <app-select-box [appDataSource]="selectData" ngDefaultControl [formControl]="form.controls['role']" [form]="form.controls['role']" class="small-input"></app-select-box>
+        <app-select-box [appDataSource]="selectData" ngDefaultControl [formControl]="form.controls['role']" [form]="form.controls['role']" class="small-input" [initedValue]="selectValue" ></app-select-box>
     </div>
         
     <button *ngIf="mode === 'edit'" type="button" (click)="updateUser(form.value)" class="button"
