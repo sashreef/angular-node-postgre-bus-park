@@ -184,12 +184,15 @@
     private setSearchSub(): void {
       this.searchForm.controls["search"]?.valueChanges.pipe(takeUntil(this.unsubscribe$$)).subscribe((id) => {
         if (!id) {
-          this.filteredBookings = this.activeType.value === "yourBookings" || this.activeType.value === "bookings" ? this.bookings : this.unpaidTickets;
+          this.filteredBookings = this.activeType.value === "yourBookings" || this.activeType.value === "bookings"  ? this.bookings : 
+          this.activeType.value === "usersActions" ? this.users : this.unpaidTickets;
           return;
         }
-        this.filteredBookings = this.activeType.value === "yourBookings" || this.activeType.value === "bookings" ?
+        this.filteredBookings = (this.activeType.value === "yourBookings" || this.activeType.value === "bookings") ?
           this.bookings.filter((booking) => booking.booking_id.toString().includes(id)) :
-          this.unpaidTickets.filter((ticket) => ticket.ticket_id.toString().includes(id))
+          this.activeType.value === "usersActions" ? 
+          this.users.filter((user) => user.user_id?.toString().includes(id))
+          : this.unpaidTickets.filter((ticket) => ticket.ticket_id.toString().includes(id))
       });
     }
 
@@ -204,6 +207,7 @@
       this.filteredBookings = [];
       this.manageService.getAllUsers().pipe(takeUntil(this.unsubscribe$$)).subscribe((data: userForm[]) => {
           this.filteredBookings = data;
+          this.users = data
       })
     }
 

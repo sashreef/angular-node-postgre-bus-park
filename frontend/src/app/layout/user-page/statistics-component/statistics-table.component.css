@@ -41,12 +41,12 @@ th {
     padding: 10px;
 }
 
-th:nth-last-child(2) {
-    width: 110px;
+.trip-table th:nth-last-child(2) {
+    width: 50px;
 }
 
 th:last-child {
-    width: 120px;
+    width: 50px;
 }
 
 td {
@@ -68,6 +68,12 @@ tr button{
     width: 90px;
 }
 
+tr app-icon{
+    padding: unset;
+    display: none;
+    height: 20px;
+}
+
 tr.active button {
     display: block;
 }
@@ -76,13 +82,10 @@ tr.active {
     background-color: #f0f6ff;
 }
 
-.add-form {
-    display: flex;
-    width: 100%;
-    padding: 20px 0 20px 24px;
+tr.active app-icon {
+    display: block;
 }
 
-.add-form button {
-    padding: 8px 0;
-    width: 230.6px;
+app-icon:hover {
+    opacity: 0.6;
 }

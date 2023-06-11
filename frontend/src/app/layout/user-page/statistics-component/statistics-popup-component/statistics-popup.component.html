@@ -1,0 +1,25 @@
+<div class="modal">
+    <div class="wrapper">
+        <div class="form-wrapper">
+                <div class="inputContainer">
+                    <label>Start date</label>
+                    <app-date-box ngDefaultControl [formControl]="form?.controls['start_date']"></app-date-box>
+                </div>
+                <div class="inputContainer">
+                    <label>End date</label>
+                    <app-date-box ngDefaultControl [formControl]="form?.controls['end_date']"></app-date-box>
+                </div> 
+        </div>
+        <footer>
+            <div class="result-wrapper">
+                <ng-container *ngIf="result">
+                    <span>Result:</span><span>{{result}}</span>
+                </ng-container>
+            </div>
+            <div class="buttons-row">
+                <button class="button green" (click)="calculate()">Calculate</button>
+                <button class="button red" (click)="close()">Close</button>
+            </div>
+        </footer>
+    </div>
+</div>

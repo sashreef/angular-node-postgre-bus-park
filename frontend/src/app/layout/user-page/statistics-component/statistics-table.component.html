@@ -3,7 +3,7 @@
         <h3>Trips</h3>
     </article>
     <div class="table-wrapper">
-        <table>
+        <table class="trip-table">
             <thead>
                 <tr>
                     <th>Trip Id</th>
@@ -23,14 +23,12 @@
                     <td>{{ trip.ticket_price }}</td>
                     <td>
                         <div>
-                            <button type="button" class="button"
-                                (click)="updateTrip(trip)">Update</button>
+                            <app-icon (click)="openTripCalcPopup(trip, 'paid')">calculate</app-icon>
                         </div>
                     </td>
                     <td>
                         <div>
-                            <button type="button" class="button red"
-                                (click)="deleteTrip(trip.trip_id)">Delete</button>
+                            <app-icon (click)="openTripCalcPopup(trip, 'sum')">monetization_on</app-icon>
                         </div>
                     </td>
                 </tr>
@@ -50,7 +48,6 @@
                     <th>Driver ID</th>
                     <th>Trip ID</th>
                     <th></th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -63,14 +60,7 @@
                     <td>{{ bus.trip_id }}</td>
                     <td>
                         <div>
-                            <button type="button" class="button"
-                                (click)="updateTrip(trip)">Update</button>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <button type="button" class="button red"
-                                (click)="deleteTrip(trip.trip_id)">Delete</button>
+                            <app-icon (click)="openBusCalcPopup(bus)">calculate</app-icon>
                         </div>
                     </td>
                 </tr>
@@ -78,3 +68,4 @@
         </table>
     </div>
 </form>
+<app-statistics-popup *ngIf="isPopupOpened" [form]="form" [popupOptions]="popupOptions" (closeEmitter)="closePopup()" ></app-statistics-popup>

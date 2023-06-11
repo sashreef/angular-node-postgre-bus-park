@@ -12,6 +12,7 @@ import { AddUserFormComponent } from "./user-page/add-user-form/add-user-form.co
 import { TripsTableComponent } from "./user-page/trips-component/trips-table.component";
 import { TripsFormComponent } from "./user-page/trips-component/trips-form/trips-form.component";
 import { StatisticsTableComponent } from "./user-page/statistics-component/statistics-table.component";
+import { StatisticsPopupComponent } from "./user-page/statistics-component/statistics-popup-component/statistics-popup.component";
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { StatisticsTableComponent } from "./user-page/statistics-component/stati
         AddUserFormComponent,
         TripsTableComponent,
         TripsFormComponent,
-        StatisticsTableComponent
+        StatisticsTableComponent,
+        StatisticsPopupComponent,
 
     ],
     declarations: [
@@ -41,7 +43,8 @@ import { StatisticsTableComponent } from "./user-page/statistics-component/stati
         AddUserFormComponent,
         TripsTableComponent,
         TripsFormComponent,
-        StatisticsTableComponent
+        StatisticsTableComponent,
+        StatisticsPopupComponent
     ]
 })
 

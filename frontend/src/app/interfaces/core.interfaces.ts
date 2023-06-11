@@ -35,6 +35,7 @@ export interface userForm {
     login?: string;
     full_name?: string;
     category?: string
+    user_id?: string;
 }
 
 export interface addUserForm {

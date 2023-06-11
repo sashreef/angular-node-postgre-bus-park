@@ -134,5 +134,17 @@ export class ManageService {
     public getAllBuses(): Observable<any> {
         return this.backendService.bus.getAllBuses$();
     }
+    //statistics
+    public busInTrip(bus_number:string, start_date: string, end_date: string): Observable<any> {
+        return this.backendService.statistics.busInTrip$(bus_number, start_date, end_date)
+    }
+
+    public sumTicketsOnTrip(trip_number:string, start_date:string, end_date:string): Observable<any> {
+        return this.backendService.statistics.sumTicketsOnTrip$(trip_number, start_date, end_date)
+    }
+
+    public difBookedAndPaid(trip_number:string, start_date:string, end_date:string): Observable<any> {
+        return this.backendService.statistics.difBookedAndPaid$(trip_number, start_date, end_date)
+    }
 }
 

@@ -53,4 +53,11 @@ export class FormBuilderService {
         }
         return form;
     }
+
+    public getBusCalcForm(): UntypedFormGroup {
+        return this.formBuilder.group({
+            start_date: null,
+            end_date: null
+        });
+    }
 }
