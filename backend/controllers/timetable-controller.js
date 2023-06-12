@@ -12,11 +12,9 @@ class TimetableController {
                     timetable.timetable_id,
                     timetable.departure_time,
                     timetable.arrival_time,
-                    bus.bus_number,
-                    bus.bus_brand
+                    timetable.bus_id
                   FROM
                     timetable
-                    JOIN bus ON timetable.bus_id = bus.bus_id
                   ORDER BY timetable.timetable_id ASC
 
                 ` );
@@ -27,7 +25,7 @@ class TimetableController {
         }
 
     async addTimetable(req, res) {
-        const { bus_id, departure_time, arrival_time } = req.body;
+        const { bus_id, departure_time, arrival_time } = req.body.timetableData;
         try {
             await db(req.body.role).query(
                 `insert into Timetable (bus_id, departure_time, arrival_time) values ($1, $2, $3)`,
@@ -40,10 +38,10 @@ class TimetableController {
     }
 
     async updateTimetable(req, res) {
-        const { timetable_id, bus_id, departure_time, arrival_time } = req.body;
+        const { timetable_id, bus_id, departure_time, arrival_time } = req.body.timetableData;
         try {
             await db(req.body.role).query(
-                `UPDATE Timetable  SET bus_id = $2, departure_time = $3, arrival_time = $4, trip_id = $5
+                `UPDATE Timetable  SET bus_id = $2, departure_time = $3, arrival_time = $4
             WHERE timetable_id = $1`,
                 [timetable_id, bus_id, departure_time, arrival_time]
             );

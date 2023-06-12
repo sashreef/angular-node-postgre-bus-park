@@ -15,8 +15,8 @@ class DriverController {
             driver.phone_number,
             driver.salary
           FROM
-            booking
-          ORDER BY trip.trip_id ASC
+            driver
+          ORDER BY driver.driver_id ASC
 
         ` );
     } catch (error) {
@@ -28,7 +28,7 @@ class DriverController {
 
   //Add bus driver
   async addDriver(req, res) {
-    const { full_name, passport_id, date_of_birth, phone_number, salary } = req.body;
+    const { full_name, passport_id, date_of_birth, phone_number, salary } = req.body.driverData;
     let newDriver;
     try {
       newDriver = await db(req.body.role).query(
@@ -36,24 +36,26 @@ class DriverController {
         [full_name, passport_id, date_of_birth, phone_number, salary]
       );
     } catch (err) {
+      console.log(err);
       if (err.code == 23505)
         return res.status(409).json({ error: `${err.detail}` });
       else return res.status(400).json({ error: "bad request" }); 
     }
-    res.json(newDriver);
+    res.status(201).json(newDriver);
   }
   async updateDriver(req, res) {
-    const { passport_id, full_name, phone_number, salary } = req.body;
-    let updatedUser;
+    const { driver_id, full_name, phone_number, salary } = req.body.driverData;
+    let updatedDriver;
     try {
-      updatedUser = await db(req.body.role).query(
-        `UPDATE Users SET full_name = $1, phone_number = $2, salary = $3 WHERE passport_id = $4`,
-        [full_name, phone_number, salary, passport_id]
+      updatedDriver = await db(req.body.role).query(
+        `UPDATE Driver SET full_name = $1, phone_number = $2, salary = $3 WHERE driver_id = $4`,
+        [full_name, phone_number, salary, driver_id]
       );
     } catch (error) {
+      console.log(error);
       return res.status(400).json({ error: "Data edit error" });
     }
-    res.json(newUser);
+    res.status(201).json(updatedDriver);
   }
   async deleteDriver(req, res) {
     const driver_id = req.body.driver_id;
@@ -100,7 +102,7 @@ class DriverController {
         `DELETE FROM driver WHERE driver_id = $1`,
         [driver_id]
       );
-      return res.sendStatus(201);
+      return res.status(201).json();
     } catch (error) {
       console.log(error);
       return res.status(400).json({ error: "Delete error" });

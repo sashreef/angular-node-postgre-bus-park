@@ -125,6 +125,12 @@ export class BackendService {
             return this.http.post(url , {journey_id});
         },
 
+        cancelJourney$: (journey_id : number): Observable<any> => {
+            const url = `${this.config.api.root}/journey/cancel_journey`;
+            return this.http.post(url , {journey_id});
+        },
+
+
         getAllJourneys$: (): Observable<any> => {
             const url = `${this.config.api.root}/journey/all_journeys`;
             return this.http.get(url);
@@ -247,7 +253,12 @@ export class BackendService {
             return this.http.post(url,userData);
         },
 
-        updateUserForAdmin$:(userData: {login: string, password: string,  full_name: string, phone_number: string , category:string}): Observable<any> => {
+        signUpUserForAdmin$:(userData: {login: string, password: string,  full_name: string, phone_number: string , category?:string}): Observable<any> => {
+            const url = `${this.config.api.root}/user_config/create_admin`;
+            return this.http.post(url,userData);
+        },
+
+        updateUserForAdmin$:(userData: {login: string, password: string,  full_name: string, phone_number: string , category?:string}): Observable<any> => {
             const url = `${this.config.api.root}/user_config/update_admin`;
             return this.http.post(url,userData);
         },

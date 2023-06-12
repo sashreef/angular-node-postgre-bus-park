@@ -1,0 +1,55 @@
+<form *ngIf="mode === 'view' && journeys">
+    <article>
+        <app-text-box [placeholder]="'Journey ID'" [formControl]="searchForm.controls['search']"></app-text-box>
+    </article>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Journey ID</th>
+                    <th>Timetable ID</th>
+                    <th>Actual departure time</th>
+                    <th>Actual arrival time</th>
+                    <th>Journey status</th>
+                    <th>Journey date</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let journey of filteredJourneys" (click)="selectJourney(journey)"
+                    [class.active]="this.activeJourney === journey">
+                    <td>{{ journey.journey_id }}</td>
+                    <td>{{ journey.timetable_id }}</td>
+                    <td>{{ journey.actual_departure_time }}</td>
+                    <td>{{ journey.actual_arrival_time }}</td>
+                    <td>{{ journey.journey_status }}</td>
+                    <td>{{ journey.journey_date | date:'yyyy-MM-dd' }}</td>
+                    <td>
+                        <div>
+                            <button type="button" class="button"
+                                (click)="updateJourney(journey)">Update</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button type="button" class="button red"
+                                (click)="deleteJourney(journey.journey_id)">Delete</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button type="button" class="button red" *ngIf="journey.journey_status !== 'Completed'"
+                                (click)="cancelJourney(journey.journey_id)">Cancel</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="add-form">
+        <button type="button" class="button" (click)="addJourney()">Add journey</button>
+    </div>
+</form>
+<app-journeys-form *ngIf="['create', 'edit'].includes(mode)" [form]="form" [mode]="mode" (closeEmitter)="closeForm()"></app-journeys-form>

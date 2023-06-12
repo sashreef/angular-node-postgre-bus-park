@@ -72,6 +72,24 @@ class UserController {
     }
   }
 
+  async signUpUserForAdmin(req, res) {
+    const { login, password, full_name, phone_number, category } = req.body;
+    let newUser;
+    try {
+      newUser = await db(req.body.role).query(
+        `insert into Users (login, password, full_name, phone_number, category) values ($1, $2, $3, $4, $5)`,
+        [login, password, full_name, phone_number, category]
+      );
+    } catch (err) {
+      console.error(err);
+      if (err.code == 23505)
+        return res.status(409).json({ error: `${err.detail}` });
+
+      else return res.status(400).json({ error: "bad request" }); 
+    }
+    res.status(201).json(newUser);
+  }
+
   async updateUserForAdmin(req, res) {
     let { login, password,  full_name, phone_number , category} = req.body;
     let updatedUser;
@@ -119,7 +137,7 @@ class UserController {
         `DELETE FROM Users WHERE user_id = $1`,
         [user_id]
       );
-      return res.sendStatus(201);
+      return res.status(201).json();
     } catch (error) {
       console.log(error);
       return res.status(400).json({ error: "Delete error" });

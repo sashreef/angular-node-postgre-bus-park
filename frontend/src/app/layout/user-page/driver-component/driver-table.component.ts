@@ -1,22 +1,22 @@
 import { Component, Input } from "@angular/core";
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { Subject, take, takeUntil } from "rxjs";
-import { Trip } from "src/app/interfaces/core.interfaces";
+import { Driver } from "src/app/interfaces/core.interfaces";
 import { FormBuilderService } from "src/app/services/form-builder.service";
 import { ManageService } from "src/app/services/manage.service";
 
 
 @Component({
-    selector: "app-trips-table",
-    templateUrl: "./trips-table.component.html",
-    styleUrls: ["./trips-table.component.css"]
+    selector: "app-drivers-table",
+    templateUrl: "./driver-table.component.html",
+    styleUrls: ["./driver-table.component.css"]
 })
 
-export class TripsTableComponent {
-    @Input() trips?: Trip[];
+export class DriversTableComponent {
+    @Input() drivers?: Driver[];
     public mode: "view" | "create" | "edit" = "view";
-    public filteredTrips: Trip[] = [];
-    public activeTrip: Trip | null = null;
+    public filteredDrivers: Driver[] = [];
+    public activeDriver: Driver | null = null;
     public searchForm: UntypedFormGroup;
     public form: UntypedFormGroup | null = null;
     
@@ -34,25 +34,25 @@ export class TripsTableComponent {
     }
 
     public ngOnInit(): void {
-        this.filteredTrips = this.trips || [];
+        this.filteredDrivers = this.drivers || [];
         this.setSearchSub();
     }
 
-    public selectTrip(trip: Trip): void {
-        this.activeTrip = trip;
+    public selectDriver(driver: Driver): void {
+        this.activeDriver = driver;
     }
 
-    public deleteTrip(id: number): void {
-        this.manageService.deleteTrip(id).pipe(take(1)).subscribe(() => {
-            const indexFiltered = this.filteredTrips.findIndex((trip)=>trip.trip_id === id);
+    public deleteDriver(id: number): void {
+        this.manageService.deleteDriver(id).pipe(take(1)).subscribe(() => {
+            const indexFiltered = this.filteredDrivers.findIndex((driver)=>driver.driver_id === id);
             if(indexFiltered !== -1)
             {
-                this.filteredTrips.splice(indexFiltered, 1);
+                this.filteredDrivers.splice(indexFiltered, 1);
             }
-            const index = this.trips?.findIndex((trip)=>trip.trip_id === id);
+            const index = this.drivers?.findIndex((driver)=>driver.driver_id === id);
             if(index !== -1 && index)
             {
-                this.trips?.splice(index, 1);
+                this.drivers?.splice(index, 1);
             }
         }, 
         (err) => {
@@ -60,20 +60,20 @@ export class TripsTableComponent {
         })
     }
 
-    public updateTrip(trip: Trip): void {
-        this.form = this.formBuilderService.getTripFormGroup(trip);
+    public updateDriver(driver: Driver): void {
+        this.form = this.formBuilderService.getDriverFormGroup(driver);
         this.mode = "edit";
     }
 
-    public addTrip(): void {
-        this.form = this.formBuilderService.getTripFormGroup(undefined, true);
+    public addDriver(): void {
+        this.form = this.formBuilderService.getDriverFormGroup(undefined, true);
         this.mode = "create";
     }
 
     public closeForm(): void {
         this.mode = "view";
         this.form = null;
-        this.getAllTrips();
+        this.getAllDrivers();
     }
 
     public ngOnDestroy(): void {
@@ -84,17 +84,16 @@ export class TripsTableComponent {
     private setSearchSub(): void {
         this.searchForm.controls["search"]?.valueChanges.pipe(takeUntil(this.unsubscribe$$)).subscribe((id) => {
           if (!id) {
-            this.filteredTrips = this.trips || [];
+            this.filteredDrivers = this.drivers || [];
             return;
           }
-          this.filteredTrips = this.trips?.filter((trip) => trip.trip_id.toString().includes(id)) || [];
+          this.filteredDrivers = this.drivers?.filter((driver) => driver.driver_id?.toString().includes(id)) || [];
         });
       }
-
-    private getAllTrips(): void {
-        this.manageService.getAllTrips().pipe(take(1)).subscribe((data: Trip[]) => {
-            this.trips = data;
-            this.filteredTrips = data;
+    private getAllDrivers(): void {
+        this.manageService.getAllDrivers().pipe(take(1)).subscribe((data: Driver[]) => {
+            this.drivers = data;
+            this.filteredDrivers = data;
           });
     }
 }

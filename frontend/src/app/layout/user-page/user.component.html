@@ -185,16 +185,16 @@
                 <app-trips-table *ngIf="tableArray" [trips]="tableArray"></app-trips-table>
             </ng-container>
             <ng-container *ngSwitchCase="'busesActions'">
-                
+                <app-bus-table *ngIf="tableArray" [buses]="tableArray"></app-bus-table>
             </ng-container>
             <ng-container *ngSwitchCase="'driversActions'">
-                
+                <app-drivers-table *ngIf="tableArray" [drivers]="tableArray"></app-drivers-table>
             </ng-container>
             <ng-container *ngSwitchCase="'timetablesActions'">
-                
+                <app-timetables-table *ngIf="tableArray" [timetables]="tableArray"></app-timetables-table>
             </ng-container>
             <ng-container *ngSwitchCase="'journeysActions'">
-                
+                <app-journeys-table *ngIf="tableArray" [journeys]="tableArray"></app-journeys-table>
             </ng-container>
             <ng-container *ngSwitchCase="'statistics'">
                 <app-statistics-table *ngIf="tableArray && optionalTableArray" [trips]="tableArray" [buses]="optionalTableArray" ></app-statistics-table>

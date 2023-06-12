@@ -8,7 +8,7 @@ class StatisticsController {
         try {
             result = await db(req.body.role).query(
                 `
-                SELECT b.bus_id, SUM(actual_arrival_time - actual_departure_time) AS total_duration
+                SELECT  SUM(actual_arrival_time - actual_departure_time) AS total_duration
                 FROM Journey jr
                 INNER JOIN Timetable tt ON tt.timetable_id = jr.timetable_id
                 INNER JOIN Bus b ON b.bus_id = tt.bus_id

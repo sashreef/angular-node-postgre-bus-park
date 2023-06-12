@@ -36,8 +36,9 @@ class TripController {
   }
 
   async addTrip(req, res) {
-    const { trip_number, arrival_point, ticket_price } = req.body;
+    const { trip_number, arrival_point, ticket_price } = req.body.tripData;
     let userId;
+    console.log(req.body);
 
     try {
       await db(req.body.role).query(
@@ -51,12 +52,13 @@ class TripController {
   }
 
   async updateTrip(req, res) {
-    const { trip_number, ticket_price } = req.body;
+    const { trip_id, trip_number, ticket_price } = req.body.tripData;
+    console.log(req.body);
     try {
       await db(req.body.role).query(
         `UPDATE trip  SET trip_number = $2, ticket_price = $3
             WHERE trip_id = $1`,
-        [trip_number, ticket_price]
+        [trip_id, trip_number, ticket_price]
       );
     } catch (error) {
       console.error(error);
@@ -70,37 +72,36 @@ class TripController {
     try {
       await db(req.body.role).query(
         `DELETE FROM ticket WHERE journey_id IN (
-                SELECT journey_id FROM journey WHERE timetable_id IN (
-                  SELECT timetable_id FROM timetable WHERE bus_id IN (
-                    SELECT bus_id FROM bus WHERE trip_id = $1
-                  )
-                )
+            SELECT journey_id FROM journey WHERE timetable_id IN (
+              SELECT timetable_id FROM timetable WHERE bus_id IN (
+                SELECT bus_id FROM bus WHERE trip_id = $1
               )
-            )`,
+            )
+          )`,
         [trip_id]
       );
       await db(req.body.role).query(
         `DELETE FROM booking WHERE journey_id IN (
-              SELECT journey_id FROM journey WHERE timetable_id IN (
-                SELECT timetable_id FROM timetable WHERE bus_id IN (
-                  SELECT bus_id FROM bus WHERE trip_id = $1
-                )
+            SELECT journey_id FROM journey WHERE timetable_id IN (
+              SELECT timetable_id FROM timetable WHERE bus_id IN (
+                SELECT bus_id FROM bus WHERE trip_id = $1
               )
-            )`,
+            )
+          )`,
         [trip_id]
       );
       await db(req.body.role).query(
         `DELETE FROM journey WHERE timetable_id IN (
-              SELECT timetable_id FROM timetable WHERE bus_id IN (
-                SELECT bus_id FROM bus WHERE trip_id = $1
-              )
-            )`,
+            SELECT timetable_id FROM timetable WHERE bus_id IN (
+              SELECT bus_id FROM bus WHERE trip_id = $1
+            )
+          )`,
         [trip_id]
       );
       await db(req.body.role).query(
         `DELETE FROM timetable WHERE bus_id IN (
-              SELECT bus_id FROM bus WHERE trip_id = $1
-            )`,
+            SELECT bus_id FROM bus WHERE trip_id = $1
+          )`,
         [trip_id]
       );
       await db(req.body.role).query(
@@ -111,7 +112,7 @@ class TripController {
         `DELETE FROM trip WHERE trip_id = $1`,
         [trip_id]
       );
-      return res.sendStatus(201);
+      return res.status(201).json();
     } catch (error) {
       console.log(error);
       return res.status(400).json({ error: "Delete error" });

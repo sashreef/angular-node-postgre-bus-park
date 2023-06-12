@@ -1,0 +1,21 @@
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 154px;
+}
+
+.inputContainer {
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+form button {
+    padding: 8px 0;
+    margin: 10px 0;
+    width: 230.6px;
+}

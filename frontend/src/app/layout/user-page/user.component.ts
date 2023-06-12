@@ -1,7 +1,7 @@
   import { Component } from "@angular/core";
   import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
   import { Subject, combineLatest, take, takeUntil } from "rxjs";
-  import { BookingInfo, Ticket, Trip, UnpaidTicket, userForm } from "src/app/interfaces/core.interfaces";
+  import { BookingInfo, Bus, Driver, Journey, Ticket, Timetable, Trip, UnpaidTicket, userForm } from "src/app/interfaces/core.interfaces";
   import { FormBuilderService } from "src/app/services/form-builder.service";
   import { ManageService } from "src/app/services/manage.service";
 
@@ -99,6 +99,7 @@
       (err) => {
           throw err;
       });
+      this.getBookingInfo();
     }
 
     public updateUser(user: userForm): void{
@@ -110,10 +111,23 @@
       this.pending = true;
       this.manageService.deleteUser(this.selectedUser.user_id).pipe(take(1)).subscribe((data) => {
         this.pending = false;
+        const indexFiltered = this.filteredBookings.findIndex((user)=>user.user_id === this.selectedUser.user_id);
+            if(indexFiltered !== -1)
+            {
+                this.filteredBookings.splice(indexFiltered, 1);
+            }
+            const index = this.users?.findIndex((user)=>user.user_id === this.selectedUser.user_id);
+            console.log(index);
+            
+            if(index !== -1 && index)   
+            {
+                this.users?.splice(index, 1);
+            }
       },
         (err) => {
           throw err;
         });
+        
     }
 
     public createTicket(flag: boolean,ticketForm:Ticket): void {
@@ -121,6 +135,7 @@
         this.addTicketForm = null;
         return;
       }
+      this.pending = true;
       this.manageService.addTicket(ticketForm).pipe(take(1)).subscribe((data) => {
         this.pending = false;
       },
@@ -128,6 +143,7 @@
          throw err;
       });
       this.addTicketForm = null;
+      this.getUnpaidTickets();////////////
       // если на создание не будет отправляется форма => попробовать создать отдельную bool паблик переменную
       // и условия открытия формы создания завязать на нее, 
     }
@@ -174,6 +190,7 @@
     public closeForm() {
       this.mode = "view";
       this.addUserForm = null;
+      this.getAllUsers()
     }
 
     public ngOnDestroy(): void {
@@ -232,6 +249,39 @@
       this.tableArray = null;
       this.manageService.getAllTrips().pipe(take(1)).subscribe((data: Trip[]) => {
         this.tableArray = data;
+      });
+    }
+
+    private getBusesInfo() {
+      this.filteredBookings = [];
+      this.tableArray = null;
+      this.manageService.getAllBuses().pipe(take(1)).subscribe((data: Bus[]) => {
+        this.tableArray = data;
+      });
+    }
+
+    private getDriversInfo() {
+      this.filteredBookings = [];
+      this.tableArray = null;
+      this.manageService.getAllDrivers().pipe(take(1)).subscribe((data: Driver[]) => {
+        this.tableArray = data;
+      });
+    }
+
+    private getTimetablesInfo() {
+      this.filteredBookings = [];
+      this.tableArray = null;
+      this.manageService.getAllTimetables().pipe(take(1)).subscribe((data: Timetable[]) => {
+        this.tableArray = data;
+      });
+    }
+
+    private getJourneysInfo() {
+      this.filteredBookings = [];
+      this.tableArray = null;
+      this.manageService.getAllJourneys().pipe(take(1)).subscribe((data: Journey[]) => {
+        this.tableArray = data;
+        
       });
     }
 
@@ -304,19 +354,19 @@
           break;
         }
         case "busesActions": {
-          this.getAllUsers();
+          this.getBusesInfo();
           break;
         }
         case "driversActions": {
-          this.getAllUsers();
+          this.getDriversInfo();
           break;
         }
         case "timetablesActions": {
-          this.getAllUsers();
+          this.getTimetablesInfo();
           break;
         }
         case "journeysActions": {
-          this.getAllUsers();
+          this.getJourneysInfo();
           break;
         }
         case "statistics": {

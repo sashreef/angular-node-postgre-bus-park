@@ -1,0 +1,48 @@
+<form *ngIf="mode === 'view' && drivers">
+    <article>
+        <app-text-box [placeholder]="'Driver ID'" [formControl]="searchForm.controls['search']"></app-text-box>
+    </article>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Driver Id</th>
+                    <th>Full Name</th>
+                    <th>Passport ID</th>
+                    <th>Date of Birth</th>
+                    <th>Phone Number</th>
+                    <th>Salary</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let driver of filteredDrivers" (click)="selectDriver(driver)"
+                    [class.active]="this.activeDriver === driver">
+                    <td>{{ driver.driver_id }}</td>
+                    <td>{{ driver.full_name }}</td>
+                    <td>{{ driver.passport_id }}</td>
+                    <td>{{ driver.date_of_birth | date:'yyyy-MM-dd'}}</td>
+                    <td>{{ driver.phone_number }}</td>
+                    <td>{{ driver.salary }}</td>
+                    <td>
+                        <div>
+                            <button type="button" class="button"
+                                (click)="updateDriver(driver)">Update</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <button type="button" class="button red"
+                                (click)="deleteDriver(driver.driver_id)">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="add-form">
+        <button type="button" class="button" (click)="addDriver()">Add driver</button>
+    </div>
+</form>
+<app-drivers-form *ngIf="['create', 'edit'].includes(mode)" [form]="form" [mode]="mode" (closeEmitter)="closeForm()"></app-drivers-form>

@@ -27,7 +27,8 @@ export class AddUserFormComponent {
         // if(this.form?.invalid) {
         //     throw "Not all fields are full";
         // }
-        this.manageService.register(formValue).pipe(take(1)).subscribe(() => {
+        this.manageService.signUpUserForAdmin(formValue).pipe(take(1)).subscribe(() => {
+
             this.closeEmitter.emit();
         },
         (err) => {
@@ -36,12 +37,12 @@ export class AddUserFormComponent {
     }
 
     public updateUser(formValue: any) {
-        // this.manageService.userUpdate(formValue).pipe(take(1)).subscribe(() => {
-        //     this.closeEmitter.emit();
-        // },
-        // (err) => {
-        //     throw err;
-        // });
+        this.manageService.updateUserForAdmin(formValue).pipe(take(1)).subscribe(() => {
+            this.closeEmitter.emit();
+        },
+        (err) => {
+            throw err;
+        });
     }
 
     public isValidform(): boolean {
@@ -65,7 +66,7 @@ export class AddUserFormComponent {
         // РАЗОБРАТЬСЯ ЧТО ТУТ ПРОИСХОДИТ
         return true;
       }
-      
+
       public close() {
         this.closeEmitter.emit();
       }

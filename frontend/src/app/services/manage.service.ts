@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BackendService } from "./backend.service";
 import { BehaviorSubject, Observable, take, tap } from "rxjs";
-import { BookTicket, Login, Register, Ticket, Trip, userForm } from "../interfaces/core.interfaces";
+import { BookTicket, Bus, Driver, Journey, Login, Register, Ticket, Timetable, Trip, userForm } from "../interfaces/core.interfaces";
 import { CookieService } from "ngx-cookie-service";
 
 
@@ -107,6 +107,16 @@ export class ManageService {
         return this.backendService.user.changeUserData$(data);
     }
 
+    public signUpUserForAdmin (userData: userForm): Observable<any> {
+        const data = {login:userData.username, password: userData.password,full_name:userData.fullName,phone_number:userData.phone , category:userData.role };
+        return this.backendService.user.signUpUserForAdmin$(data);
+    }
+
+    public updateUserForAdmin (userData: userForm): Observable<any> {
+        const data = {login:userData.username, password: userData.password,full_name:userData.fullName,phone_number:userData.phone , category:userData.role };
+        return this.backendService.user.updateUserForAdmin$(data);
+    }
+    
     public sellTicket(ticket_id: number): Observable<any> {
         return this.backendService.tickets.sellTicket$(ticket_id);
     }
@@ -134,6 +144,68 @@ export class ManageService {
     public getAllBuses(): Observable<any> {
         return this.backendService.bus.getAllBuses$();
     }
+
+    public updateBus(bus:Bus): Observable<any> {
+        return this.backendService.bus.updateBus$(bus);
+    }
+
+    public deleteBus(id:number): Observable<any> {
+        return this.backendService.bus.deleteBus$(id);
+    }
+
+    public addBus(bus:Bus): Observable<any> {
+        return this.backendService.bus.addBus$(bus);
+    }
+
+    public getAllDrivers(): Observable<any> {
+        return this.backendService.driver.getAllDrivers$();
+    }
+
+    public updateDriver(driver:Driver): Observable<any> {
+        return this.backendService.driver.updateDriver$(driver);
+    }
+
+    public deleteDriver(id:number): Observable<any> {
+        return this.backendService.driver.deleteDriver$(id);
+    }
+
+    public addDriver(driver:Driver): Observable<any> {
+        return this.backendService.driver.addDriver$(driver);
+    }
+
+    public addTimetable(timetable:Timetable): Observable<any> {
+        return this.backendService.timetable.addTimetable$(timetable);
+    }
+
+    public getAllTimetables(): Observable<any> {
+        return this.backendService.timetable.getAllTimetables$();
+    }
+
+    public updateTimetable(timetable:Timetable): Observable<any> {
+        return this.backendService.timetable.updateTimetable$(timetable);
+    }
+
+    public getAllJourneys(): Observable<any> {
+        return this.backendService.journey.getAllJourneys$();
+    }
+
+    public updateJourney(journey:Journey): Observable<any> {
+        return this.backendService.journey.updateJourney$(journey);
+    }
+
+    public deleteJourney(id:number): Observable<any> {
+        return this.backendService.journey.deleteJourney$(id);
+    }
+
+    public addJourney(journey:Journey): Observable<any> {
+        return this.backendService.journey.addJourney$(journey);
+    }
+
+    public cancelJourney(id:number): Observable<any> {
+        return this.backendService.journey.cancelJourney$(id);
+    }
+
+    
     //statistics
     public busInTrip(bus_number:string, start_date: string, end_date: string): Observable<any> {
         return this.backendService.statistics.busInTrip$(bus_number, start_date, end_date)

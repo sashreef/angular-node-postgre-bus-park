@@ -1,0 +1,30 @@
+<form *ngIf="form?.controls">
+    <h2 class="Subhead-heading">{{mode === "create" ? 'Add bus': 'Update bus'}}</h2>
+    <div *ngIf="mode === 'create'" class="inputContainer">
+        <app-text-box [placeholder]="'Bus brand'" [formControl]="form?.controls['bus_brand']">
+        </app-text-box>
+    </div>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'Bus number'" [formControl]="form?.controls['bus_number']">
+        </app-text-box>
+    </div>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'Quantity of seats'" [formControl]="form?.controls['number_of_seats']">
+        </app-text-box>
+    </div>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'Driver ID'" [formControl]="form?.controls['driver_id']">
+        </app-text-box>
+    </div>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'Trip ID'" [formControl]="form?.controls['trip_id']">
+        </app-text-box>
+    </div>
+    <button *ngIf="mode === 'edit'" type="button" (click)="update(form.value)" class="button">
+        Save changes
+    </button>
+    <button *ngIf="mode === 'create'" type="button" (click)="add(form.value)" class="button green">
+        Add bus
+    </button>
+    <div><button type="button" class="button red" (click)="close()">Close</button></div>
+</form>

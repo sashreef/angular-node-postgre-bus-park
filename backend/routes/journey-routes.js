@@ -7,5 +7,6 @@ router.post("/add_journey", JourneyController.addJourney);
 router.post("/update_journey", JourneyController.updateJourney);
 router.post("/delete_journey", JourneyController.deleteJourney);
 router.get("/all_journeys", JourneyController.allJourneys);
+router.post("/cancel_journey", JourneyController.cancelJourney);
 
 module.exports = router;

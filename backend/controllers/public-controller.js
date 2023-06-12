@@ -49,26 +49,30 @@ class PublicController {
         try {
             freeSeats = await db("connect_user").query(
                 `SELECT
-            jr.journey_id,
-            b.number_of_seats - (
-                SELECT COUNT(tk.ticket_id)
-                FROM Ticket tk
-                INNER JOIN Journey jr ON jr.journey_id = tk.journey_id
-                INNER JOIN Timetable tt ON tt.timetable_id = jr.timetable_id
-                WHERE jr.journey_id = $1
-            ) - (
-                SELECT SUM(bk.quantity_of_seats)
-                FROM Booking bk
-                INNER JOIN Journey jr ON jr.journey_id = bk.journey_id
-                INNER JOIN Timetable tt ON tt.timetable_id = jr.timetable_id
-                WHERE bk.booking_status = 'Active' AND jr.journey_id = $2
-            ) AS remaining_seats
+                jr.journey_id,
+                b.number_of_seats - COALESCE(
+                    (
+                        SELECT COUNT(tk.ticket_id)
+                        FROM Ticket tk
+                        INNER JOIN Journey jr ON jr.journey_id = tk.journey_id
+                        INNER JOIN Timetable tt ON tt.timetable_id = jr.timetable_id
+                        WHERE jr.journey_id = $1
+                    ), 0
+                ) - COALESCE(
+                    (
+                        SELECT SUM(COALESCE(bk.quantity_of_seats, 0))
+                        FROM Booking bk
+                        INNER JOIN Journey jr ON jr.journey_id = bk.journey_id
+                        INNER JOIN Timetable tt ON tt.timetable_id = jr.timetable_id
+                        WHERE bk.booking_status = 'Active' AND jr.journey_id = $1
+                    ), 0
+                ) AS remaining_seats
             FROM Journey jr
             INNER JOIN Timetable tt ON tt.timetable_id = jr.timetable_id
             INNER JOIN Bus b ON b.bus_id = tt.bus_id
             WHERE jr.journey_id = $1
             GROUP BY jr.journey_id, b.number_of_seats;`,
-                [extractedJourneyId, extractedJourneyId] // Pass extracted journey_id as parameter
+                [extractedJourneyId] // Pass extracted journey_id as parametere
             );
         } catch (error) {
             console.log(error);

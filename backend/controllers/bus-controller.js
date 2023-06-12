@@ -26,7 +26,7 @@ class BusController {
     }
 
     async addBus(req, res) {
-        const { bus_brand, bus_number, number_of_seats, driver_id, trip_id } = req.body;
+        const { bus_brand, bus_number, number_of_seats, driver_id, trip_id } = req.body.busData;
         let userId;
 
         try {
@@ -41,7 +41,8 @@ class BusController {
     }
 
     async updateBus(req, res) {
-        const { bus_id, bus_number, number_of_seats, driver_id, trip_id } = req.body;
+        const { bus_id, bus_number, number_of_seats, driver_id, trip_id } = req.body.busData;
+        console.log(req.body.busData);
         try {
             await db(req.body.role).query(
                 `UPDATE Bus  SET bus_number = $2, number_of_seats = $3, driver_id = $4, trip_id = $5
@@ -88,11 +89,13 @@ class BusController {
             `DELETE FROM bus WHERE bus_id = $1`,
             [bus_id]
           );
-          return res.sendStatus(201);
+          return res.status(201).json();
         } catch (error) {
           console.log(error);
           return res.status(400).json({ error: "Delete error" });
         }
+        
       }
+      
 }
 module.exports = new BusController();

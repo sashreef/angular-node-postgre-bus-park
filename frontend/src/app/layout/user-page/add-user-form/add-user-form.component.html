@@ -21,10 +21,6 @@
             contact phone matching +xxxxxxxxxxxx
         </p>
     </div>
-    <div class="inputContainer" *ngIf="form?.controls['new_password']">
-        <app-text-box [placeholder]="'new password'" [isPassword]="true"
-            [formControl]="form.controls['new_password']"></app-text-box>
-    </div>
     <div class="inputContainer">
         <app-text-box [placeholder]="'password'" [isPassword]="true"
             [formControl]="form.controls['password']"></app-text-box>

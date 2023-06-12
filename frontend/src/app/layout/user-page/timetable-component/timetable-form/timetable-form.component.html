@@ -1,0 +1,23 @@
+<form *ngIf="form?.controls">
+    <h2 class="Subhead-heading">{{mode === "create" ? 'Add timetable': 'Update timetable'}}</h2>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'Bus ID '" [formControl]="form?.controls['bus_id']">
+        </app-text-box>
+    </div>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'Departure time'" [formControl]="form?.controls['departure_time']">
+
+        </app-text-box>
+    </div>
+    <div  class="inputContainer">
+        <app-text-box [placeholder]="'Arrival time'" [formControl]="form?.controls['arrival_time']">
+        </app-text-box>
+    </div>
+    <button *ngIf="mode === 'edit'" type="button" (click)="update(form.value)" class="button">
+        Save changes
+    </button>
+    <button *ngIf="mode === 'create'" type="button" (click)="add(form.value)" class="button green">
+        Add timetable
+    </button>
+    <div><button type="button" class="button red" (click)="close()">Close</button></div>
+</form>

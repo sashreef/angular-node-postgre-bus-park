@@ -45,7 +45,7 @@ export class StatisticsPopupComponent {
     private calcBuses(): void {
         this.manageService.busInTrip(this.popupOptions?.options.bus_number, this.form?.value.start_date, this.form?.value.end_date)
         .pipe(take(1)).subscribe((calcResult) => {
-            this.result = calcResult;
+            this.result = calcResult.total_duration.hours + ' hours ' + calcResult.total_duration.minutes + ' minutes';
         });
     }
 

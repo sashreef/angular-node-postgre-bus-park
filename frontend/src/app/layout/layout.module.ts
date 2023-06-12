@@ -13,6 +13,14 @@ import { TripsTableComponent } from "./user-page/trips-component/trips-table.com
 import { TripsFormComponent } from "./user-page/trips-component/trips-form/trips-form.component";
 import { StatisticsTableComponent } from "./user-page/statistics-component/statistics-table.component";
 import { StatisticsPopupComponent } from "./user-page/statistics-component/statistics-popup-component/statistics-popup.component";
+import { BusesTableComponent } from "./user-page/bus-component/bus-table.component";
+import { BusesFormComponent } from "./user-page/bus-component/bus-form/bus-form.component";
+import { DriversFormComponent } from "./user-page/driver-component/driver-form/driver-form.component";
+import { DriversTableComponent } from "./user-page/driver-component/driver-table.component";
+import { TimetablesFormComponent } from "./user-page/timetable-component/timetable-form/timetable-form.component";
+import { TimetablesTableComponent } from "./user-page/timetable-component/timetable-table.component";
+import { JourneysFormComponent } from "./user-page/journey-component/journey-form/journey-form.component";
+import { JourneysTableComponent } from "./user-page/journey-component/journey-table.component";
 
 
 @NgModule({
@@ -33,6 +41,14 @@ import { StatisticsPopupComponent } from "./user-page/statistics-component/stati
         TripsFormComponent,
         StatisticsTableComponent,
         StatisticsPopupComponent,
+        BusesTableComponent,
+        BusesFormComponent,
+        DriversTableComponent,
+        DriversFormComponent,
+        TimetablesFormComponent,
+        TimetablesTableComponent,
+        JourneysFormComponent,
+        JourneysTableComponent
 
     ],
     declarations: [
@@ -44,7 +60,15 @@ import { StatisticsPopupComponent } from "./user-page/statistics-component/stati
         TripsTableComponent,
         TripsFormComponent,
         StatisticsTableComponent,
-        StatisticsPopupComponent
+        StatisticsPopupComponent,
+        BusesTableComponent,
+        BusesFormComponent,
+        DriversFormComponent,
+        DriversTableComponent,
+        TimetablesFormComponent,
+        TimetablesTableComponent,
+        JourneysFormComponent,
+        JourneysTableComponent
     ]
 })
 

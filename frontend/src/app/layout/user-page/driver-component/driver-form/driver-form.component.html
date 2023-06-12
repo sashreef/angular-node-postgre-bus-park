@@ -1,0 +1,30 @@
+<form *ngIf="form?.controls">
+    <h2 class="Subhead-heading">{{mode === "create" ? 'Add driver': 'Update driver'}}</h2>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'Full Name'" [formControl]="form?.controls['full_name']">
+        </app-text-box>
+    </div>
+    <div *ngIf="mode === 'create'" class="inputContainer">
+        <app-text-box [placeholder]="'Passport ID'" [formControl]="form?.controls['passport_id']">
+        </app-text-box>
+    </div>
+    <div *ngIf="mode === 'create'" class="inputContainer">
+        <app-text-box [placeholder]="'Date of Birth'" [formControl]="form?.controls['date_of_birth']">
+        </app-text-box>
+    </div>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'Phone number'" [formControl]="form?.controls['phone_number']">
+        </app-text-box>
+    </div>
+    <div  class="inputContainer">
+        <app-text-box [placeholder]="'Salary'" [formControl]="form?.controls['salary']">
+        </app-text-box>
+    </div>
+    <button *ngIf="mode === 'edit'" type="button" (click)="update(form.value)" class="button">
+        Save changes
+    </button>
+    <button *ngIf="mode === 'create'" type="button" (click)="add(form.value)" class="button green">
+        Add driver
+    </button>
+    <div><button type="button" class="button red" (click)="close()">Close</button></div>
+</form>

@@ -87,6 +87,7 @@ export interface Ticket {
 export interface Bus {
     bus_id: number;
     bus_number: number;
+    bus_brand: string;
     number_of_seats: string;
     driver_id: string;
     trip_id: string;
@@ -114,8 +115,7 @@ export interface Timetable {
     timetable_id: number;
     departure_time: string;
     arrival_time: string;
-    bus_number: string;
-    bus_brand: number;
+    bus_id: number;
 }
 
 export interface Trip {

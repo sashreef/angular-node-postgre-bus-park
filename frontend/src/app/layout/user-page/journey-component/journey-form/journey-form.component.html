@@ -1,0 +1,31 @@
+<form *ngIf="form?.controls">
+    <h2 class="Subhead-heading">{{mode === "create" ? 'Add trip': 'Update trip'}}</h2>
+ 
+    <div class="inputContainer" *ngIf="mode === 'edit'">
+        <app-text-box [placeholder]="'Actual departure time'" [formControl]="form?.controls['actual_departure_time']">
+        </app-text-box>
+    </div>
+    <div class="inputContainer" *ngIf="mode === 'edit'">
+        <app-text-box [placeholder]="'Actual arrival time'" [formControl]="form?.controls['actual_arrival_time']">
+        </app-text-box>
+    </div>
+    <div *ngIf="mode === 'create'" class="inputContainer">
+        <app-text-box [placeholder]="'Timetable ID'" [formControl]="form?.controls['timetable_id']">
+        </app-text-box>
+    </div>
+    <div class="inputContainer" *ngIf="mode === 'edit'">
+        <app-text-box [placeholder]="'Journey status'" [formControl]="form?.controls['journey_status']">
+        </app-text-box>
+    </div>
+    <div class="inputContainer">
+        <app-text-box [placeholder]="'Journey date'" [formControl]="form?.controls['journey_date']">
+        </app-text-box>
+    </div>
+    <button *ngIf="mode === 'edit'" type="button" (click)="update(form.value)" class="button">
+        Save changes
+    </button>
+    <button *ngIf="mode === 'create'" type="button" (click)="add(form.value)" class="button green">
+        Add trip
+    </button>
+    <div><button type="button" class="button red" (click)="close()">Close</button></div>
+</form>

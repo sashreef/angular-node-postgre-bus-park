@@ -10,12 +10,13 @@ class JouneyController {
               SELECT
                 journey.journey_id,
                 journey.timetable_id,
-                journey.actual_departure_time,
-                journey.actual_arrival_time,
-                journey.journey_status,
-                journey.journey_date
+                COALESCE(journey.actual_departure_time, null) AS actual_departure_time,
+                COALESCE(journey.actual_arrival_time, null) AS actual_arrival_time,
+                COALESCE(journey.journey_status, null) AS journey_status,
+                to_char(journey.journey_date, 'YYYY-MM-DD') AS journey_date
+                
               FROM
-                booking
+                journey
               ORDER BY journey.journey_id ASC
 
             ` );
@@ -45,7 +46,7 @@ class JouneyController {
 
   async addJourney(req, res) {
 
-    const { timetable_id, journey_date } = req.body;
+    const { timetable_id, journey_date } = req.body.journeyData;
 
     try {
       await db(req.body.role).query(
@@ -59,10 +60,10 @@ class JouneyController {
   }
 
   async updateJourney(req, res) {
-    const { journey_id, actual_departure_time, actual_arrival_time, journey_status } = req.body;
+    const { journey_id, actual_departure_time, actual_arrival_time, journey_status } = req.body.journeyData;
     try {
       await db(req.body.role).query(
-        `UPDATE journey  SET actual_departure_time = $2, actual_arrival_time = $3, journey_status = 'Completed'
+        `UPDATE journey  SET actual_departure_time = $2, actual_arrival_time = $3, journey_status = $4
             WHERE journey_id = $1`,
         [journey_id, actual_departure_time, actual_arrival_time, journey_status]
       );
@@ -74,12 +75,12 @@ class JouneyController {
   }
 
   async cancelJourney(req, res) {
-    const { journey_id, journey_status } = req.body;
+    const { journey_id } = req.body;
     try {
       await db(req.body.role).query(
         `UPDATE journey  SET journey_status = 'Canceled'
             WHERE journey_id = $1`,
-        [journey_id, journey_status]
+        [journey_id]
       );
     } catch (error) {
       console.error(error);
@@ -103,7 +104,7 @@ class JouneyController {
         `DELETE FROM journey WHERE journey_id = $1`,
         [journey_id]
       );
-      return res.sendStatus(201);
+      res.status(201).json();
     } catch (error) {
       console.log(error);
       return res.status(400).json({ error: "Delete error" });
