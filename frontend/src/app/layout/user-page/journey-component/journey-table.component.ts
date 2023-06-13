@@ -4,6 +4,7 @@ import { Subject, take, takeUntil } from "rxjs";
 import { Journey } from "src/app/interfaces/core.interfaces";
 import { FormBuilderService } from "src/app/services/form-builder.service";
 import { ManageService } from "src/app/services/manage.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 
 @Component({
@@ -26,7 +27,8 @@ export class JourneysTableComponent {
     constructor(
         private manageService: ManageService,
         private formBuilder: UntypedFormBuilder,
-        private formBuilderService: FormBuilderService
+        private formBuilderService: FormBuilderService,
+        private _notificationSvc: NotificationService
         ) {
         this.searchForm = this.formBuilder.group({
             search: null
@@ -55,19 +57,24 @@ export class JourneysTableComponent {
             {
                 this.journeys?.splice(index, 1);
             }
+            this._notificationSvc.success("Deleting success", "Journey deleted",3000);
         }, 
         (err) => {
+            this._notificationSvc.error("Deleting failed", err.error.error,3000);
             throw err;
-        })
+        });
     }
 
     public cancelJourney(id: number): void {
         this.manageService.cancelJourney(id).pipe(take(1)).subscribe(() => {
+            this._notificationSvc.success("Cancel success", "Journey canceled",3000);
+            this.getAllJourneys();
         }, 
         (err) => {
+            this._notificationSvc.error("Cancel failed", err.error.error,3000);
             throw err;
         })
-        this.getAllJourneys();
+        
     }
 
     public updateJourney(journey: Journey): void {

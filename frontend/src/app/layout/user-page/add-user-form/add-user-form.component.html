@@ -2,7 +2,7 @@
     <h2 class="Subhead-heading">{{mode === "create" ? 'Add user': 'Update user'}}</h2>
     <div class="inputContainer">
         <app-text-box [placeholder]="'Username'" [formControl]="form.controls['username']"
-            readonly></app-text-box>
+        [isDisabled]="mode === 'edit'"></app-text-box>
         <!-- надо залочить -->
     </div>
     <div class="inputContainer">
@@ -29,7 +29,7 @@
         <app-text-box [placeholder]="'confirm password'" [isPassword]="true"
             [formControl]="form.controls['confirm_password']"></app-text-box>
         <p id="confirmnote"
-            *ngIf="form.controls['confirm_password'].value?.length > 0 && form.controls['confirm_password'].value !== form.controls['new_password'].value">
+            *ngIf="form.controls['confirm_password'].value?.length > 0 && form.controls['confirm_password'].value !== form.controls['confirm_password'].value">
             must match the new password input field
         </p>
     </div>

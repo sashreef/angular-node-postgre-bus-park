@@ -5,6 +5,7 @@ import { CommonModule } from "@angular/common";
 import { SelectBoxComponent } from "./select-box.component/select-box.component";
 import { IconComponent } from "./icon/icon-component";
 import { DropComponent } from "./drop/drop.component";
+import { NotificationListComponent } from "./notifications/notification.component";
 
 @NgModule({
     exports: [
@@ -12,7 +13,8 @@ import { DropComponent } from "./drop/drop.component";
         DateBoxComponent,
         SelectBoxComponent,
         IconComponent,
-        DropComponent
+        DropComponent,
+        NotificationListComponent
         
     ],
     declarations: [
@@ -21,6 +23,7 @@ import { DropComponent } from "./drop/drop.component";
         SelectBoxComponent,
         IconComponent,
         DropComponent,
+        NotificationListComponent
     ],
 
     imports: [

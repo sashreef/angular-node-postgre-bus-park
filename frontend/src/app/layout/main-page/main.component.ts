@@ -4,7 +4,9 @@ import { CookieService } from "ngx-cookie-service";
 import { Subject, combineLatest, delay, take, takeUntil } from "rxjs";
 import { ListItem } from "src/app/core.module/utils/template";
 import { BookTicket } from "src/app/interfaces/core.interfaces";
+import { FormBuilderService } from "src/app/services/form-builder.service";
 import { ManageService } from "src/app/services/manage.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
     selector: "app-main",
@@ -25,14 +27,10 @@ export class MainComponent {
     constructor (
         private manageService: ManageService,   
         private formBuilder: UntypedFormBuilder,
-        private cookieService: CookieService
+        private formBuilderService: FormBuilderService,
+        private _notificationSvc: NotificationService
     ) {
-        this.mainForm = this.formBuilder.group({
-            arrival_point: new FormControl(null, Validators.required),
-            quantity_of_seats: new FormControl(null, Validators.required),
-            journey_date: new FormControl(null, Validators.required),
-            journey_id: new FormControl(null)
-        });
+        this.mainForm = this.formBuilderService.getBookTicketGroup();
       
     }
 
@@ -53,9 +51,16 @@ export class MainComponent {
             throw "Не заполнены обязательные поля"
         }
         this.manageService.bookTickets(data).pipe(take(1)).subscribe((data) => {
+            this.mainForm.controls['arrival_point'].setValue(null);
+            this.mainForm.controls['journey_date'].setValue(null);
+            this.mainForm.controls['quantity_of_seats'].setValue(null);
+            this.mainForm.controls['journey_id'].setValue(null);
+            this._notificationSvc.success("Booking success", "Booking successed",3000);
+            console.log(data);
+            
         },
         (err) => {
-            console.log(err)
+            this._notificationSvc.error("Booking Error", err.error.error,3000);
         });
     }
 

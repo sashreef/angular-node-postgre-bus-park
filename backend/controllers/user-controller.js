@@ -68,7 +68,7 @@ class UserController {
       }
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ error: "Internal server error" });
+      return res.status(500).json({ error: `${error.detail}` });
     }
   }
 
@@ -80,14 +80,11 @@ class UserController {
         `insert into Users (login, password, full_name, phone_number, category) values ($1, $2, $3, $4, $5)`,
         [login, password, full_name, phone_number, category]
       );
-    } catch (err) {
-      console.error(err);
-      if (err.code == 23505)
-        return res.status(409).json({ error: `${err.detail}` });
-
-      else return res.status(400).json({ error: "bad request" }); 
+      res.status(201).json(newUser);
+    } catch (error) {
+      console.error(error);
+      return res.status(400).json({ error: `${error.detail}` });
     }
-    res.status(201).json(newUser);
   }
 
   async updateUserForAdmin(req, res) {
@@ -118,7 +115,7 @@ class UserController {
       }
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ error: "Internal server error" });
+      return res.status(400).json({ error: `${error.detail}` });
     }
   }
 

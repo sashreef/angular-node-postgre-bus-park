@@ -4,6 +4,7 @@
   import { BookingInfo, Bus, Driver, Journey, Ticket, Timetable, Trip, UnpaidTicket, userForm } from "src/app/interfaces/core.interfaces";
   import { FormBuilderService } from "src/app/services/form-builder.service";
   import { ManageService } from "src/app/services/manage.service";
+import { NotificationService } from "src/app/services/notification.service";
 
   @Component({
     selector: "app-user",
@@ -40,7 +41,8 @@
     constructor(
       private manageService: ManageService,
       private formBuilder: UntypedFormBuilder,
-      private formBuilderService: FormBuilderService
+      private formBuilderService: FormBuilderService,
+      private _notificationSvc: NotificationService
     ) {
 
       this.searchForm = this.formBuilder.group({
@@ -66,7 +68,14 @@
     }
 
     public changeUserData(data: userForm): void {
-      this.manageService.changeUserData(data).pipe(take(1)).subscribe();
+      this.manageService.changeUserData(data).pipe(take(1)).subscribe((data) => {
+        this._notificationSvc.success("Edit success", "Data saved",3000);
+      },
+      (err) => {
+          this._notificationSvc.error("Edit failed", err.error.error,3000);
+          throw err;
+          
+      });
     }
 
     public selectBooking(booking: any): void {
@@ -95,8 +104,10 @@
       this.pending = true;
       this.manageService.deleteBooking(this.selectedBooking.booking_id).pipe(take(1)).subscribe((data) => {
         this.pending = false;
+        this._notificationSvc.success("Cancel success", "Data saved",3000);
       },
       (err) => {
+          this._notificationSvc.error("Cancel failed", err.error.error,3000);
           throw err;
       });
       this.getBookingInfo();
@@ -117,14 +128,16 @@
                 this.filteredBookings.splice(indexFiltered, 1);
             }
             const index = this.users?.findIndex((user)=>user.user_id === this.selectedUser.user_id);
-            console.log(index);
             
             if(index !== -1 && index)   
             {
                 this.users?.splice(index, 1);
             }
+            this._notificationSvc.success("Deleting success", "User deleted",3000);
+
       },
         (err) => {
+          this._notificationSvc.error("Deleting failed", "User deleted",3000);
           throw err;
         });
         
@@ -138,12 +151,15 @@
       this.pending = true;
       this.manageService.addTicket(ticketForm).pipe(take(1)).subscribe((data) => {
         this.pending = false;
+        this._notificationSvc.success("Adding success", "Ticket added",3000);
+        this.getUnpaidTickets();
       },
       (err) => {
+        this._notificationSvc.error("Adding failed", err.error.error,3000);
          throw err;
       });
       this.addTicketForm = null;
-      this.getUnpaidTickets();////////////
+      ////////////
       // если на создание не будет отправляется форма => попробовать создать отдельную bool паблик переменную
       // и условия открытия формы создания завязать на нее, 
     }
@@ -152,11 +168,14 @@
       this.pending = true;
       this.manageService.sellTicket(ticket_id).pipe(take(1)).subscribe((data) => {
         this.pending = false;
+        this._notificationSvc.success("Sale success", "Ticket sold",3000);
+        this.getUnpaidTickets();
       },
       (err) => {
+        this._notificationSvc.success("Sale failed", err.error.error,3000);
          throw err;
       });
-        this.getUnpaidTickets();
+        
     }
 
     public isValidUserForm(): boolean {

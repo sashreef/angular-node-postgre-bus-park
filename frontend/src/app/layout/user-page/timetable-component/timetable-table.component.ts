@@ -4,6 +4,7 @@ import { Subject, take, takeUntil } from "rxjs";
 import { Timetable } from "src/app/interfaces/core.interfaces";
 import { FormBuilderService } from "src/app/services/form-builder.service";
 import { ManageService } from "src/app/services/manage.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 
 @Component({
@@ -26,7 +27,8 @@ export class TimetablesTableComponent {
     constructor(
         private manageService: ManageService,
         private formBuilder: UntypedFormBuilder,
-        private formBuilderService: FormBuilderService
+        private formBuilderService: FormBuilderService,
+        private _notificationSvc: NotificationService
         ) {
         this.searchForm = this.formBuilder.group({
             search: null

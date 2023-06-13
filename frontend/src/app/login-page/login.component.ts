@@ -5,6 +5,8 @@ import { take } from "rxjs";
 import { ManageService } from "../services/manage.service";
 import { CookieService } from "ngx-cookie-service";
 import { Router } from "@angular/router";
+import { NotificationService } from "../services/notification.service";
+
 
 @Component({
     selector: "app-login",
@@ -21,7 +23,8 @@ export class LoginComponent {
         private manageService: ManageService,
         private formBuilder: UntypedFormBuilder,
         private cookieService: CookieService,
-        private router: Router
+        private router: Router,
+        private _notificationSvc: NotificationService
     ) {
         this.loginForm = this.formBuilder.group({
             username: new FormControl(null, Validators.required),
@@ -49,7 +52,8 @@ export class LoginComponent {
             this.router.navigate(["/main"]);
         },
         (err) => {
-            console.log(err)
+            this._notificationSvc.error("Authorization failed", err.error.error,3000);
+            console.log(err.error)
         });
     }
     }

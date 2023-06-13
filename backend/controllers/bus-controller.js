@@ -35,7 +35,9 @@ class BusController {
                 [bus_brand, bus_number, number_of_seats, driver_id, trip_id]
             );
         } catch (error) {
+
             console.log(error);
+            return res.status(400).json({ error: `${error}` });
         }
         res.status(201).json();
     }
@@ -51,7 +53,7 @@ class BusController {
             );
         } catch (error) {
             console.error(error);
-            return res.status(400).json({ error: "Update error" });
+            return res.status(400).json({ error: `${error}` });
         }
         res.status(201).json();
     }

@@ -4,6 +4,7 @@ import { Subject, take, takeUntil } from "rxjs";
 import { Driver } from "src/app/interfaces/core.interfaces";
 import { FormBuilderService } from "src/app/services/form-builder.service";
 import { ManageService } from "src/app/services/manage.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 
 @Component({
@@ -26,7 +27,8 @@ export class DriversTableComponent {
     constructor(
         private manageService: ManageService,
         private formBuilder: UntypedFormBuilder,
-        private formBuilderService: FormBuilderService
+        private formBuilderService: FormBuilderService,
+        private _notificationSvc: NotificationService
         ) {
         this.searchForm = this.formBuilder.group({
             search: null
@@ -54,8 +56,10 @@ export class DriversTableComponent {
             {
                 this.drivers?.splice(index, 1);
             }
+            this._notificationSvc.success("Deleting success", "Driver deleted",3000);
         }, 
         (err) => {
+            this._notificationSvc.error("Deleting failed", err.error.error,3000);
             throw err;
         })
     }

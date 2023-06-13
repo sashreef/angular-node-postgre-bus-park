@@ -1,4 +1,5 @@
 <app-header-component></app-header-component>
+<app-notification></app-notification>
 <main>
     <section class="sidebar">
         <header>
@@ -29,7 +30,7 @@
                     <h2 id="public-profile-heading" class="Subhead-heading">Your profile </h2>
                     <div class="inputContainer">
                         <app-text-box [placeholder]="'Username'" [formControl]="userForm.controls['username']"
-                            readonly></app-text-box>
+                        [isDisabled]="true"></app-text-box>
                         <!-- надо залочить -->
                     </div>
                     <div class="inputContainer">
@@ -48,7 +49,6 @@
                         </p>
                     </div>
                     <div class="inputContainer">
-                        <!-- *ngIf="!adminUserForm.controls['password']" -->
                         <app-text-box [placeholder]="'your password'" [isPassword]="true"
                             [formControl]="userForm.controls['password']"></app-text-box>
                     </div>

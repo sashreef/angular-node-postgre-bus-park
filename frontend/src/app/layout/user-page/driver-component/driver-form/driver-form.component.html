@@ -9,8 +9,8 @@
         </app-text-box>
     </div>
     <div *ngIf="mode === 'create'" class="inputContainer">
-        <app-text-box [placeholder]="'Date of Birth'" [formControl]="form?.controls['date_of_birth']">
-        </app-text-box>
+        <app-date-box [placeholder]="'Date of Birth'" ngDefaultControl [formControl]="form?.controls['date_of_birth']">
+        </app-date-box>
     </div>
     <div class="inputContainer">
         <app-text-box [placeholder]="'Phone number'" [formControl]="form?.controls['phone_number']">

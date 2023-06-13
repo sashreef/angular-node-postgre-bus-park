@@ -46,6 +46,7 @@ class TripController {
         [trip_number, arrival_point, ticket_price]
       );
     } catch (error) {
+      res.status(400).json({error: `${error.detail}`});
       console.log(error);
     }
     res.status(201).json();
@@ -62,7 +63,7 @@ class TripController {
       );
     } catch (error) {
       console.error(error);
-      return res.status(400).json({ error: "Delete error" });
+      return res.status(400).json({error: `${error.detail}`});
     }
     res.status(201).json();
   }

@@ -1,3 +1,4 @@
+<app-notification></app-notification>
 <div class="app">
     <section class="sectionReg">
       <div class="regWrapper">
@@ -52,7 +53,7 @@
             </p>
           </div>
           <div class="button-container">
-            <button (click)="register(registerForm.value)" class="submitBtn" [disabled]="!isValidForm()">
+            <button (click)="register(registerForm.value)" class="submitBtn" type="button" [disabled]="!isValidForm()">
               sign up
             </button>
           </div>

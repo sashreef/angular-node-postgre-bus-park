@@ -10,6 +10,16 @@ export class FormBuilderService {
     ) {
         
     }
+
+    public getBookTicketGroup(): UntypedFormGroup{
+        return this.formBuilder.group({
+            arrival_point: new FormControl(null, Validators.required),
+            quantity_of_seats: new FormControl(null, Validators.required),
+            journey_date: new FormControl(null, Validators.required),
+            journey_id: new FormControl(null)
+        });
+    }
+
     public getUserFormGroup(data?: userForm): UntypedFormGroup {
         return this.formBuilder.group({
             username: new FormControl(data?.username || null, Validators.required),

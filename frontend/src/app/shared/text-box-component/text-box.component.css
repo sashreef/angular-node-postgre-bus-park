@@ -49,6 +49,7 @@
 				outline: none;
 				border: 2px solid var(--control-focus-color);
 			}
+			
 		}
 	}
 }
@@ -63,4 +64,9 @@
 	>div>input {
 		padding-left: 0px !important;
 	}
+}
+
+.disabled{
+	pointer-events: none !important;
+
 }

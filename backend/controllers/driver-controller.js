@@ -37,9 +37,7 @@ class DriverController {
       );
     } catch (err) {
       console.log(err);
-      if (err.code == 23505)
-        return res.status(409).json({ error: `${err.detail}` });
-      else return res.status(400).json({ error: "bad request" }); 
+      return res.status(409).json({ error: `${err.detail}` }); 
     }
     res.status(201).json(newDriver);
   }
@@ -53,7 +51,7 @@ class DriverController {
       );
     } catch (error) {
       console.log(error);
-      return res.status(400).json({ error: "Data edit error" });
+      return res.status(400).json({ error: `${error.detail}` });
     }
     res.status(201).json(updatedDriver);
   }

@@ -4,6 +4,7 @@ import { Subject, take, takeUntil } from "rxjs";
 import { Trip } from "src/app/interfaces/core.interfaces";
 import { FormBuilderService } from "src/app/services/form-builder.service";
 import { ManageService } from "src/app/services/manage.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 
 @Component({
@@ -26,7 +27,8 @@ export class TripsTableComponent {
     constructor(
         private manageService: ManageService,
         private formBuilder: UntypedFormBuilder,
-        private formBuilderService: FormBuilderService
+        private formBuilderService: FormBuilderService,
+        private _notificationSvc: NotificationService
         ) {
         this.searchForm = this.formBuilder.group({
             search: null
@@ -54,10 +56,12 @@ export class TripsTableComponent {
             {
                 this.trips?.splice(index, 1);
             }
+            this._notificationSvc.success("Deleting success", "Trip deleted",3000);
         }, 
         (err) => {
+            this._notificationSvc.error("Deleting failed", err.error.error,3000);
             throw err;
-        })
+        });
     }
 
     public updateTrip(trip: Trip): void {

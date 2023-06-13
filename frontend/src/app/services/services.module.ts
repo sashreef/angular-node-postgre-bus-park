@@ -6,6 +6,7 @@ import { ManageService } from "./manage.service";
 import { ConfigurationService } from "./configuration.service";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { AuthInterceptor } from "./interceptors/auth.interceptor";
+import { NotificationService } from "./notification.service";
 
 
 
@@ -23,6 +24,7 @@ import { AuthInterceptor } from "./interceptors/auth.interceptor";
         BackendService,
         FormBuilderService,
         FormMapperService,
+        NotificationService,
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, 
     ]
 })

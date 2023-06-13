@@ -55,6 +55,7 @@ class JouneyController {
       );
     } catch (error) {
       console.log(error);
+      return res.status(400).json({ error: `${error.detail}` });
     }
     res.status(201).json();
   }
@@ -69,7 +70,7 @@ class JouneyController {
       );
     } catch (error) {
       console.error(error);
-      return res.status(400).json({ error: "Update error" });
+      return res.status(400).json({ error: `${error.detail}` });
     }
     res.status(201).json();
   }
@@ -84,7 +85,7 @@ class JouneyController {
       );
     } catch (error) {
       console.error(error);
-      return res.status(400).json({ error: "Update error" });
+      return res.status(400).json({ error: `${error.detail}` });
     }
     res.status(201).json();
   }

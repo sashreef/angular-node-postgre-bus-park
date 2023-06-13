@@ -1,5 +1,6 @@
 <div>
      <label *ngIf="label">{{label}}</label>
 	<input #input [type]="isPassword ? 'password' : 'text'"  [value]="value || ''" [attr.maxlength]="maxLength"
-     [attr.tabindex]="isDisabled ? -1 : undefined" (input)="onInput($event);" placeholder="{{placeholder}}">
+     [attr.tabindex]="isDisabled ? -1 : undefined" (input)="onInput($event);" placeholder="{{placeholder}}"
+     [class.disabled]="isDisabled">
 </div>

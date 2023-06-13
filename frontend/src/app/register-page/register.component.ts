@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { take } from "rxjs";
 import { Register } from "src/app/interfaces/core.interfaces";
 import { ManageService } from "src/app/services/manage.service";
+import { NotificationService } from "../services/notification.service";
 
 
  @Component({
@@ -26,7 +27,8 @@ export class RegisterComponent {
     constructor (
         private manageService: ManageService,
         private formBuilder: UntypedFormBuilder,
-        private router: Router
+        private router: Router,
+        private _notificationSvc: NotificationService
     ) {
         this.registerForm = this.formBuilder.group({
             username: new FormControl(null, Validators.required),
@@ -43,10 +45,9 @@ export class RegisterComponent {
             throw "Not all fields are full";
         }
         this.manageService.register(data).pipe(take(1)).subscribe((data) => {
-            console.log(data);
         },
         (err) => {
-            console.log(err);
+            this._notificationSvc.error("Registration failed", err.error.error,3000);
         });
     }
 

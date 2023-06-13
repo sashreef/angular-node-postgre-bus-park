@@ -27,6 +27,7 @@ class BookingController {
         [user_id, journey_id, quantity_of_seats, formattedDate, activeStatus]
       );
     } catch (error) {
+      res.status(400).json({ error: `${error}` });
       console.log(error);
     }
     res.status(201).json();

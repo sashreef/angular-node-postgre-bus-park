@@ -26,6 +26,8 @@ class TicketController {
             );
         } catch (error) {
             console.error(error);
+            return res.status(400).json({ error: `${err.detail}` });
+
         }
         res.json(BookingsInfo.rows);
     }
@@ -54,37 +56,44 @@ class TicketController {
             );
         } catch (error) {
             console.error(error);
-            return res.status(400).json({ error: "Delete error" });
+            return res.status(400).json({ error: `${err.detail}` });
         }
         res.status(201).json();
     }
 
     async addTicket(req, res) {
-        const { login,  trip_id } = req.body.ticketData;
-        console.log(req.body);
+        const { login, trip_id } = req.body.ticketData;
         let user_id;
-        try {
-            user_id = await db(req.body.role).query(
-              `SELECT user_id  FROM Users 
-               WHERE login = $1`,
-               [login]
-            );
-          
-        } catch (error) {
-          console.error(error);
+        if (login) {
+            try {
+                user_id = await db(req.body.role).query(
+                    `SELECT user_id  FROM Users 
+                    WHERE login = $1`,
+                    [login]
+                );
+
+            } catch (error) {
+                console.error(error);
+                return res.status(400).json({ error: `${error.detail}` });
+
+            }
+            if (!user_id.rows[0]) {
+                return res.status(400).json({ error: "Wrong login" });
+            }
+            user_id = user_id.rows[0].user_id;
         }
-        console.log(user_id);
         try {
             await db(req.body.role).query(
                 `insert into Ticket (client_id, journey_id , ticket_status ) values ($1, $2, 'Unpaid')`,
-                [user_id.rows[0].user_id, trip_id]
+                [user_id, trip_id]
             );
         } catch (error) {
             console.log(error);
+            return res.status(400).json({ error: `${error.detail}` });
         }
         res.status(201).json();
     }
-    
+
 }
 
 module.exports = new TicketController();
