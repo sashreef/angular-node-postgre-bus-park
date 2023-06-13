@@ -42,7 +42,6 @@ export class MainComponent {
                 return [option.arrival_point, option.arrival_point];
             });
         });
-
         this.setFormSub()
     }
 
@@ -55,9 +54,9 @@ export class MainComponent {
             this.mainForm.controls['journey_date'].setValue(null);
             this.mainForm.controls['quantity_of_seats'].setValue(null);
             this.mainForm.controls['journey_id'].setValue(null);
-            this._notificationSvc.success("Booking success", "Booking successed",3000);
-            console.log(data);
+            console.log(this.mainForm);
             
+            this._notificationSvc.success("Booking success", "Booking successed",3000);
         },
         (err) => {
             this._notificationSvc.error("Booking Error", err.error.error,3000);
@@ -114,17 +113,4 @@ export class MainComponent {
             }
         )
     }
-
-    // public getTripInfo(data: Trip): void {
-    //     if(this.mainForm.invalid) {
-    //         throw "Не заполнены обязательные поля"
-    //     }
-    //     this.manageService.bookTickets(data).pipe(take(1)).subscribe((data) => {
-    //         console.log(data);
-    //     },
-    //     (err) => {
-    //         console.log(err)
-    //     });
-    //     console.log(data);
-    // }
     }

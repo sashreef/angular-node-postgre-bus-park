@@ -159,9 +159,6 @@ import { NotificationService } from "src/app/services/notification.service";
          throw err;
       });
       this.addTicketForm = null;
-      ////////////
-      // если на создание не будет отправляется форма => попробовать создать отдельную bool паблик переменную
-      // и условия открытия формы создания завязать на нее, 
     }
 
     public sellTicket(ticket_id: number): void {

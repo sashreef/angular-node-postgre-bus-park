@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from "@angular/core";
 import { InputComponent } from "../input/input.component";
+import { UntypedFormGroup } from "@angular/forms";
+import { Subject, takeUntil } from "rxjs";
 
 export type NumberType = "int" | "float" | "orderNum";
 
@@ -15,6 +17,7 @@ export class DateBoxComponent extends InputComponent<string | number> {
 		return this.isDisabled ? "" : null;
 	}
 	@Input("appInputType") public inputType?: NumberType;
+	@Input() public control?: UntypedFormGroup;
 	@Input() public minDate?: string;
 	@Input() public maxDate?: string;
 	@Input() public isDisabled?: boolean;
@@ -22,12 +25,21 @@ export class DateBoxComponent extends InputComponent<string | number> {
 	@Input() private isUpperCase?: boolean;
 	@ViewChild("input", { read: ElementRef, static: false }) public inputRef?: ElementRef<HTMLInputElement>;
 	private previousValue = "";
+	private unsubscribe$$: Subject<void> = new Subject();
 
 	constructor(
 		public override elementRef: ElementRef,
 		private readonly cdr: ChangeDetectorRef
 	) {
 		super(elementRef);
+	}
+
+	public ngOnInit(): void {
+		if(this.control) {
+			this.control.valueChanges.pipe(takeUntil(this.unsubscribe$$)).subscribe((value) => {
+				this.setInteractiveValue(value?.trim());
+			});
+		}
 	}
 
 	public focus() {
@@ -107,5 +119,10 @@ export class DateBoxComponent extends InputComponent<string | number> {
 			e.target.value = "0.";
 		}
 		this.setInteractiveValue(e.target.value);
+	}
+
+	public ngOnDestroy(): void {
+		this.unsubscribe$$.next();
+		this.unsubscribe$$.complete();
 	}
 }
