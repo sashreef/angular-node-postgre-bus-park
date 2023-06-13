@@ -69,6 +69,16 @@ export class MainComponent {
         this.unsubscribe$$.complete();
     }
 
+    public getDate(type : string) : string {
+        const today = new Date().toISOString().split("T")[0];
+        if(type === "min"){
+            return today;
+        }
+        const nextMonth = new Date();
+        nextMonth.setMonth(nextMonth.getMonth() + 1);
+        return nextMonth.toISOString().split("T")[0];
+    }
+
     private setFormSub(): void {
         this.mainForm.get("arrival_point")?.valueChanges.pipe(
             delay(300), takeUntil(this.unsubscribe$$)

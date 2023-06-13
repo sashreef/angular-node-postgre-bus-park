@@ -15,8 +15,8 @@ export class DateBoxComponent extends InputComponent<string | number> {
 		return this.isDisabled ? "" : null;
 	}
 	@Input("appInputType") public inputType?: NumberType;
-	@Input() public min?: number;
-	@Input() public max?: number;
+	@Input() public minDate?: string;
+	@Input() public maxDate?: string;
 	@Input() public isDisabled?: boolean;
 	@Input() public placeholder?: string;
 	@Input() private isUpperCase?: boolean;

@@ -17,8 +17,8 @@
         <app-text-box [placeholder]="'Journey status'" [formControl]="form?.controls['journey_status']">
         </app-text-box>
     </div>
-    <div class="inputContainer">
-        <app-date-box [placeholder]="'Journey date'" ngDefaultControl [formControl]="form?.controls['journey_date']">
+    <div class="inputContainer" *ngIf="mode === 'create'">
+        <app-date-box [placeholder]="'Journey date'" ngDefaultControl [formControl]="form?.controls['journey_date']" [minDate] = "getDate('min')">
         </app-date-box>
     </div>
     <button *ngIf="mode === 'edit'" type="button" (click)="update(form.value)" class="button">

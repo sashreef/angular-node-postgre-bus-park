@@ -9,7 +9,8 @@
         </app-text-box>
     </div>
     <div *ngIf="mode === 'create'" class="inputContainer">
-        <app-date-box [placeholder]="'Date of Birth'" ngDefaultControl [formControl]="form?.controls['date_of_birth']">
+        <app-date-box [placeholder]="'Date of Birth'" ngDefaultControl [formControl]="form?.controls['date_of_birth']" 
+        [maxDate] = "getDate()">
         </app-date-box>
     </div>
     <div class="inputContainer">

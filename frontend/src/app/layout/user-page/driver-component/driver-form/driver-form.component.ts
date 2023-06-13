@@ -40,4 +40,11 @@ export class DriversFormComponent {
     public close() {
         this.closeEmitter.emit();
     }
+
+    public getDate() : string {
+        
+        const prevYear = new Date();
+        prevYear.setFullYear(prevYear.getFullYear() - 18);
+        return prevYear.toISOString().split("T")[0];
+    }
 }

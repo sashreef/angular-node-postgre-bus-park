@@ -25,7 +25,7 @@
               <div class="input-text">
                 <label>
                   <span class="required">*</span>
-                  <app-date-box [placeholder]="'Куда'" ngDefaultControl [formControl]="mainForm.controls['journey_date']" ></app-date-box>
+                  <app-date-box [placeholder]="'Куда'" ngDefaultControl [formControl]="mainForm.controls['journey_date']" [minDate] = "getDate('min')" [maxDate] = "getDate('max')"> </app-date-box>
                </label>
               </div>
             </div>

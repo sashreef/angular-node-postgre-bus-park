@@ -19,3 +19,7 @@ form button {
     margin: 10px 0;
     width: 230.6px;
 }
+.inputContainer app-date-box{
+    width: 230.6px;
+    height: 33.4px;
+}
