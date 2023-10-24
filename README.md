@@ -8,7 +8,7 @@ After openning the site, each visitor  sees the main page, which contains genera
 ![](https://github.com/ArcaneMisery/bus_park_angular/blob/main/images/1.jpg)
 ***Picture 1**. Main page*
 
-![](https://github.com/ArcaneMisery/bus_park_angular/blob/main/images/1.jpg)
+![](https://github.com/ArcaneMisery/bus_park_angular/blob/main/images/2.jpg)
 ***Picture 2**. Main page*
 
 The header contains two buttons Sign up and Log in, clicking on which  user will go to the authorization forms.
