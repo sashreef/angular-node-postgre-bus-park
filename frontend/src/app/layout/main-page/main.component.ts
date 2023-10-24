@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import {  ChangeDetectionStrategy, ChangeDetectorRef, Component } from "@angular/core";
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { CookieService } from "ngx-cookie-service";
 import { Subject, combineLatest, delay, take, takeUntil } from "rxjs";
@@ -11,7 +11,8 @@ import { NotificationService } from "src/app/services/notification.service";
 @Component({
     selector: "app-main",
     templateUrl: "./main.component.html",
-    styleUrls: ["./main.component.css"]
+    styleUrls: ["./main.component.css"],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class MainComponent {
@@ -28,7 +29,8 @@ export class MainComponent {
         private manageService: ManageService,   
         private formBuilder: UntypedFormBuilder,
         private formBuilderService: FormBuilderService,
-        private _notificationSvc: NotificationService
+        private _notificationSvc: NotificationService,
+        private changeDetector: ChangeDetectorRef
     ) {
         this.mainForm = this.formBuilderService.getBookTicketGroup();
       
@@ -61,6 +63,8 @@ export class MainComponent {
         (err) => {
             this._notificationSvc.error("Booking Error", err.error.error,3000);
         });
+        
+        this.changeDetector.detectChanges();
     }
 
     public ngOnDestroy() {

@@ -25,8 +25,7 @@
               <div class="input-text">
                 <label>
                   <span class="required">*</span>
-                  <app-date-box [placeholder]="'Куда'" ngDefaultControl [formControl]="mainForm.controls['journey_date']" [minDate] = "getDate('min')" [maxDate] = "getDate('max')"
-                  [control]="mainForm.controls['journey_date']"></app-date-box>
+                  <app-date-box [placeholder]="'Куда'" ngDefaultControl [formControl]="mainForm.controls['journey_date']" [minDate] = "getDate('min')" [maxDate] = "getDate('max')" [control]="mainForm.controls['journey_date']"> </app-date-box>
                </label>
               </div>
             </div>
@@ -48,7 +47,11 @@
 
             <div class="row">
               <div class="input-text">
+<<<<<<< Updated upstream
                   <app-text-box [placeholder]="'Number of tickets'" [appInputType]="'int'" ngDefaultControl [formControl]="mainForm.controls['quantity_of_seats']" ></app-text-box>
+=======
+                  <app-text-box [placeholder]="'Number of tickets'" [appInputType]="'int'"  [formControl]="mainForm.controls['quantity_of_seats']"></app-text-box>
+>>>>>>> Stashed changes
                   <span class="required">*</span>
               </div>
     
