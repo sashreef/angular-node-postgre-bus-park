@@ -5,6 +5,9 @@ class StatisticsController {
     async busInTrip(req, res) {
         const { bus_number, start_date, end_date } = req.body;
         let result;
+        if(end_date < start_date) {
+            return res.status(400).json({ error: "End date must be more than start date" });
+        }
         try {
             result = await db(req.body.role).query(
                 `
@@ -20,15 +23,20 @@ class StatisticsController {
             
             `, [bus_number, start_date, end_date]
             );
+            
+        res.json(result.rows[0]);
         } catch (error) {
             console.error(error);
+            res.status(400).json({ error: `${error}` });
         }
-        res.json(result.rows[0]);
     }
 
     async sumTicketsOnTrip(req, res) {
         const { trip_number, start_date, end_date } = req.body;
         let result;
+        if(end_date < start_date) {
+            return res.status(400).json({ error: "End date must be more than start date" });
+        }
         try {
             result = await db(req.body.role).query(
                 `
@@ -45,15 +53,20 @@ class StatisticsController {
             
             `, [trip_number, start_date, end_date]
             );
+            
+        res.json(result.rows[0]);
         } catch (error) {
             console.error(error);
+            res.status(400).json({ error: `${error}` });
         }
-        res.json(result.rows[0]);
     }
 
     async difBookedAndPaid(req, res) {
         const { trip_number, start_date, end_date } = req.body;
         let result;
+        if(end_date < start_date) {
+            return res.status(400).json({ error: "End date must be more than start date" });
+        }
         try {
             result = await db(req.body.role).query(
                 `
@@ -86,11 +99,13 @@ class StatisticsController {
                 ) AS subquery;
             
             `, [trip_number, start_date, end_date]
+            
             );
+             res.status(201).json(result.rows[0]);
         } catch (error) {
+            res.status(400).json({ error: `${error}` });
             console.error(error);
         }
-        res.json(result.rows[0]);
     }
 
     

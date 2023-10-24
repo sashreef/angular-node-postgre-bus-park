@@ -1,46 +1,90 @@
-# Getting Started with Create React App
+# **Bus Park**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bus Park is a sleek and modern fullstack web application that simplifies the process of booking tickets for bus trips. With its easy-to-use interface, flexible options, and unbeatable prices, Bus Park ensures a stress-free booking experience for customers.
 
-## Available Scripts
+## User interface
+After openning the site, each visitor  sees the main page, which contains general information about Bus Park. The guest can view free seats on existing trips, or authorize in the system by going to the authorization page.
 
-In the project directory, you can run:
 
-### `npm start`
+***Picture 1**. Main page*
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+***Picture 2**. Main page*
 
-### `npm test`
+The header contains two buttons Sign up and Log in, clicking on which  user will go to the authorization forms.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+***Picture 3**. Page header*
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Below we see the form for checking free seats, choosing the desrination and the date of the trip, if a trip is planned for this day, then we will receive the number of free seats and the price for one ticket.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+***Picture 4**. Checking available seats*
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+If we choose a date for which the trip is not yet planned, then we will get an error
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+***Picture 5**. Error while checking available seats*
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+But even if the user sees the number of free seats and the price, he cannot reserve a seat yet, because he needs to be authorized. Therefore, click the Sign up button in the upper right corner.
+After clicking Sign up, the user goes to the registration form.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+***Picture 6**. Registering form*
 
-## Learn More
+All lines must be filled in according to the requirements so that the sign up button becomes active, prompts will be displayed when filled.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+***Picture 7**. Filling registering form*
+
+After successful authorization, the user will be redirected to the authorization page.
+
+
+***Picture 8**. Authorization form*
+
+
+Next, you need to enter your login and password
+
+
+***Picture 9**. Filling authorization form*
+
+After entering the data, we will immediately return to the main page, where we can already reserve tickets. You can also immediately see how the header of the page has changed, where the Sign up and Log in buttons used to be, now there are Usertest4 (your profile) and logout button.
+
+
+***Picture 10**. Changed header*
+
+
+***Picture 11**. Filling reservation form*
+
+After filling  the form, click on the Book button.
+Next, click on our profile and go to it.
+
+
+***Picture 12**. User profile*
+
+We immediately see our profile form and our data in it, we can edit everything except our login. For example, let's edit the name.
+
+
+***Picture 13**. Personal data editing form*
+
+After updating the page, the data remained.
+
+
+***Picture 14**. Changed personal data form*
+
+Next, click the Your Bookings button in the sidebar on the left.
+
+
+***Picture 15**. Sidebar*
+
+
+We immediately see our reservation and all the necessary data.
+
+
+***Picture 16**. User reservations*
+
+Next, the user can click on the logout button on the right of the headbar and log out of his account.
+
+
+***Picture 17**. Logout button*
+
+After clicking, the user will be redirected to the authorization page.

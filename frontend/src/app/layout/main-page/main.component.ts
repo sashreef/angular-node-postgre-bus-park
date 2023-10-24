@@ -1,6 +1,5 @@
 import {  ChangeDetectionStrategy, ChangeDetectorRef, Component } from "@angular/core";
 import { FormControl, UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
-import { CookieService } from "ngx-cookie-service";
 import { Subject, combineLatest, delay, take, takeUntil } from "rxjs";
 import { ListItem } from "src/app/core.module/utils/template";
 import { BookTicket } from "src/app/interfaces/core.interfaces";
@@ -11,8 +10,7 @@ import { NotificationService } from "src/app/services/notification.service";
 @Component({
     selector: "app-main",
     templateUrl: "./main.component.html",
-    styleUrls: ["./main.component.css"],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ["./main.component.css"]
 })
 
 export class MainComponent {
@@ -29,8 +27,7 @@ export class MainComponent {
         private manageService: ManageService,   
         private formBuilder: UntypedFormBuilder,
         private formBuilderService: FormBuilderService,
-        private _notificationSvc: NotificationService,
-        private changeDetector: ChangeDetectorRef
+        private _notificationSvc: NotificationService
     ) {
         this.mainForm = this.formBuilderService.getBookTicketGroup();
       
@@ -47,24 +44,32 @@ export class MainComponent {
         this.setFormSub()
     }
 
+    
+
     public bookTicket(data: BookTicket): void {
+        console.log(this.mainForm);
+        
         if(this.mainForm.invalid) {
             throw "Не заполнены обязательные поля"
         }
+
+
         this.manageService.bookTickets(data).pipe(take(1)).subscribe((data) => {
-            this.mainForm.controls['arrival_point'].setValue(null);
-            this.mainForm.controls['journey_date'].setValue(null);
-            this.mainForm.controls['quantity_of_seats'].setValue(null);
-            this.mainForm.controls['journey_id'].setValue(null);
-            console.log(this.mainForm);
             
             this._notificationSvc.success("Booking success", "Booking successed",3000);
+            this.mainForm.controls['arrival_point'].setValue(null);
+            this.mainForm.controls['journey_date'].setValue(new Date().toISOString().split("T")[0]);
+            this.mainForm.controls['quantity_of_seats'].setValue(null);
+            this.mainForm.controls['journey_id'].setValue(null);
+
+            this.oneTicketCost = ""; 
+            this.numberOfSeats= "";
         },
-        (err) => {
+        (err) => {  
             this._notificationSvc.error("Booking Error", err.error.error,3000);
         });
         
-        this.changeDetector.detectChanges();
+        
     }
 
     public ngOnDestroy() {

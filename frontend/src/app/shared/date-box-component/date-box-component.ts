@@ -1,18 +1,19 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from "@angular/core";
 import { InputComponent } from "../input/input.component";
-import { UntypedFormGroup } from "@angular/forms";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, UntypedFormGroup } from "@angular/forms";
 import { Subject, takeUntil } from "rxjs";
 
 export type NumberType = "int" | "float" | "orderNum";
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [{ provide: InputComponent, useExisting: DateBoxComponent }],
+	providers: [{ provide: InputComponent, useExisting: DateBoxComponent }, { provide: NG_VALUE_ACCESSOR, 
+	useExisting: DateBoxComponent, multi: true }],
 	selector: "app-date-box",
     templateUrl: "./date-box-component.html",
 	styleUrls: ["./date-box-component.css"],
 })
-export class DateBoxComponent extends InputComponent<string | number> {
+export class DateBoxComponent extends InputComponent<string | number> implements ControlValueAccessor{
 	@HostBinding("attr.disabled") public get setDisabled(): "" | null {
 		return this.isDisabled ? "" : null;
 	}
@@ -38,8 +39,28 @@ export class DateBoxComponent extends InputComponent<string | number> {
 		if(this.control) {
 			this.control.valueChanges.pipe(takeUntil(this.unsubscribe$$)).subscribe((value) => {
 				this.setInteractiveValue(value?.trim());
+				this.onChange(value?.trim());
 			});
 		}
+	}
+
+	onChange: (value: any) => void = () => { };
+	onTouched: () => void = () => { };
+
+	writeValue(value: any): void {
+		this.value = value;
+	}
+
+	registerOnChange(fn: any): void {
+		this.onChange = fn;
+	}
+
+	registerOnTouched(fn: any): void {
+		this.onTouched = fn;
+	}
+
+	setDisabledState(isDisabled: boolean): void {
+		this.isDisabled = isDisabled;
 	}
 
 	public focus() {
@@ -50,6 +71,7 @@ export class DateBoxComponent extends InputComponent<string | number> {
 	public blur() {
 		this.inputRef?.nativeElement.blur();
 		this.hasFocus = false;
+		this.onTouched();
 	}
 
 	public onInput(e: any) {
@@ -71,12 +93,15 @@ export class DateBoxComponent extends InputComponent<string | number> {
 					e.target.value = e.target.value.toUpperCase();
 				}
 				this.setInteractiveValue(e.target.value.trim());
+				this.onChange(e.target.value.trim());
 			}
 		}
 	}
 
 	public onInputNumber(value: number) {
 		this.setInteractiveValue(value);
+		this.onChange(value);
+
 	}
 
 	public override setValue(value: DateBoxComponent["value"]) {
@@ -94,12 +119,16 @@ export class DateBoxComponent extends InputComponent<string | number> {
 		} else {
 			this.previousValue = e.target.value;
 		}
+		
 		this.setInteractiveValue(e.target.value);
+		this.onChange(e.target.value.trim());
+
 	}
 
 	public validateInputFloat(e: any) {
 		if (e.data === null) {
 			this.setInteractiveValue(e.target.value);
+			this.onChange(e.target.value.trim());
 			return;
 		}
 
@@ -119,6 +148,7 @@ export class DateBoxComponent extends InputComponent<string | number> {
 			e.target.value = "0.";
 		}
 		this.setInteractiveValue(e.target.value);
+		this.onChange(e.target.value.trim());
 	}
 
 	public ngOnDestroy(): void {
